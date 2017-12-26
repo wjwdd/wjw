@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style>
+    	li {
+    		list-style: none;
+    	}
+    	.staricon{
+    		font-size: 15px;
+    		height: 15px;
+    		line-height: 15px;
+    		color:#DF6659 ;
+    	}
+    </style>
+       <style type="text/css">
+    	html,body {
+    		width : 100%;
+    		height : 100%;
+    	}
+    	
+    	@font-face {
+		  font-family: 'lanze';
+		  src: url('lib/fonts/icomoon.eot') format('embedded-opentype'), url('lib/fonts/icomoon.svg') format('svg'), url('lib/fonts/icomoon.ttf') format('truetype'), url('lib/fonts/icomoon.woff') format('woff');
+		}
+		
+		[class^="icon-"],
+		[class*=" icon-"] {
+			font-family: lanze;
+			font-style: normal;	
+		}
+		
+		.icon-mobilephone:before {
+		  content: "\e908";
+		  font-size: 13px;
+		}
+
+ 
+        /*头部栏颜色*/
+        .header-top {
+            /*background-color: #5CA8FC;*/
+            opacity: 1;
+        }
+    	 
+    	#circle .mui-table-view-cell {
+    		padding-top:0;
+    		padding-bottom:0;
+    		background-color: #fff;
+    		border:none;
+    	}
+    	#circle .mui-table-view-cell span {
+    		display: inline-block;
+        	width:2.4em;
+        	height:2.3em;
+    		background-image:url(images/index_circle.png);
+    		background-size:200% 200%;	
+    		background-repeat: no-repeat;
+    	}
+        .kuaisu {
+        	
+            background-position: left bottom;
+        }
+        .fujin {
+            background-position: left top;
+        }
+        .zixun {
+            background-position: right bottom;
+        }
+        .mingqi {
+            background-position: right top ;
+        }
+
+        /*筛选框*/
+        #selector span {
+            display: inline-block;
+            border:1px solid #737373;
+            border-radius: 5px;
+            margin-right:9px;
+            margin-bottom:14px;
+            height:20px;
+            line-height: 10px;
+            padding:6px 12px;
+            box-sizing: border-box;
+            font-size: 10px;
+            overflow: hidden;
+        }
+        #selected {
+            padding:12px 23px 14px 32px;
+        }
+
+        /*消息面板*/
+        .news-tab {
+            height:70px;
+            background-color: #fff;
+        }
+        .news-tab .left {
+            width:70px;
+            height:100%;
+            float: left;
+            box-sizing: border-box;
+            padding:12px 10px 12px 13px;
+            position:relative;
+        }
+        .news-tab .left img {
+            width: 100%;
+            height: 100%;
+        }
+        .news-tab .right {
+            width:70%;
+            height:100%;
+            float: left;
+            padding:16px 13px 16px 0;
+        }
+        .news-tab .right .line-one {
+            font-size: 14px;
+            line-height: 14px;
+            height:14px;
+            margin-bottom: 12px;
+            color:#323232;
+            position: relative;
+        }
+        .news-tab .right .line-one span {
+            position: absolute;
+            right:0;
+            top:0;
+            color:#5CA8FC;
+            font-size: 14px;
+        }
+        .news-tab .right .line-two {
+            font-size: 12px;
+            line-height: 12px;
+            height: 12px;
+            color:#737373;
+        }
+
+        /*设置面板*/
+        #tabbar-with-my .title {
+        	position: relative;
+            height:139px;
+            background-image: url("images/beijing.png");
+            background-repeat: no-repeat;
+            background-size: 100% 139px;
+            padding: 40px 13px 0 11px;
+            overflow: hidden;
+        }
+        #tabbar-with-my .title .left {
+            /*width:17.3%;*/
+            padding-left:11px;
+            width:69px;
+            float: left;
+        }
+        #tabbar-with-my .title .left img{
+            width:100%;
+            height:100%;
+        }
+        #tabbar-with-my .title .right {
+            padding-top: 13px;
+            padding-left: 14px;
+            float: left;
+            color:#fff;
+            position: relative;
+            width:70%;
+        }
+        #tabbar-with-my .title .right .line-one {
+            margin-bottom: 13px;
+            font-size: 13px;
+            height: 13px;
+            line-height:13px;
+        }
+        #tabbar-with-my .title .right .line-two {
+            font-size: 11px;
+            height: 11px;
+            line-height: 11px;
+        }
+
+
+		.arrow {
+			position: absolute;
+            right:3px;
+            top:50%;
+            margin-top:-6px;
+            width:9px;
+            height:20px;
+            overflow: hidden;
+		}
+		.arrow::after {
+			content:' ';
+            position: absolute;
+            right:3px;
+            top:0;
+            width:12px;
+            height:12px;
+            border:3px solid #C4CDD9;
+            transform: rotate(45deg);
+		}
+
+
+
+        /*已申请职位，收藏。。。*/
+        #tabbar-with-my .news-content .block {
+            width:33.3%;
+            float:left;
+            margin:13px 0;
+            font-size: 12px;
+            line-height: 12px;
+            background-color: #fff;
+        }
+        #tabbar-with-my .news-content .block + div {
+            border-left:1px solid #cdcdcd;
+        }
+        #tabbar-with-my .news-content .block .img-t {
+            position: relative;
+            left:50%;
+            margin-left:-15px;
+            width:30px;
+        }
+        #tabbar-with-my .news-content .block .text-b {
+            padding-top:9px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /*客服热线，招聘合作*/
+        #tabbar-with-my .news-service .news-service-item {
+            width:100%;
+            height:60px;
+            background-color: #fff;
+        }
+        #tabbar-with-my .news-service .news-service-item .left1 {
+            box-sizing: border-box;
+            padding:17px 8px 0 10px;
+            height:60px;
+            width:40px;
+            float: left;
+        }
+        #tabbar-with-my .news-service .news-service-item .left1 img {
+            width:100%;
+        }
+        #tabbar-with-my .news-service .news-service-item .left2 {
+            color:#757575;
+            font-size:11px;
+            line-height: 11px;
+            float: left;
+            padding:24px 0;
+        }
+        
+        
+        /*顶部栏颜色*/
+       /*header {*/
+       		/*background-color: #5CA8FC !important;	*/
+       /*}*/
+
+
+        /*下拉框列表项小标签格式*/
+        #sel_box div {
+            display: inline-block;
+            font-size: 10px;
+            height:24px;
+            line-height: 20px;
+            box-sizing: border-box;
+            padding:4px 12px;
+            background-color: #F5F4F4;
+            border-radius: 3px;
+            margin-bottom:13px;
+            margin-right:9px;
+            border:1px solid #737373;
+			
+        }
+        
+      	/*#news-tab:hover{
+      		background: #ccc;
+      	}*/
+    </style>
+    <script type="text/javascript" >
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">消息</h1>
+	</header>
+		<div class="mui-slider" style="padding-top:44px;">
+            <div class="mui-slider-group mui-slider-loop" id="slider">
+
+            </div>
+        </div>
+		
+		
+		      <!--消息-->
+	
+       <div id="news_content"  style="padding-top: 1px;">
+            <div class="news-tab  " onclick="bangzhu(this)" style="position: relative;">
+            	
+	        	<div class="left ">
+	                <img src="images/xiaoxi1_03.png" alt="">
+	            </div>
+	            <div class="right">
+	                <div class="line-one">
+	                    	帮助指南	
+	                </div>
+	                <div class="line-two">
+	                   	 点我一下了解更多
+	                </div>
+	            </div>
+                
+            </div>
+        </div>
+    </div>
+    <div id="news_content2" style="padding-top: 1px;">
+            <div class="news-tab" onclick="tiaozhuan()" style="position: relative;">
+            	<span style="position: absolute;right:10px;top:16px;font-size:11px;line-height: 11px;height:11px;color:#5CA8FC;">一天前</span>
+                <div class="left">
+                    <img src="images/xiaoxi4_03.png" alt="">
+                    <span style="position:absolute;top:15px;right:9px;display: inline-block;width:15px;height:15px;background:red;color:#fff;border-radius: 50%;text-align: center;line-height: 15px;font-size: 12px;">3</span>
+                </div>
+                <div class="right">
+                    <div class="line-one">
+                        	系统消息/通知 
+                    </div>
+                    <div class="line-two">
+                       	 您有新的消息
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="news_content1" style="padding-top: 1px;">
+            <div class="news-tab" onclick="mianshi()" style="position: relative;">
+            	 <div class="left">
+                    <img src="images/xiaoxi2_03.png" alt="">
+                </div>
+                <div class="right">
+                    <div class="line-one">
+                        	最新面试 
+                    </div>
+                    <div class="line-two">
+                       	 您有新的消息
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="qq" style="padding-top: 1px;">
+            <div class="news-tab"  style="position: relative;">
+            	<div class="left">
+                    <img src="images/xiaoxi3_03.png" alt="">
+                </div>
+                <div class="right">
+                    <div class="line-one">
+                        	在线客服 
+                    </div>
+                    <div class="line-two">
+                      	苦苦等待不如主动出击
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--
+ 	作者：offline
+ 	时间：2017-04-20
+ 	描述：
+ -->
+
+<script>
+	
+	
+	function tiaozhuan(){
+		var news_content=document.querySelector('#news_content');
+		
+		mui.openWindow({
+			url:'/app/tongzhi/notice.html',
+			id:'app/tongzhi/notice.html' 
+		})
+		
+	}
+	function bangzhu(t){
+		
+		
+			mui.openWindow({
+				url:'/app/tongzhi/bangzhuzhinan.html',
+				id:'app/tongzhi/bangzhuzhinan.html' 
+			})
+		
+		
+		
+	}
+	function mianshi(){
+		mui.openWindow({
+			url:'/app/tongzhi/mianshi.html',
+			id:'app/tongzhi/mianshi.html' 
+		})
+		
+	}
+	mui.plusReady(function(){
+				document.body.querySelector("#qq").addEventListener("tap",function(){
+					if (plus.os.name == "Android") { 
+			            var main = plus.android.runtimeMainActivity(); 
+			            var Intent = plus.android.importClass('android.content.Intent'); 
+			            var Uri = plus.android.importClass('android.net.Uri'); 
+			            var intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=1743276687")); 
+			            main.startActivity(intent); 
+			       } 
+			       
+			       if (plus.os.name == "iOS") {  
+                       plus.runtime.launchApplication({  
+                           action: "mqq://im/chat?chat_type=wpa&uin=1743276687&version=1&src_type=web"  
+                       }, function(e) {  
+                           plus.nativeUI.confirm("检查到您未安装qq，请先到appstore搜索下载？", function(i) {  
+                               if (i.index == 0) {  
+                                   iosAppstore("itunes.apple.com/cn/app/mqq/");  
+                               }  
+                           });  
+                       });  
+                   }  
+				
+		 		})
+	});
+</script>
+
+</body>
+</html>

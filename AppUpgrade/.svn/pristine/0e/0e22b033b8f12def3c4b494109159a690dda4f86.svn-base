@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			/*用户自定义*/
+			
+			#logo {
+				width: 100%;
+				height: 160px;
+				padding: 40px 0 33px 0;
+			}
+			
+			#logo .box {
+				display: block;
+				width: 150px;
+				margin: 0 auto;
+			}
+			
+			#logo .box img {
+				width: 150px;
+				margin-top: 35px;
+			}
+			/*文本框区域*/
+			
+			form {
+				width: 92%;
+				margin: 0 auto;
+			}
+			
+			.mui-input-row {
+				height: 53px;
+			}
+			
+			.mui-input-row label {
+				padding: 0;
+				height: 53px;
+				line-height: 53px;
+				text-align: center;
+			}
+			
+			.mui-input-row input {
+				height: 53px;
+				line-height: 53px;
+			}
+			
+			#get-yanzheng.select {
+				background: #fff;
+				color: #007AFF;
+				border: 1px solid #007AFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="wagecolor mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="cjs"></div>
+		<div class="mui-content" style="width:100%;">
+			<div id="logo">
+				<div class="box">
+					<img src="images/logo.png" alt="" />
+				</div>
+			</div>
+			<form class="mui-input-group">
+				<!--
+                	作者：1311875357@qq.com
+                	时间：2017-04-17
+                	描述：纯属意外
+                -->
+				<!--<div class="mui-input-row" style="height:53px;">
+					<label>用户名</label>
+					<input id='username' type="text" class="mui-input-clear mui-input" placeholder="字母或者数字，不低于6位数">
+				</div>-->
+
+				<div class="mui-input-row" style="height:53px;">
+					<label>手机号</label>
+					<input id='phonenumber' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号" style="height:33px;line-height: 33px;margin-top:10px;">
+				</div>
+				<div class="mui-input-row" style="height:53px;position: relative;">
+					<label>验证码</label>
+					<input id='yanzhengma' type="text" class="mui-input-clear mui-input" placeholder="请输入手机验证码" style="height:33px;line-height: 33px;margin-top:10px;">
+					<div id="get-yanzheng" style="position: absolute;width:60px;height:27px;right:9px;top:13px;font-size:9px;padding:9px 0;background-color: #22aa12;
+border-radius:5px;line-height: 9px;color:#fff;text-align: center;">
+						获取验证码
+					</div>
+				</div>
+				<div class="mui-input-row" style="height:53px;">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入您的密码" style="height:33px;line-height: 33px;margin-top:10px;">
+				</div>
+			</form>
+			<div class="mui-content-padded" style="font-size: 16px;">
+				<input type="checkbox" name="" id="agree" value="" checked="true" style="font-size: 16px;" />我已阅读并同意
+				<a href="xieyi.html" style="color:#26aa12;">《用户协议》</a>
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary" style="margin-top:10px;margin-bottom:0;background-color:#26aa12; border: 1px solid #26aa12">注册</button>
+				<button id='login' class="mui-btn mui-btn-block " style="background-color: #efefef;border:none;color:#26aa12;">登录</button>
+			</div>
+
+		</div>
+		<script>
+		</script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			//不同意协议不能注册
+			var regButton = document.getElementById('reg');
+			var agree = document.querySelector('#agree');
+			//alert(agree.checked);
+			if(agree.checked) {
+				//alert('允许按键');
+				//regButton.disabled = 'false';
+			} else {
+				//alert('禁止按键');
+				//						regButton.disabled = 'true';
+			}
+			(function($, doc) {
+
+				$.plusReady(function() {
+
+					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var loginButton = doc.getElementById('login');
+					var huoqu = document.querySelector('#get-yanzheng');
+
+					// 绑定元素节点
+					//var username = doc.getElementById('username');
+					var phoneNumber = doc.getElementById('phonenumber');
+					var yanzheng = doc.getElementById('yanzhengma');
+					var psd = doc.getElementById('password');
+					var timer = null;
+					var getyanzheng = document.getElementById('get-yanzheng');
+					//不同意协议不能注册
+					var agree = document.querySelector('#agree');
+					//alert(agree.checked);
+					if(agree.checked) {
+						//alert('允许按键');
+						//regButton. = 'false';
+
+					} else {
+						//alert('禁止按键');
+						//regButton.disabled = 'true';
+					}
+
+					// 获取验证码
+					huoqu.addEventListener('click', function() {
+						var phoneNumber_v = phoneNumber.value;
+						// 验证手机号是否为空，以及手机号格式是否正确
+						if(!phoneNumber) {
+							$.alert('请输入手机号！');
+						} else {
+							//                          alert($$$.siturl + 'm=App&c=Mumber&a=sendmessageregist');
+							$.ajax($$$.siturl + 'm=App&c=Mumber&a=sendmessageregist', {
+								type: 'post',
+								data: {
+									mobile: phoneNumber_v
+								},
+								success: function(str) {
+									var data = JSON.parse(str);
+									plus.nativeUI.toast(data.msg);
+									//                                  	console.log(JSON.stringify(data.msg));
+									if(data.msg == "短信发送成功") {
+										if(data.msg == "180秒内仅能获取一次短信验证码,请稍后重试") {
+											clearInterval(timer);
+											getyanzheng.innerHTML = '获取验证码';
+										} else {
+											clearInterval(timer);
+											getyanzheng.innerHTML = '';
+											var n = 60;
+											timer = setInterval(function() {
+												n--;
+												if(n < 0) {
+													clearInterval(timer);
+													getyanzheng.innerHTML = '获取验证码';
+
+												} else {
+													getyanzheng.innerHTML = n + '秒';
+												}
+
+											}, 1000)
+										}
+
+									}
+
+									//成功获取验证码
+									//huoqu.innerHTML="验证码已发送";
+								},
+								error: function(err) {
+									$.alert(err);
+								}
+							});
+						}
+					});
+
+					// 注册按钮点击
+					regButton.addEventListener('click', function(event) {
+						phoneNumber_v = phoneNumber.value;
+						var yanzheng_v = yanzheng.value;
+						var psd_v = psd.value;
+
+						var regularMobile = /^13[0-9]{9}$|14[0-9]{9}$|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;
+						if(!phoneNumber_v.match(regularMobile)) {
+							$.alert('手机号码格式有误');
+							return;
+						}
+
+						if(!phoneNumber_v) {
+							$.alert('请输入手机号!');
+							return;
+						}
+						if(!psd_v) {
+							$.alert('请输入密码');
+							return;
+						}
+						if(!yanzheng_v) {
+							$.alert('请输入验证码');
+							return;
+						}
+
+						localStorage.setItem("telephoneReg", phoneNumber_v);
+						localStorage.setItem("psd", psd_v);
+						$.ajax($$$.siturl + 'm=App&c=Mumber&a=regist', {
+							type: 'post',
+							data: {
+								mobile: phoneNumber_v,
+								str: yanzheng_v,
+								pass: psd_v
+							},
+							success: function(str) {
+								var data = JSON.parse(str);
+								//alert(str);
+								plus.nativeUI.toast(data.msg);
+								//console.log(str);
+
+								if(data.staus == 0) {
+									return;
+								}
+
+								if(data.staus == 1) {
+									//									var account=phoneNumber_v;
+									//									var password=psd_v;
+									//									console.log(account);
+									$.openWindow({
+										url: 'bianji_delete.html',
+										id: 'bianji_delete',
+										show: {
+											aniShow: 'pop-in'
+										}
+									});
+
+								}
+
+							},
+							error: function(err) {
+								//  plus.nativeUI.toast(err);
+							}
+						});
+					});
+
+					// 跳转到登录界面
+					loginButton.addEventListener('click', function() {
+						$.openWindow({
+							url: 'login.html',
+							id: 'login',
+							show: {
+								aniShow: 'pop-in'
+							}
+						});
+
+					})
+
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

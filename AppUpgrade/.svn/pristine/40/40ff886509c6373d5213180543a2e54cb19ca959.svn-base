@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.little_title span{
+			font-size: 14px;
+			color: #888;
+		}
+	</style>
+	<body>
+		
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<!--顶部栏-->
+		<header id="header" style="background-color: #5CA8FC;" class="mui-bar mui-bar-nav header-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;">咨询详情</h1>
+		</header>
+		<!--头部标题-->
+		<div class="title" style="padding: 50px 20px 20px 10px;">
+			<h5 style="font-size: 17px;color: #000;" class="fuwefi">16年月薪最高的10个兰陵职业</h5>
+			<div class="little_title"style="padding: 10px 0;border-bottom:#26A2E2 1px dashed;">
+				<span class="cwgasger">分类：普通资讯</span>
+				<span id="" style="float: right;"  class="clidewfe">10</span>
+				<span id="" style="margin-top:5px;background: url(images/liulan.png) no-repeat;float:right;background-size:12px 10px;width: 12px;height: 10px;display: inline-block;"></span>
+				<span id="time" style="float: right;margin-right: 20px;" class="addtime">2017-03-03</span>
+				<span id="" style="margin-top:5px;background: url(images/liulan.png) no-repeat;float:right;background-size:12px 10px;width: 12px;height: 10px;display: inline-block;"></span>
+				
+			</div>
+		</div>
+		<!--图片-->
+		<div class="img" style="text-align: center;padding: 10px 0;">
+			<img class="wefwefwecawe"src="images/liulan.png" alt="" style="width: 50%;" />
+			
+		</div>
+		<div class="content" style="padding: 0 20px 20px;"> j,hzsfh;sodihfaoi; </div>
+	<script>
+		var id=localStorage.getItem("hiinweiid");
+		var wefwefesdd=localStorage.getItem("wefwefesd");
+		
+		mui.ajax($$$.siturl + 'm=App&c=index&a=zhichangzixundeal&id='+id,{
+                    type:'get',
+                    dataType:'json',
+                    success:function (str) {
+                 		setStatic(str);	
+                    },
+                    error:function () {
+
+                    }
+         });
+		function setStatic(data){
+			
+			document.querySelector(".cwgasger").innerHTML="分类："+wefwefesdd;
+			//console.log($$$.imgurl+data.data[0].small_img);
+			document.querySelector(".fuwefi").innerHTML=data.data[0].title;
+			document.querySelector(".addtime").innerHTML=data.data[0].addtime;
+			document.querySelector(".wefwefwecawe").setAttribute('src',$$$.imgurl+data.data[0].small_img);
+			document.querySelector(".content").innerHTML=data.data[0].content;
+			document.querySelector(".clidewfe").innerHTML=data.data[0].click;
+			
+		}
+		
+	</script>
+	</body>
+
+</html>

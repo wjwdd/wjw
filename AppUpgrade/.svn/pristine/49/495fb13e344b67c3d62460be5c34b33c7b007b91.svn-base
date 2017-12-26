@@ -1,0 +1,820 @@
+<!doctype html>
+<html ng-app="hfdetailCtr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="css/com_detail.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<style type="text/css">
+		.mui-content {
+			padding: 0 15px;
+		}
+		
+		.detailcon {
+			padding: 10px 0px;
+		}
+		
+		.detailimg {
+			padding: 10px 0px;
+		}
+		
+		.detailimg img {
+			width: 70%;
+			max-height: 250px;
+		}
+		
+		.icons {
+			padding: 10px 0px;
+			overflow: hidden;
+		}
+		
+		.liulan {
+			float: left;
+		}
+		
+		.dp {
+			float: right;
+		}
+		
+		.dzimg {
+			padding: 10px 0;
+			overflow: hidden;
+			border-top: 1px solid #F3F3F3;
+			border-bottom: 1px solid #F3F3F3;
+		}
+		
+		.dzimgimg {
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			border-radius: 50%;
+			overflow: hidden;
+			margin-right: 10px;
+		}
+		
+		.dzimgimg img {
+			width: 100%;
+			height: 100%;
+		}
+		
+		.dzimgleft {
+			float: left;
+			width: 60%;
+		}
+		
+		.dzimgringht {
+			float: right;
+			width: 40%;
+			line-height: 30px;
+			font-size: 15px;
+			text-align: right;
+		}
+		
+		.qbpl {
+			padding: 5px 10px;
+		}
+		
+		.bpldetailcon {
+			overflow: hidden;
+			position: relative;
+		}
+		
+		.pldetailcon {
+			width: 85%;
+			float: left;
+			padding: 5px;
+		}
+		
+		.huifu {
+			width: 15%;
+			padding: 5px 0 0px;
+			text-align: right;
+			color: #39D067;
+			font-size: 14px;
+			background: #fff;
+			position: absolute;
+			bottom: -10px;
+			right: 0px;
+		}
+		
+		.plcon {
+			font-size: 15px;
+			padding: 0px 10px;
+		}
+		
+		.name {
+			list-style: none;
+		}
+		
+		.huifupinglun {
+			border-radius: 6px;
+			padding-left: 6px;
+			background-color: #f6f6f6;
+			font-size: 13px;
+			position: relative;
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		
+		.entry-trangle-top {
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid #f6f6f6;
+			position: absolute;
+			top: -10px;
+			right: 10px;
+		}
+		
+		.louc {
+			display: inline-block;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: #000;
+			font-size: 13px;
+		}
+		
+		.hfname {
+			color: #39D067;
+		}
+		
+		#fasong_input {
+			float: left;
+			width: 80%;
+			height: 35px;
+		}
+		
+		#fasong_btn,#fasong_btn2,#fasong_btn3 {
+			float: right;
+		}
+		.btnipt {
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			height: 50px;
+			border-top: 1px solid #b2b2b2;
+			background-color: #fff;
+			z-index: 1000;
+			padding: 5px 2.5%;
+		}
+		
+		.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		
+		.mui-preview-header {
+			height: 44px;
+			top: 0;
+		}
+		
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 85px 0px 100px 4px;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%;
+			height: auto;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		.pldetail {
+			background: #fff;
+			padding-bottom: 10px;
+		}
+		
+		.sf {
+			width: 100%;
+			text-align: center;
+			padding: 30px;
+		}
+	</style>
+
+	<body ng-controller="myCtrl" style="margin-bottom:45px;">
+		<header id="header" class="mui-bar mui-bar-nav header-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#5a5656"></a>
+			<h1 class="mui-title">详情</h1>
+		</header>
+		<div class="cjs"></div>
+		<div ng-if="data.ist=='0'">主贴已经被删除</div>
+		<div class="mui-content" style="background: #fff;">
+			<div style="padding:20px 0px 0px;overflow: hidden;" ng-click="zhutifabu(this)">
+				<img class="mui-media-object mui-pull-left" ng-src={{imgurl+data.top.logo}} style="width:40px;height:40px;border-radius: 100%;margin-right:10px;">
+				<div class="mui-media-body" style="position: relative;">
+					<span style="font-size: 15px;font-weight: 500;" ng-bind="data.top.topuserinfo.realname"></span>
+					<span class="mui-icon iconfont icon-man" style="color:#56a2ff"></span>
+					<p class='mui-ellipsis' style="font-size: 13px;"><span class="mui-icon iconfont icon-shijianzhongbiao2 wjwhui"></span><span ng-bind="data.top.time">今天 10:00</span></p>
+					<p class="posi" ng-if="data.top.province!=null"><span class="mui-icon iconfont icon-shape2 wjwhui "></span><span class="wjwhui fnt14" ng-if='data.top.province!="undefined"|| data.top.city=="null"' ng-bind="data.top.province">青岛 黄岛区</span><span class="wjwhui fnt14" ng-bind="data.top.city" ng-if='data.top.city!="undefined"|| data.top.city=="null"'>青岛 黄岛区</span></p>
+				</div>
+			</div>
+			<!--内容区-->
+			<!--内容-->
+			<div class="detailcon">
+				<span style="font-size: 15px;" ng-bind="data.top.content"></span>
+			</div>
+			<!--图片-->
+			<div class="detailimg" ng-repeat="(k,x) in data.top.img">
+				<img data-preview-src="" data-preview-group="1" ng-src="{{imgurl+x.img}}" alt="" />
+			</div>
+			<!--浏览点评-->
+			<div class="icons">
+				<span class="mui-icon iconfont icon-yanjing wjwhui liulan" style="font-size:20px;"></span><span class="wjwhui fnt14" ng-bind="data.top.scal">123</span></span>
+				<div class="dp">
+					<span id="zdz" data-dzid="{{data.id}}" style="font-size:20px;">
+								<span class="wjwhui fnt14" ng-bind="data.top.famouscount">123</span>
+					<div class="jiayi">+1</div>
+					</span>
+					<span ng-click="zhutifabu(this)" class="mui-icon iconfont icon-pinglun wjwhui"></span><span class="wjwhui fnt14" ng-bind="data.top.repcount">123</span></span>
+				</div>
+			</div>
+
+		</div>
+		<!--评论-->
+		<div class="qbpl">全部评论</div>
+		<div class="mui-content" style="background:#fff;padding-top:0px;padding-left:0px;">
+			<div ng-if="louceng!=null" class="pldetail" ng-repeat="(x,y) in data.top.replay">
+				<!--评论头像-->
+				<div class="mui-card-header mui-card-media" style="position: relative;" ng-click="huifupl(this)">
+					<img style="border-radius:50%;" ng-src="{{imgurl+y[0].logo}}" />
+					<div class="mui-media-body">
+						<span ng-bind="y[0].uidname">小M</span>
+						<p ><span class="mui-icon iconfont icon-shijianzhongbiao2 wjwhui"></span><span class="wjwhui" ng-bind="y[0].time"></span></p>
+					</div>
+					<span class="louc"><span ng-bind="x+1"></span>楼</span>
+				</div>
+				<!--评论内容-->
+				<div class="bpldetailcon" ng-click="bpldetailcon(this)">
+					<div class="pldetailcon">
+						<span class="plcon" ng-bind="y[0].content">是的是的所多所</span>
+					</div>
+					<div class="huifu">回复</div>
+				</div>
+
+				<div class="huifupinglun">
+					<div ng-repeat="(k,v) in data.top.replay[$index]" ng-if="k>0" ng-show="true" ng-click="hfhfpinglun(this)" style="padding-top:2px;">
+						<div class="entry-trangle-top">
+						</div>
+						<div class="name">
+							<span class="hfname" ng-bind='v.uidname'>sdsd</span><span>回复</span><span class="hfname" ng-bind='v.relyuname'>sdsd</span><span class="review " ng-bind='v.content'>来找我聊聊 </span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="btnipt" style="">
+			<div class="">
+				<input id="fasong_input" ng-model="pinglun" ng-value='pl' type="text" placeholder="写下您的评论吧..    ">
+			</div>
+
+			<button type="button" class="mui-btn mui-btn-success" id="fasong_btn" ng-click="fabupinglun(this)">
+				发送
+			</button>
+			<button type="button" class="mui-btn mui-btn-success" id="fasong_btn2" ng-click="fabupinglunhuifu(this)">
+				发送
+			</button>
+			<button type="button" class="mui-btn mui-btn-success" id="fasong_btn3" ng-click="fabupinglunhfhf(this)">
+				发送
+			</button>
+
+		</div>
+		<!--删除菜单-->
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action " style="z-index:1000;">
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="delReply">
+					<a href="#">删除</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#sheet1">返回</a>
+				</li>
+			</ul>
+			<!-- 取消菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/ag1.46.js"></script>
+	<script src="../../js/factory.js"></script>
+	<script type="text/javascript">
+		angular.module('hfdetailCtr', ["myApp"])
+			.controller('myCtrl', function($scope, $http, $data) {
+				//刷新社区
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener('plusready', plusReady, false);
+				}
+
+				function plusReady() {
+					var list2 = plus.webview.getWebviewById('community.html');
+
+					mui.fire(list2, 'comrefresh');
+				}
+				var fasong_input = document.querySelector('#fasong_input');
+				var istid = localStorage.getItem('tpid');
+				var isuid = localStorage.getItem('uid');
+				var ishfname = localStorage.getItem('hfname');
+				fasong_input.setAttribute("placeholder", "@" + ishfname);
+				var ishfid = localStorage.getItem('hfid');
+
+				var fasong_inputvalue = document.querySelector('#fasong_input').value;
+				var t_id;
+				//渲染页面
+				xuanranyemian();
+
+				function xuanranyemian() {
+					$data.getSheQuHFdetail(ishfid).success(function(data) {
+						console.log(JSON.stringify(data));
+						$scope.data = data.data;
+						$scope.imgurl = $$$.imgurl;
+						$scope.fimg = data.data.top.famoususerimg;
+						$scope.louceng = data.data.top.replay[0].length;
+						if(data.data.top.replay == null) {
+							$scope.louceng = 0;
+						} else {
+							$scope.louceng = data.data.top.replay[0].length;
+						}
+						//						console.log(data.data.top.replay[2][0].id);
+						//						$scope.ishfid=ishfid;
+						//						for(var i=0;i<data.data.top.replay.length;i++){
+						//							console.log(data.data.top.replay[i][0].id);
+						//							if(ishfid==data.data.top.replay[i][0].id){
+						//								$scope.isSelected=false;
+						//							}
+						//						}
+					});
+				}
+
+				//检查点赞
+				var zdz = document.querySelector('#zdz');
+				mui.ajax($$$.siturl + 'm=App&c=IsLogo&a=fabous_check', {
+					type: 'post',
+					data: {
+						t_id: ishfid
+					},
+					dataType: 'json',
+					success: function(data) {
+
+						if(data.staus == '0') {
+							zdz.className = 'comdz mui-icon iconfont icon-dianzan2 wjwhui'
+						} else if(data.staus == '1') {
+							zdz.className = 'comdz mui-icon iconfont icon-dianzan2 wjwhui buncolor'
+						}
+					},
+					error: function(xhr, err) {
+
+					}
+				});
+				//点赞
+				mui(document.body).on('tap', '.comdz', function(e) {
+					var id = this.getAttribute('data-dzid');
+					var ele = this;
+
+					$data.postSheQuDZ(id).success(function(src) {
+						if(src.staus == "0") {
+							mui.openWindow({
+								id: "login.html",
+								url: "login/login.html"
+							})
+							return;
+						}
+						if(src.staus == "1") {
+							ele.classList.add("buncolor")
+							ele.children[0].innerHTML++;
+							ele.children[1].style.display = "block";
+						}
+						if(src.staus == "2") {
+							ele.classList.remove("buncolor")
+							ele.children[1].style.display = "none";
+							ele.children[0].innerHTML = ele.children[0].innerHTML - 1 >= 0 ? ele.children[0].innerHTML - 1 : 0;
+						}
+						$data.getSheQuXiangQing(ishfid).success(function(data) {
+							//							console.log(JSON.stringify(data));
+							$scope.fimg = data.data.famoususerimg;
+							$scope.imgurl = $$$.imgurl;
+
+							//						console.log(data.data.replay);
+
+						});
+					})
+				})
+
+				// 把发帖人的姓名写入本地	
+
+				var user_info_sess = localStorage.getItem('user_info_sess');
+				var username = JSON.parse(user_info_sess);
+				var username_me = username.uid;
+				//				console.log(username_me);
+
+				//刚进入页面发布
+				fasong_btn.style.display = "none";
+				fasong_btn2.style.display = "inline-block";
+				fasong_btn3.style.display = "none";
+				$scope.fabupinglunhuifu = function() {
+					console.log($scope.pinglun);
+					if($scope.pinglun == null) {
+						mui.toast('内容不能为空！', {
+							duration: 'long',
+							type: 'div'
+						})
+						return;
+					} else {
+						mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+							type: 'post',
+							dataType: 'json',
+							data: {
+								id: ishfid,
+								t_pid: istid,
+								relalyuid: isuid,
+								content: $scope.pinglun
+							},
+							success: function(data) {
+								// 发送的数据添加到评论框中
+								xuanranyemian();
+								// 清空文本框
+								$scope.pinglun = '';
+							},
+							error: function(xhr, err) {
+								//									 mui.alert(xhr);
+							}
+						});
+					}
+
+				}
+				//点击回复主贴
+				$scope.zhutifabu = function() {
+					var tpid = this.data.t_pid;
+					var ztname = this.data.top.topuserinfo.realname;
+					console.log(tpid);
+					if(user_info_sess == null || user_info_sess == undefined) {
+						mui.toast('请用户登录后再评论！', {
+							duration: 'long',
+							type: 'div'
+						})
+						setTimeout(function() {
+							mui.openWindow({
+								url: '../login/login.html',
+								id: 'login.html'
+							})
+						}, 2000);
+					} else {
+
+						fasong_input.focus();
+						fasong_input.setAttribute("placeholder", "@" + ztname);
+						fasong_btn.style.display = "inline-block";
+						fasong_btn3.style.display = "none";
+						fasong_btn2.style.display = "none";
+						$scope.fabupinglun = function() {
+
+							if($scope.pinglun == null) {
+								mui.toast('内容不能dd为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyDis', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										t_pid: tpid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+
+										xuanranyemian();
+										document.querySelector('body').scrollTop = document.documentElement.scrollHeight;
+										// 清空文本框
+
+										$scope.pinglun = '';
+
+									},
+									error: function(xhr, err) {
+										//									 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+				var sheet1 = document.querySelector('#sheet1');
+				var delReply = document.querySelector('#delReply');
+
+				//回复回帖人
+				$scope.huifupl = function(e) {
+					var djid = this.y[0].uid;
+					var id = this.y[0].id;
+					var tpid = this.y[0].t_pid;
+					var htrname = this.y[0].uidname;
+					console.log(id);
+					var that = this.data.top.replay;
+					//					console.log(JSON.stringify(that));
+					if(username_me == djid) {
+						mui('#sheet1').popover('toggle');
+						var delReply = document.querySelector('#delReply');
+
+						delReply.onclick = function() {
+							//			alert(1);
+
+							mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=deleleReply', {
+								type: 'get',
+								data: {
+
+									r_id: id
+								},
+								dataType: 'json',
+								success: function(data) {
+									console.log(JSON.stringify(data));
+									mui('#sheet1').popover('toggle');
+									xuanranyemian();
+
+								},
+								error: function(xhr, err) {
+									//								mui.alert(err);
+								}
+							});
+						}
+					} else {
+						var fasong_input = document.querySelector('#fasong_input');
+						fasong_input.setAttribute("placeholder", "@" + htrname);
+						fasong_btn.style.display = "none";
+						fasong_btn3.style.display = "none";
+						fasong_btn2.style.display = "inline-block";
+						fasong_input.focus();
+						$scope.fabupinglunhuifu = function() {
+							console.log($scope.pinglun);
+							if($scope.pinglun == null) {
+								mui.toast('内容不能为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										id: id,
+										t_pid: tpid,
+										relalyuid: djid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+										xuanranyemian();
+										// 清空文本框
+										$scope.pinglun = '';
+									},
+									error: function(xhr, err) {
+										//									 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+
+				$scope.hfhfpinglun = function(e) {
+
+					var hfdjid = this.v.uid;
+					var hfid = this.v.id;
+					var hftpid = this.v.t_pid;
+					var hfhfname = this.v.uidname;
+
+					//		 			console.log(hfdjid);
+					//		 			console.log(username_me);
+					if(username_me == hfdjid) {
+						mui('#sheet1').popover('toggle');
+						var delReply = document.querySelector('#delReply');
+
+						delReply.onclick = function() {
+							//			alert(1);
+							mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=deleleReply', {
+								type: 'get',
+								data: {
+									r_id: hfid
+								},
+								dataType: 'json',
+								success: function(data) {
+									//								console.log(JSON.stringify(data));
+									mui('#sheet1').popover('toggle');
+									xuanranyemian();
+
+								},
+								error: function(xhr, err) {
+									//								mui.alert(err);
+								}
+							});
+						}
+					} else {
+						var fasong_input = document.querySelector('#fasong_input');
+						fasong_input.setAttribute("placeholder", "@" + hfhfname);
+						fasong_btn.style.display = "none";
+						fasong_btn2.style.display = "none";
+						fasong_btn3.style.display = "inline-block";
+						fasong_input.focus();
+						$scope.fabupinglunhfhf = function() {
+							if($scope.pinglun == null) {
+								mui.toast('内容不能为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										id: hfid,
+										t_pid: hftpid,
+										relalyuid: hfdjid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+										xuanranyemian();
+										// 清空文本框
+										$scope.pinglun = '';
+									},
+									error: function(xhr, err) {
+										//										 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+			})
+	</script>
+
+</html>

@@ -1,0 +1,548 @@
+{
+  "index.html": {
+    "resources": [
+      "images/index_circle.png",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "images/xiaoxitongzhi.png",
+      "css/mui.min.css",
+      "js/index.js",
+      "images/beijing.png",
+      "images/man.png",
+      "images/shenqingguo.png",
+      "images/shequdongtai2.png",
+      "images/shoucang2.png",
+      "images/kefu2.png",
+      "images/zhaopinhezuo2.png",
+      "images/shezhi2.png",
+      "app/circle/fujin/fujin.html",
+      "app/circle/kuaisu/kuaisu.html",
+      "app/circle/zhichang/zhichang.html",
+      "app/circle/mingqi/mingqi.html",
+      "app/login/bianji.html",
+      "app/circle/mingqi/famousenterprise.html",
+      "app/login/bianji_delete.html",
+      "images/sousuo.png",
+      "app/search/search.html",
+      "app/zhaopin//zhaopin.html",
+      "app/zhaopin/zhaopin.html",
+      "images/xiala.png",
+      "app/citylist/citylist.html",
+      "app/login/login.html",
+      "app/shoucang//shoucang.html",
+      "app/shoucang/shoucang.html",
+      "app/apply/apply.html",
+      "app/community/community.html",
+      "app/community/community_detail.html",
+      "app/community/editTie.html",
+      "app/community/about.html",
+      "app/community/pullrefresh_main.html",
+      "app/community/pullrefresh_sub.html",
+      "app/tuijian/images/txl.png",
+      "test.html"
+    ],
+    "refer": [
+      "app/job/job.html",
+      "app/login/login.html",
+      "app/circle/fujin/fujin.html",
+      "app/circle/kuaisu/kuaisu.html",
+      "app/circle/zhichang/zhichang.html",
+      "app/circle/mingqi/mingqi.html",
+      "app/setting/setting.html",
+      "app/login/bianji.html",
+      "app/circle/mingqi/famousenterprise.html",
+      "app/login/bianji_delete.html",
+      "app/search/search.html",
+      "app/zhaopin//zhaopin.html",
+      "app/zhaopin/zhaopin.html",
+      "app/citylist/citylist.html",
+      "app/shoucang//shoucang.html",
+      "app/shoucang/shoucang.html",
+      "app/apply/apply.html",
+      "app/community/community.html",
+      "app/community/community_detail.html",
+      "app/community/editTie.html",
+      "app/community/about.html",
+      "app/community/pullrefresh_main.html",
+      "test.html"
+    ]
+  },
+  "app/job/job.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "app/job/images/shoucang.png",
+      "app/job/images/degree.png",
+      "app/job/images/age.png",
+      "app/job/images/gender.png",
+      "app/job/images/weizhi.png",
+      "app/job/images/yinzhang.png",
+      "app/job/images/xiaji.png",
+      "app/job/images/mianfeiruzhi.png",
+      "app/job/images/zhuanye.png",
+      "app/job/images/baozhang.png",
+      "app/job/images/tuijianzhiwei.png",
+      "app/job/images/zhaopin.png"
+    ],
+    "refer": [
+      "app/company/company.html",
+      "app/login/bianji_delete.html",
+      "index.html",
+      "app/job/map.html"
+    ]
+  },
+  "app/login/login.html": {
+    "resources": [
+      "app/login/js/app.js",
+      "app/login/js/mui.enterfocus.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "app/login/images/qq.png",
+      "app/login/images/weixin.png",
+      "app/login/images/sinaweibo.png",
+      "app/login/images/logo.png",
+      "app/setpassword/setpassword.html",
+      "fonts/mui.ttf",
+      "index.html",
+      "app/login/jquery.min.js",
+      "app/login/login.html"
+    ],
+    "refer": [
+      "app/login/main.html",
+      "app/login/reg.html",
+      "index.html",
+      "app/login/forget_password.html",
+      "app/setpassword/setpassword.html",
+      "app/login/bianji.html",
+      "app/login/bianji_delete.html",
+      "app/login/login.html"
+    ]
+  },
+  "app/login/main.html": {
+    "resources": [
+      "app/login/js/app.js",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "app/login/reg.html": {
+    "resources": [
+      "css/mui.min.css",
+      "app/login/css/style.css",
+      "app/login/js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "app/login/images/logo.png"
+    ],
+    "refer": [
+      "app/login/login.html",
+      "app/login/bianji.html",
+      "app/login/bianji_delete.html"
+    ]
+  },
+  "app/login/forget_password.html": {
+    "resources": [
+      "app/login/js/app.js",
+      "css/mui.min.css",
+      "app/login/css/style.css",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "app/circle/fujin/fujin.html": {
+    "resources": [
+      "index.html",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html",
+      "app/job/job.html"
+    ]
+  },
+  "app/circle/kuaisu/kuaisu.html": {
+    "resources": [
+      "index.html",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/circle/mingqi/mingqi.html": {
+    "resources": [
+      "index.html",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/setting/setting.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "app/setting/guanyu.html",
+      "app/setting/fankui.html"
+    ],
+    "refer": [
+      "app/setting/guanyu.html",
+      "app/setting/fankui.html",
+      "index.html"
+    ]
+  },
+  "app/circle/zhichang/zhichang.html": {
+    "resources": [
+      "app/circle/zhichang/images/zhichang.png",
+      "app/circle/zhichang/images/ýýý.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "app/circle/zhichang/images/liulan.png",
+      "index.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html",
+      "app/job/job.html"
+    ]
+  },
+  "app/login/bianji.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "images/man.png",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/circle/mingqi/famousenterprise.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/company/company.html": {
+    "refer": [
+      "app/job/job.html"
+    ],
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "app/company/image/pro1.png",
+      "app/company/image/pro2.png"
+    ]
+  },
+  "app/login/bianji_delete.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "images/man.png",
+      "fonts/mui.ttf",
+      "app/login/jquery.min.js"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/search/search.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/sousuo.png",
+      "index.html"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/zhaopin/zhaopin.html": {
+    "resources": [
+      "index.html",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/setpassword/setpassword.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "app/login/images/logo.png",
+      "app/login/login.html"
+    ],
+    "refer": [
+      "app/setpassword/modilfipass.html",
+      "app/login/login.html"
+    ]
+  },
+  "app/setpassword/modilfipass.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/beijing.png"
+    ],
+    "refer": []
+  },
+  "app/citylist/citylist.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/setting/guanyu.html": {
+    "resources": [
+      "css/mui.min.css",
+      "app/setting/setting.html"
+    ],
+    "refer": [
+      "app/setting/setting.html"
+    ]
+  },
+  "app/setting/fankui.html": {
+    "resources": [
+      "app/setting/setting.html",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "app/setting/setting.html"
+    ]
+  },
+  "app/shoucang/shoucang.html": {
+    "resources": [
+      "index.html",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "index.html",
+      "app/job/job.html"
+    ]
+  },
+  "app/apply/apply.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html",
+      "app/job/job.html"
+    ]
+  },
+  "app/community/community_detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/shenqingguo.png",
+      "images/shequdongtai2.png",
+      "images/index_circle.png",
+      "app/community/images/dianzan.png",
+      "app/community/images/pinglun.png",
+      "fonts/mui.ttf",
+      "index.html",
+      "app/community/images/dianzan2.png",
+      "app/community/images/fasong.png",
+      "app/community/images/fenxiang.png",
+      "images/zhuangpeigong.png",
+      "app/community/editTie.html",
+      "app/community/images/dianzan_sprite.png",
+      "app/community/fonts/font-awesome-4.5.0/fonts/fontawesome-webfont.woff2",
+      "app/community/css/zzsc-demo.css",
+      "app/community/fonts/font-awesome-4.5.0/css/font-awesome.min.css",
+      "app/community/css/icons.css",
+      "app/community/js/demo.js",
+      "app/community/js/mo.min.js",
+      "app/community/images/nv.png",
+      "app/community/images/nan.png"
+    ],
+    "refer": [
+      "index.html",
+      "app/community/editTie.html",
+      "app/login/login.html"
+    ]
+  },
+  "app/community/community.html": {
+    "resources": [
+      "app/community/images/dianzan.png",
+      "app/community/images/pinglun.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/zhuangpeigong.png",
+      "index.html",
+      "app/community/editTie.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html",
+      "app/community/editTie.html",
+      "app/community/community_detail.html"
+    ]
+  },
+  "app/community/editTie.html": {
+    "resources": [
+      "app/community/images/tianjiazhaopian.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "index.html",
+      "app/community/community.html",
+      "app/community/community_detail.html",
+      "app/community/css/font-awesome.min.css",
+      "app/community/css/mui.min.css",
+      "app/community/js/utitls.js",
+      "app/community/js/common.js",
+      "app/community/css/feedback-page.css",
+      "app/community/css/iconfont.css",
+      "app/community/css/app.css",
+      "app/community/js/jquery.js",
+      "app/community/fonts/fontawesome-webfont.ttf",
+      "css/mui.css",
+      "app/community/pullrefresh_main.html"
+    ],
+    "refer": [
+      "index.html",
+      "app/community/community.html",
+      "app/community/community_detail.html",
+      "app/community/pullrefresh_main.html"
+    ]
+  },
+  "app/community/about.html": {
+    "resources": [
+      "app/community/images/dianzan.png",
+      "app/community/images/pinglun.png",
+      "css/mui.min.css",
+      "images/zhuangpeigong.png",
+      "index.html",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "index.html",
+      "app/community/community_detail.html"
+    ]
+  },
+  "app/community/pullrefresh_main.html": {
+    "resources": [
+      "app/community/css/mui.min.css",
+      "app/community/community.html",
+      "app/community/js/mui.min.js",
+      "index.html",
+      "app/community/fonts/mui.ttf",
+      "app/community/pullrefresh_sub.html",
+      "css/mui.min.css",
+      "app/community/editTie.html",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "app/community/community.html",
+      "index.html",
+      "app/community/pullrefresh_sub.html",
+      "app/community/editTie.html"
+    ]
+  },
+  "app/community/pullrefresh_sub.html": {
+    "resources": [
+      "app/community/css/mui.min.css",
+      "js/mui.min.js",
+      "app/community/images/pinglun.png",
+      "app/community/images/dianzan.png",
+      "css/mui.min.css",
+      "app/community/images/nan.png",
+      "app/community/images/dianzan_sprite.png",
+      "app/community/images/nv.png",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "app/community/community_detail.html"
+    ]
+  },
+  "guide.html": {
+    "resources": [
+      "images/yindao1.jpg",
+      "images/yindao2.jpg",
+      "images/yindao4.jpg",
+      "images/yindao3.jpg",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/yindao4.png"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "animation.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "guide.html",
+      "index.html"
+    ]
+  },
+  "start.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "index.html",
+      "guide.html"
+    ]
+  },
+  "app/tuijian/tuiFriend.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.picker.min.js",
+      "css/mui.picker.min.css",
+      "app/tuijian/images/txl.png",
+      "images/zhizhao.png"
+    ],
+    "refer": []
+  },
+  "test.html": {
+    "resources": [
+      "css/mui.min.css",
+      "index.html",
+      "js/mui.min.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "app/tongzhi/notice.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  }
+}

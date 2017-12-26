@@ -1,0 +1,64 @@
+angular.module('myApp', ["Homeserver"]);
+angular.module('Homeserver', [])
+	.factory('$data', function($http) {
+	    return {
+	            getSheQu  : function(){
+	                 var url =$$$.siturl+"m=App&c=Discuz&a=getTopPicReplsy";
+	                 return $http.get(url,{});	
+	            },	
+	            getSheQuXiangQing  : function(id){
+	                 var url =$$$.siturl+"m=App&c=Discuz&a=getTopDis&id="+id;
+	                 return $http.get(url,{});	
+	            },
+	            getSheQuDengLu  : function(){
+	                 var url =$$$.siturl+" m=App&c=Discuz&a=islogin";
+	                 return $http.get(url,{});	
+	            },
+	           
+	            postSheQuDZ  : function(topid){
+	                 var url =$$$.siturl+"m=App&c=Discuz&a=setFamousTop&id="+topid;
+	                 return $http.get(url,{});	
+	            },
+	            //回复数
+	            getSheQuHFcount  : function(){
+	                 var url =$$$.siturl+"m=App&c=DiscuzMsg&a=getXiaoxiCount";
+	                 return $http.get(url,{});	
+	            },
+	            //回复我的
+	            getSheQuHFme  : function(){
+	                 var url =$$$.siturl+"m=App&c=DiscuzMsg&a=getMsgToNOtlook";
+	                 return $http.get(url,{});	
+	            },
+	            //回复我的详情
+	            getSheQuHFdetail  : function(id){
+	                 var url =$$$.siturl+"m=App&c=DiscuzMsg&a=xiaoxixiangqing&id="+id;
+	                 return $http.get(url,{});	
+	            },
+	            //消除回复数
+	            dijijiru	:	function(x,a,b){
+	            	 var url =$$$.siturl+"m=App&c=DiscuzMsg&a=dijijiru";
+	                 return $http.post(url,{id:x,uid1:a,uid2:b});	
+	            }	,
+	            //消息
+	            xiaoxi: function() {
+					var url = $$$.siturl + "m=App&c=XiTongMsg&a=xiTongxiaoxi";
+					return $http.get(url, {});
+				},
+				//消息详情
+	            xiaoxidetail: function(id) {
+					var url = $$$.siturl + "m=App&c=XiTongMsg&a=newsDetal&id="+id;
+					return $http.get(url, {});
+				},
+				//最新面试
+				mianshi: function() {
+					var url = $$$.siturl + "m=App&c=XiTongMsg&a=ZuixinMianshi";
+					return $http.get(url, {});
+				},
+				//消息内容
+				xiaoxineirong: function(id) {
+					var url = $$$.siturl + "m=App&c=XiTongMsg&a=newsDetalcount&id="+id;
+					return $http.get(url, {});
+				},
+				
+	     	}
+});

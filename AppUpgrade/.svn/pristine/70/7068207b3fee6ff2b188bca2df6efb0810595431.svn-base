@@ -1,0 +1,1265 @@
+<!DOCTYPE html >
+<html ng-app="jobdetailCtr">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link href="../../css/jiazaidonghua.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/iconfont.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css" />-->
+	</head>
+	<style type="text/css">
+		.button_apply.active {
+			background-color: #5db451;
+		}
+		
+		.button_apply {
+			width: 60%;
+			height: 100%;
+			float: left;
+			background: #26aa12;
+			color: #fff;
+			line-height: 50px;
+			font-size: 19px;
+			font-weight: bold;
+		}
+		
+		.tel {
+			border-right: 1px solid #d0cece;
+		}
+		
+		.telimg {
+			font-size: 25px;
+			line-height: 35px;
+		}
+		
+		.xianshichu {
+			font-size: 14px;
+		}
+		
+		.telimg {
+			width: ;
+		}
+		
+		#showcang {
+			/*background-image: url(images/shoucang.png);*/
+			/*background-repeat: no-repeat;
+			background-size: 20px 40px;
+			background-position: left bottom;
+			font-size:14px;*/
+		}
+		
+		#showcang.active {
+			background-position: left top;
+		}
+		
+		li {
+			list-style: none;
+			background-color: #fff;
+		}
+		
+		.mui-table-view:after {
+			left: 0;
+		}
+		
+		.mui-table-view-cell:after {
+			left: 0;
+		}
+		
+		#zt {
+			width: 100%;
+			height: 100%;
+			z-index: 100;
+			position: fixed;
+			bottom: 120px;
+		}
+		
+		.box {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+			/*opacity: 0.5;*/
+			z-index: 1000;
+			display: none;
+		}
+		
+		.box2 {
+			width: 80%;
+			height: 30%;
+			background-color: #FFFFFF;
+			position: relative;
+			top: 30%;
+			left: 10%;
+			border-radius: 15px;
+			color: #3a3a3a;
+		}
+		
+		.text {
+			text-align: center;
+			padding: 20px;
+			font-size: 24px;
+		}
+		
+		.text2 {
+			padding: 0 20px;
+			font-size: 16px;
+		}
+		
+		.text3 {
+			text-align: center;
+			margin-left: 20%;
+			margin-top: 5%;
+			width: 60%;
+			background-color: #6da3ed;
+			padding: 5px 0;
+			border-radius: 5px;
+			color: #FFFFFF;
+			box-shadow: 0px 0 5px 0 #707070;
+		}
+		
+		.jobtag {
+			font-size: 12px;
+			line-height: 12px;
+			padding: 5px 10px;
+			margin: 5px 5px 5px 0px;
+			display: inline-block;
+			text-align: center;
+			border: 1px solid #26aa12;
+			border-radius: 5px;
+			color: #26aa12;
+		}
+		/*选项卡颜色*/
+		
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+			color: #26aa12;
+			font-weight: bold;
+		}
+		
+		#sliderProgressBar {
+			background: #26aa12;
+		}
+		/*企业详情*/
+		
+		.bb-profile {
+			margin-bottom: 6.66px;
+		}
+		
+		.b-profile {
+			margin-top: 6.66px;
+		}
+		
+		.profile {
+			padding: 0;
+			padding-left: 6.66px;
+			display: inline-block;
+			font-weight: 600;
+			color: #626262;
+		}
+		
+		.gonsjianjie {
+			text-indent: 2em;
+		}
+		
+		.pro1 {
+			width: 16px;
+			height: 13px;
+		}
+		
+		.pro2 {
+			width: 15px;
+			height: 16px;
+			//padding-bottom: 0px;
+			//padding-top: 3px;
+			vertical-align: middle;
+		}
+		/*正在招聘的公司*/
+		
+		.comp {
+			font-size: 14px;
+			color: #323232;
+		}
+		
+		span {}
+		
+		.opero {
+			padding-top: 12px;
+			display: inline-block;
+			font-size: 12px;
+		}
+		
+		.mui-table-view-cell:after {
+			/*left:0;*/
+			height: 0;
+		}
+		
+		.gonsjianjie {
+			text-indent: 2em;
+			/*height : 300px;*/
+			/*transition: all 1s;*/
+		}
+		
+		.content-hide {
+			height: 220px;
+			/*transition: all 1s;*/
+		}
+		
+		.jbtitle {
+			width: 30%;
+			height: 30px;
+			line-height: 30px;
+			font-size: 14px;
+			background-color: #eeeef0;
+			color: #6a6a6a;
+			border-bottom: 1px solid #efefef;
+			display: inline-block;
+			text-align: center;
+		}
+		
+		.jbxian {
+			width: 30%;
+			height: 1px;
+			background: #a3a3a3;
+			display: inline-block;
+			margin-left: 5%;
+		}
+		
+		.mui-navigate-right:after {
+			right: 15px;
+			font-size: 14px;
+			font-weight: bold;
+			color: #26aa12;
+		}
+		/*tag的颜色*/
+		
+		.tag1 {
+			color: #fe9d9e;
+			border: 1px solid #fe9d9e;
+		}
+		
+		.tag2 {
+			color: #73cfff;
+			border: 1px solid #73cfff;
+		}
+		
+		.tag3 {
+			color: #ffa773;
+			border: 1px solid #ffa773;
+		}
+		
+		.tag4 {
+			color: #5dc3ba;
+			border: 1px solid #5dc3ba;
+		}
+		
+		.tag5 {
+			color: #cb97f9;
+			border: 1px solid #cb97f9;
+		}
+		
+		.tag6 {
+			color: #ff84b5;
+			border: 1px solid #ff84b5;
+		}
+		
+		.tag7 {
+			color: #26aa12;
+			border: 1px solid #26aa12;
+		}
+		
+		.mui-backdrop {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 998;
+			background-color: rgba(0, 0, 0, 0);
+		}
+	</style>
+
+	<body ng-controller="myCtrl">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+			<h1 class="mui-title" ng-bind="data.jobs_name"></h1>
+			<button class="mui-btn mui-btn-positive mui-btn-outlined mui-pull-right" id="share" style="padding:5px 10px 3px; border: 0;"><span class="mui-icon iconfont icon-fenxiang" style="color:#26aa12";></span></button>
+		</header>
+		<!--<div id="zt" ng-touch="zt()" ng-if="isShow">
+
+		</div>-->
+		<div class="jiazai">
+			<div class="spinner">
+				<div class="spinner-container container1">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+				<div class="spinner-container container2">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+				<div class="spinner-container container3">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-content" style="height:100%;">
+			<div id="slider" class="mui-slider cjs" style="background:#fff;">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile" style="font-size:16px;">
+						职位详情
+					</a>
+					<a class="mui-control-item" href="#item2mobile" style="font-size:16px;">
+						企业介绍
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group" id="msgheight">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-content">
+									<!--轮播图-->
+									<div class="blunbo" style="height:140px;position:relative;text-align:center;overflow: hidden;">
+										<!---->
+										<div ng-if="zwqyimg==false"><img style="width:100%;height:150px;" ng-src='{{imgurl+img}}' /></div>
+										<div ng-if="zwqyimg==true">
+											<p style="margin-top:50px;font-size:40px;">企业图片</p>
+										</div>
+										<div style="width:40px;position:absolute;top:0px;right:0px;"><img src="images/renzhen.png" alt="" /></div>
+									</div>
+
+									<!--工种、薪资、小标签-->
+									<ul class="mui-table-view" style="padding:15px;border-bottom:1px solid #f4f4f4;">
+										<li class="">
+											<span class="caozuogong" style="height:45px;line-height: 45px; color: #000;font-weight: 500;font-size:20px;" ng-bind='data.category_cn'></span>
+											<span class="mui-pull-right spanmony" style="color:#ff7800;font-size:20px;line-height: 37px;padding-right:9px;" ng-bind="data.minwage + '-' + data.maxwage+'元'">{{data.minwage+'-'+data.maxwage}}元</span>
+										</li>
+										<span class="jobtag" ng-repeat='x in datatag' ng-bind='x'></span>
+										<span class="jobtag" ng-bind="'性别:'+ data.sex_cn"></span>
+										<span class="jobtag" ng-bind='data.age'></span>
+										<span class="jobtag" ng-bind="'学历:'+ data.experience_cn"></span>
+
+										<!--<li class="tagxiaobiaoqian">
+							<span style="background: url(images/gender.png) no-repeat;background-size: 16px 16px;font-size:12px;line-height: 12px;height:18px;padding:2px 0;padding-left:18px;display: inline-block;color:#5CA8FC;margin-right:11px;">性别：<span ng-bind='data.sex_cn'></span></span>
+							<span style="background: url(images/age.png) no-repeat;background-size: 16px 16px;font-size:12px;line-height: 12px;height:18px;padding:2px 0;padding-left:18px;display: inline-block;color:#5CA8FC;margin-right:11px;">年龄：<span ng-bind='data.age'></span></span>
+							<span style="background: url(images/degree.png) no-repeat;background-size: 16px 16px;font-size:12px;line-height: 12px;height:18px;padding:2px 0;padding-left:18px;display: inline-block;color:#5CA8FC;margin-right:11px;">学历：<span ng-bind='data.experience_cn'></span></span>
+						</li>-->
+									</ul>
+
+									<!--地址-->
+									<li class="mui-table-view-cell  libaiduditu" style="height:50px;font-size:12px;line-height: 50px;padding:0;padding-left:10px;" ng-click="Tomap(this)">
+										地址：<span class="mui-navigate-right" ng-bind='data.address'></span>
+
+									</li>
+
+									<!--<li class="mui-table-view-cell gsxq" data-id="" data-jid="" style="position:relative;height:80px;margin-top:8px;padding:0;padding-left:13px;" ng-click="comdetail(this)">
+										<span style="width: 60px;height: 60px;display: inline-block;background: url(images/yingzhang.png) no-repeat;background-size:60px 60px ;position: absolute;top:15px;right:80px"></span>
+										<span style="background: url(images/xiaji.png) no-repeat;width: 20px;height: 20px;display: inline-block;position: absolute;top:30px;right:10px;background-size: 16px 18px;"></span>
+										<span class="gongsimingchneg-li" style="padding-top:20px;font-size:15px;line-height: 48px; color:#666" ng-bind="data.companyname">公司名称</span> <br />
+										<span class="qiyexinxi-li" style="font-size:12px; color: #A6A6A6;">  {{data.nature_cn}} |{{data.district_cn}} </span>
+									</li>-->
+
+									<ul class="mui-table-view jbqk">
+
+										<li class="mui-table-view-cell zhiwexiangqingxinxi" style="background-color: #efefef;padding:0;width:100%;">
+											<div ng-if="obj.key==1" ng-repeat='(k,x) in obj.value'>
+												<span class="jbxian"></span><span class="jbtitle">{{obj.value[k].title}}</span><span class="jbxian" style="margin-right:5%;margin-left:0%;"></span>
+												<div style="padding:20px;font-size:14px;color:#888;background-color:#fff;" ng-if="obj.value[k].isbul==1">
+													<div ng-repeat="(k,y) in obj.value[k].text">
+														<span>{{k+1+'、'+y}}</span>;
+													</div>
+
+												</div>
+												<div style="padding:10px ;text-indent: 1em;font-size:14px;color:#888;padding-bottom:10px;padding-top:5px;background-color:#fff;" ng-if="obj.value[k].isbul==2">
+
+													<span style="margin-left:-5px;" ng-bind="obj.value[k].text"></span>;
+
+												</div>
+											</div>
+
+											<!--<div ng-if="obj.key==2" ng-repeat='(k,x) in obj.value'>
+							<div id=""style="height:40px;line-height:40px;font-size:17px;background-color:#fff;padding:0 10px;margin-top:10px;color:#5CA8FC;border-bottom:1px solid #efefef;"><span style="font-weight:1000;width:100%;">| </span>{{obj.value[k].title}}</div>
+							<div style="padding:0 10px ;text-indent: 1em;font-size:14px;color:#888;padding-bottom:10px;padding-top:5px;background-color:#fff;" ng-if="obj.value[k].isbul==2">
+								
+									
+				
+							</div>
+						</div>-->
+
+										</li>
+									</ul>
+
+									<div class="baozhang" style=" width: 100%;margin-top: 10px; color: #666666; font-size:13px; background-color: #FFFFFF; text-align: center;">
+										<img style="width:100%;" ng-src='{{xinyu}}' alt="" />
+									</div>
+									<!--职位详细列表-->
+									<span class="jbxian"></span><span class="jbtitle">推荐职位</span><span class="jbxian" style="margin-right:5%;margin-left:0%;"></span>
+
+									<ul class="mui-table-view uilist" style="margin-bottom:0px;" ng-repeat="x in job">
+
+										<li class="mui-table-view-cell mui-media li_togo_next" ng-click="jobtomp(this)">
+
+											<div class="mui-media-body" style="">
+
+												<span class="mui-ellipsis" style="color: #8f8f94;color:#000;font-size:15px;font-weight:700;" ng-bind="x.jobs_name"></span><span class="mui-ellipsis mui-pull-right" style="color: #26aa12;">{{x.minwage+'-'+x.maxwage}}</span>
+
+												<p style="margin-top:10px;">
+													<span class="mui-ellipsis; " style="display:inline-block;width:20%;color: #737373;" ng-bind="x.category_cn">操作工</span>
+													<span>
+									
+									<span ng-repeat="(xx,yy) in tag[$index]" ng-class="setStyle(yy)" ng-if='xx<3' ng-bind='yy' style="font-size:12px;line-height: 12px;height:18px;padding:2px 4px;margin-right:2px;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 5px;margin-right:3px;" ></span>
+
+													</span>
+													<span style="color: #000;font-size:13px;" class="mui-ellipsis mui-pull-right" ng-bind="x.district_cn">青岛/黄岛区</span>
+												</p>
+											</div>
+
+										</li>
+
+									</ul>
+
+								</div>
+								<div class="box">
+									<div class="box2">
+										<div class="text">
+											申请成功
+										</div>
+										<div class="text2">
+
+										</div>
+										<div class="text3">
+											确认
+										</div>
+									</div>
+								</div>
+
+								<div class="bt" style="margin:20px 0 50px;padding: 0px 0 20px;text-align: center;">您想要的职位没有找到？
+									<a href="../search/search.html" style="color:#26aa12;">立即搜索</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!--//企业-->
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<!--<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>-->
+								<div class="mui-content">
+									<!--轮播图-->
+									<div class="mui-slider" style="height:140px;position:relative;text-align:center;overflow: hidden;">
+										<!--<p style="margin-top:50px;font-size:40px;">企业图片</p>-->
+										<div class="mui-slider">
+											<div class="mui-slider-group">
+												<div class="mui-slider-item" ng-repeat="x in qyimg">
+													<a href="#"><img style="height:140px;width:100%;" ng-src="{{imgurl+x}}" /></a>
+												</div>
+												<div style="width:40px;position:absolute;top:0px;right:0px;"><img src="images/renzhen.png" alt="" /></div>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell " style="padding-top: 25px;padding-bottom: 4px;">
+										<div class="gongsimigncheng" style="float:left;font-size:16px;font-weight: 600;color: #111111;" ng-bind="qydata.companyname">
+											青岛兴邦厨具有限公司
+										</div>
+										<div class="mui-collapse-content gongzhng" style="float:right;font-size: 16px;color: #6a6a6a">
+											<span ng-bind="qydata.nature_cn"></span> </span>
+										</div>
+									</li>
+									<!--地址-->
+									<li class="mui-table-view-cell  libaiduditu" style="height:50px;font-size:12px;line-height: 50px;padding:0;padding-left:10px;" ng-click="Tomap(this)">
+										地址：<span class="mui-navigate-right" ng-bind='data.address'></span>
+
+									</li>
+
+								</ul>
+
+								<div style="background-color: #eeeef0;">
+									<span class="jbxian"></span><span class="jbtitle">公司简介</span><span class="jbxian" style="margin-right:5%;margin-left:0%;"></span>
+								</div>
+
+								<li class="mui-table-view-cell jjdeploy" ng-model='jjdeploy' style="padding-bottom:0;list-style: none;background-color: #fff;;">
+									<div class="gonsjianjie mui-ellipsis-2" style="padding:10px 10px 0px;z-index: 0;position: relative;font-size:14px;color: #808080" ng-bind='qydata.contents'>
+
+									</div>
+									<!--<div class="show-btn" style="text-align:center;background-color:#fff;padding:0;margin:0;margin-left:-15px;margin-right:-15px;line-height:0x;height:1px;border:1px solid #efefef;position: relative;bottom:0;left:0;font-size: 12px;"></div>-->
+
+								</li>
+
+								<!--收起-->
+								<div id='deploy' ng-click="deploy(this)" style="font-size:14px;margin-top:10px;text-align:center;width:100%;">
+									<span ng-bind='retract'></span>
+									<span class="mui-icon mui-icon-arrowup" style="font-size:18px;color:#26aa12;font-weight: bold;"></span>
+								</div>
+								<!--添加“正在招聘”-->
+								<div style="background-color: #eeeef0;">
+									<span class="jbxian"></span><span class="jbtitle">在招职位</span><span class="jbxian" style="margin-right:5%;margin-left:0%;"></span>
+								</div>
+								<ul class="mui-table-view uilist">
+
+									<li class="mui-table-view-cell mui-media li_togo_next" ng-click="jobtomp(this)" ng-repeat="x in jobs">
+
+										<div class="mui-media-body" style="">
+
+											<span class="mui-ellipsis" style="color: #8f8f94;color:#000;font-size:15px;font-weight:700;" ng-bind="x.jobs_name"></span><span class="mui-ellipsis mui-pull-right" style="color: #26aa12;">{{x.minwage+'-'+x.maxwage}}</span>
+
+											<p style="margin-top:10px;">
+												<span class="mui-ellipsis; " style="display:inline-block;width:20%;color: #737373;" ng-bind="x.category_cn">操作工</span>
+												<span>
+									
+									<span ng-repeat="(xx,yy) in tag[$index]" ng-if='xx<3' ng-class="setStyle(yy)" ng-bind='yy' style="font-size:12px;line-height: 12px;height:18px;padding:2px 4px;margin-right:2px;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 5px;margin-right:3px;" ></span>
+
+												</span>
+												<span style="color: #000;font-size:13px;" class="mui-ellipsis mui-pull-right" ng-bind="x.district_cn">青岛/黄岛区</span>
+											</p>
+										</div>
+
+									</li>
+
+								</ul>
+								<div class="bt" style="margin:20px 0 20px;padding: 0px 0 20px;text-align: center;">您想要的职位没有找到？
+									<a href="../search/search.html" style="color:#26aa12;">立即搜索</a>
+								</div>
+								<div style="height:50px;"></div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="" style="width:100%;margin:0 auto;height:50px;position:fixed;bottom:0px;background-color:#FFFFFF;text-align:center;z-index:999;border-top:1px solid #ccc;">
+			<div class="jobsfootnav_btns" style=" margin: 0 auto;height: 100%; width: 100%; clear: both; text-align: center;font-weight: 200;">
+				<div class="tel" style="float: left; height: 100%;line-height: 15px; width: 20%;">
+
+					<div class="xianshichu" ng-if='dl==0'>
+						<a ng-click="tzdl(this)" class="clicktop" style="text-decoration: none; color: #666666; width: 100%;height: 100%;"><span class="mui-icon iconfont icon-msnui-caller telimg" style="color:#26aa12" ;></span><br /><span>拨打电话</span></a>
+					</div>
+					<div class="xianshichu" ng-if='contantshow=="0"&&dl==1'>
+						<a href="tel:{{data.S4mobile}}" class="clicktop" style="text-decoration: none; color: #666666; width: 100%;height: 100%;"><span class="mui-icon iconfont icon-msnui-caller telimg" style="color:#26aa12" ;></span><br /><span>拨打电话</span></a>
+					</div>
+					<div class="xianshichu" ng-if='contantshow=="1"&&dl==1'>
+						<a ng-click="cgtel()" class="clicktop" style="text-decoration: none; color: #666666; width: 100%;height: 100%;"><span class="mui-icon iconfont icon-msnui-caller telimg" style="color:#26aa12" ;></span><br /><span>拨打电话</span></a>
+						<div id="xianshi" ng-if="isShow" class="mui-backdrop">
+							<div id="yangshi" style="position: absolute;width:100%;background-color: #fff;border-bottom: 1px solid #000;border-top:2px solid #efeff4;padding: 15px;text-align: center;bottom:50px;">
+								<span style="display: inline-block;margin-right: 50px;"><img width="30px" src="images/kefuf.png"style="vertical-align: middle;"/>
+									<a href="tel:{{data.S4mobile}}" class="telss00" >拨打客服电话</a></span>
+
+								<span style="display: inline-block;"><img width="30px" src="images/kefuf1.png"style="vertical-align: middle;"/>
+									<a href="tel:{{data.contanttel}}" class="gongchnagid"  class="contantshow">
+										拨打工厂电话
+									</a></span>
+							</div>
+						</div>
+					</div>
+					<!--<div class="xianshichu1">
+						<img src="images/130.png" width="31.2px"><br /><span>拨打电话</span>
+					</div>-->
+					<!--href="tel:4008334588"-->
+				</div>
+
+				<div class="shoucang" id="showcang" style="float:left;width:20%;height:100%;">
+					<span class="mui-icon iconfont icon-xin1" style="color:#fe6667;font-size:30px;"></span><br><span style=" color: #666666;font-size:14px;">收藏职位</span>
+				</div>
+				<div id="button_apply" class="button_apply">免费申请</div>
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/ag1.46.js"></script>
+		<script src="../../js/factory.js"></script>
+		<script>
+			angular.module('jobdetailCtr', ["myApp"])
+				.controller('myCtrl', function($scope, $http, $data) {
+					var jid = localStorage.getItem('jid');
+					var jiazai = document.querySelector('.jiazai');
+					window.onload = function() {
+
+						setTimeout(function() {
+							jiazai.style.display = 'none';
+						}, 400)
+
+					}
+
+					var tagarr = [];
+					var datatagarr = [];
+					var qydetail;
+					$scope.qyimg = true;
+
+					window.addEventListener('job', function(e) {
+						//在父页面中添加监听事件，刷新页面
+
+						$data.dengl().success(function(dl) {
+							//					console.log(JSON.parse(dl));
+							$scope.dl = dl;
+						});
+						xuanranyemian();
+
+					});
+
+					xuanranyemian();
+					//shouqi
+
+					$scope.deploy = function() {
+						//						alert(11);
+						//						jjdeploy.style.height=200+'px';
+						//						console.log(jjdeploy.outerHTML);
+						var jjdeploy = document.querySelector('.jjdeploy');
+						var deploy = document.querySelector('#deploy');
+						//						$scope.retract=!$scope.retract;
+						console.log($scope.retract);
+						if($scope.retract == '展开') {
+							$scope.retract = '收起';
+							deploy.children[1].className = 'mui-icon mui-icon-arrowdown';
+						} else {
+							$scope.retract = '展开';
+							deploy.children[1].className = 'mui-icon mui-icon-arrowup';
+						}
+						jjdeploy.children[0].classList.toggle('mui-ellipsis-2');
+
+					}
+
+					//dianhua
+					$scope.cgtel = function() {
+						$scope.isShow = !$scope.isShow;
+					}
+					//					$scope.zt = function() {
+					//						$scope.isShow = false;
+					//					}
+					mui(document.body).on('touchend', '.mui-backdrop', function() {
+						
+						this.style.display="none";
+					}) //tzdl
+					$scope.tzdl = function() {
+						mui.openWindow({
+							url: '../login/login.html',
+							id: 'login.html',
+						})
+					}
+					//公司详情
+					$scope.comdetail = function() {
+
+						mui.openWindow({
+							url: '../company/company.html',
+							id: 'company',
+						})
+					}
+					//map
+					$scope.Tomap = function() {
+
+						mui.openWindow({
+							url: 'map.html',
+							id: 'map.html',
+							extras: {
+
+							},
+							createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
+					}
+					$scope.jobtomp = function() {
+						console.log(this.x.jid);
+						localStorage.setItem('jid', this.x.jid);
+						mui.openWindow({
+							url: 'job.html',
+							id: 'job.html',
+							extras: {
+
+							},
+							createNew: true, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
+					}
+
+					//				console.log(jid);
+					$data.dengl().success(function(dl) {
+						//					console.log(JSON.parse(dl));
+						$scope.dl = dl;
+					});
+
+					function xuanranyemian() {
+						$data.jobdetail(jid).success(function(data) {
+							//							console.log(JSON.stringify(data.data));
+							fengxiangtop = "直招帮";
+							fengxianglog = $$$.imgurl + 'data/weixin/1.png';
+							fengxiangtext = "【直招帮】 " + data.data.jobs_name + "正在招" + data.data.category_cn +
+								"综合工资" +
+								data.data.minwage +
+								"--" +
+								data.data.maxwage +
+								" 就等你来报名";
+							//console.log(fengxiangtext);
+							fengxiangtop = fengxiangtext;
+							//map
+							localStorage.setItem('addresstocompor', data.data.address);
+							localStorage.setItem('xmap', data.data.map_x);
+							localStorage.setItem('ymap', data.data.map_y);
+							localStorage.setItem('comp', data.data.companyname);
+							//公司详情
+							//							localStorage.setItem("cid", data.data.cid);
+							qydetail = data.data.cid;
+							qyxuanranyemian(qydetail);
+
+							localStorage.setItem("jid", data.data.jid);
+							//渲染
+							$scope.retract = '展开';
+							$scope.zwqyimg = false;
+							$scope.data = data.data;
+							$scope.img = data.img;
+							$scope.job = data.job;
+							$scope.imgurl = $$$.imgurl;
+							var contents = data.data.contents
+							var obj = Resoveto(contents);
+							$scope.obj = obj;
+							$scope.value = obj.value;
+							$scope.isShow = false;
+							$scope.xinyu = $$$.imgurl + 'data/app/xinyu.png';
+							//						console.log(data.data.tag_cn);
+							var datatag = data.data.tag_cn.split(',');
+							datatagarr.push(datatag);
+							$scope.datatag = datatag;
+							//						console.log(JSON.stringify(obj.value));
+							//						$scope.tag=data.job.tag_cn;
+							for(var i = 0; i < data.job.length; i++) {
+								var tags = data.job[i].tag_cn.split(',');
+
+								tagarr.push(tags);
+							}
+
+							$scope.tag = tagarr;
+
+							$scope.contantshow = data.data.contantshow;
+							$scope.setStyle = function(y) {
+
+								if(y == '年终奖') return 'tag1';
+
+								else if(y == '工作餐')
+									return 'tag2';
+								else if(y == '五险一金')
+									return 'tag3';
+								else if(y == '长白班')
+									return 'tag4';
+								else if(y == '两班倒')
+									return 'tag5';
+								else if(y == '双休')
+									return 'tag6';
+								else if(y == '工作轻松')
+									return 'tag3';
+								else if(y == '单休')
+									return 'tag4';
+								else if(y == '恒温车间')
+									return 'tag5';
+								else if(y == '坐着上班')
+									return 'tag5';
+								else
+									return 'tag7';
+
+							};
+						});
+					}
+
+					function Resoveto(data) {
+						//console.log(data);
+						var arry = [];
+						var ay = new Array();
+						var to = new Array();
+						ay = data.split('【')
+						for(var i = 0; i < ay.length; i++) {
+							to = ay[i].split('】');
+
+							var st = String(to[1]);
+							///\d、/
+							var stin = st.replace(/\d、/g, '|');
+							var stin1 = stin.replace(/\&nbsp;/g, '');
+							var xiangqing = stin1.split('|');
+
+							if(xiangqing.length > 1) {
+								var au = [];
+								for(var x = 1; x < xiangqing.length; x++) {
+									au.push(xiangqing[x]);
+								}
+								//console.log(au);
+								var ob = {
+									title: to[0],
+									text: au,
+									isbul: 1
+								};
+							} else {
+								var ob = {
+									title: to[0],
+									text: to[1],
+									isbul: 2
+								};
+							}
+
+							arry.push(ob);
+						}
+
+						arry.shift(0)
+						if(arry.length) {
+							return {
+								key: 1,
+								value: arry
+							};
+						} else {
+							return {
+								key: 2,
+								value: data
+							};
+						}
+					}
+					//企业详情
+					var qytagarr = [];
+
+					function qyxuanranyemian(qydetail) {
+						$data.companydetail(qydetail).success(function(data) {
+							//							console.log(JSON.stringify(data));
+							$scope.qyimg = data.img;
+							$scope.jobs = data.jobs;
+							$scope.imgleng = data.img.length;
+							$scope.qydata = data.data;
+							$scope.imgurl = $$$.imgurl;
+							for(var i = 0; i < data.jobs.length; i++) {
+								var tags = data.jobs[i].tag_cn.split(',');
+								qytagarr.push(tags);
+							}
+
+							$scope.qytag = qytagarr;
+
+						});
+					}
+				})
+			//判断是否收藏
+			mui.ajax($$$.siturl + 'm=App&c=Tool&a=islogin', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					//已经登陆
+					var isjid = localStorage.getItem('jid');
+					if(data == 1) {
+						mui.ajax($$$.siturl + 'm=App&c=ApplyJob&a=checkfavor', {
+							type: 'post',
+							data: {
+								jid: isjid
+							},
+							success: function(isShouCang) {
+								if(isShouCang == 1) {
+									var result = "";
+									result += '<span class="mui-icon iconfont icon-shoucang-on" style="color:#fe6667;font-size:25px;padding-top:4px;"></span><br><span style=" color: #666666;font-size:14px;">已收藏</span>';
+									var showcang = document.querySelector('#showcang');
+									showcang.innerHTML = result;
+								}
+							}
+
+						});
+					}
+				},
+				error: function(err) {
+					//alert(err);
+				}
+			});
+			//收藏职位
+			// 点击收藏实现图标变色并且申请职位
+			var shoucang_icon = document.querySelector('#showcang');
+			shoucang_icon.addEventListener('touchstart', function() {
+				shoucang();
+			});
+
+			function shoucang() {
+
+				var jid = localStorage.getItem('jid');
+
+				mui.ajax($$$.siturl + 'm=App&c=ApplyJob&a=resume_showcang', {
+					type: 'post',
+					data: {
+						jid: jid
+					},
+					dataType: 'json',
+					success: function(data) {
+						if(data.staus == 9) {
+							mui.openWindow({
+								url: '../login/bianji_delete.html',
+								id: 'bianji_delete'
+							});
+							return;
+						}
+
+						if(data.staus == 1) {
+							mui.ajax($$$.siturl + 'm=App&c=ApplyJob&a=checkfavor', {
+								type: 'post',
+								data: {
+									jid: jid
+								},
+								success: function(isShouCang) {
+									if(isShouCang == 1) {
+										var result = "";
+										result += '<span class="mui-icon iconfont icon-shoucang-on" style="color:#fe6667;font-size:25px;padding-top:4px;"></span><br><span style=" color: #666666;font-size:14px;">已收藏</span>';
+										var showcang = document.querySelector('#showcang');
+										showcang.innerHTML = result;
+									} else {
+										var result = "";
+										result += '<span class="mui-icon iconfont icon-xin1" style="color:#fe6667;font-size:30px;"></span><br><span style=" color: #666666;font-size:14px;">收藏职位</span>';
+										var showcang = document.querySelector('#showcang');
+										showcang.innerHTML = result;
+									}
+								}
+
+							});
+							mui.toast(data.msg, {
+								duration: 'long',
+								type: 'div'
+							})
+						}
+						//没有登录
+						if(data.staus == 0) {
+							mui.toast(data.msg, {
+								duration: 'long',
+								type: 'div'
+							})
+							mui.openWindow({
+								url: '../login/login.html',
+								id: 'bianji_delete',
+							})
+							//     shoucang_icon.classList.remove('active');
+						}
+					},
+					error: function(err) {
+						mui.alert(err);
+					}
+				})
+			}
+			//分享
+			document.addEventListener("plusready", onPlusReady, false);
+			var yusr = document.querySelector("#share");
+
+			function onPlusReady() {
+				yusr.addEventListener("click", shareHref, false);
+				updateSerivces();
+
+				//		            document.getElementById('weixin').addEventListener('tap',function() {
+				//			            console.log("微信"); 
+				//			            authLogin('weixin'); 
+				//			        }) 
+
+				if(plus.os.name == "Android") {
+					Intent = plus.android.importClass("android.content.Intent");
+					File = plus.android.importClass("java.io.File");
+					Uri = plus.android.importClass("android.net.Uri");
+					main = plus.android.runtimeMainActivity();
+				}
+
+				/**分享按钮*/
+				function shareHref() {
+					//					console.log(this);
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession" /*微信好友*/
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline" /*微信朋友圈*/
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信朋友圈"
+						}];
+					plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: bts
+						},
+						function(e) {
+
+							var i = e.index;
+							if(i > 0) {
+								shareAction(ids[i - 1].id, ids[i - 1].ex);
+							}
+						}
+					);
+				}
+
+				/** 
+				 * 分享操作 
+				 */
+				function shareAction(id, ex) {
+					var s = null;
+					console.log(id, ex);
+					if(!id || !(s = shares[id])) {
+						outLine("无效的分享服务！");
+						return;
+					}
+					console.log(s.authenticated);
+					if(s.authenticated) {
+						outSet("---已授权---");
+						shareMessage(s, ex);
+					} else {
+						outSet("---未授权---");
+						s.authorize(function() {
+							shareMessage(s, ex);
+						}, function(e) {
+							outLine("认证授权失败");
+						});
+					}
+				}
+
+				/** 
+				 * 发送分享消息 
+				 */
+				function shareMessage(s, ex) {
+
+					var jidjob = localStorage.getItem('jid');
+					console.log(ex);
+					console.log(JSON.stringify(s));
+					var msg = {
+
+						href: 'http://www.zhizhaojob.cn/index.php?m=Mobile&c=jobs&a=show&id=' + jidjob,
+						title: fengxiangtop,
+						content: fengxiangtext,
+						thumbs: [fengxianglog],
+						pictures: [fengxianglog],
+						extra: {
+							scene: ex
+						}
+					};
+					s.send(msg, function() {
+
+						//提交
+						mui.ajax($$$.siturl + 'm=App&c=PersonPoint&a=SharePoint', {
+							type: 'get',
+							dataType: 'json',
+							success: function(data) {
+								outLine("分享成功!");
+							}
+						})
+
+					}, function(e) {
+						outLine("分享失败!");
+					});
+				}
+
+				/** 
+				 * 更新分享服务 
+				 */
+				function updateSerivces() {
+					plus.share.getServices(function(s) {
+						shares = {};
+						for(var i in s) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+						outSet("获取分享服务列表成功");
+					}, function(e) {
+						outSet("获取分享服务列表失败：" + e.message);
+					});
+				}
+
+				// 控制台输出日志 
+				function outSet(msg) {
+					//				            console.log(msg); 
+				}
+				// 界面弹出吐司提示 
+				function outLine(msg) {
+					mui.toast(msg);
+				}
+
+				// 登录操作 
+				function authLogin(type) {
+					var s;
+					for(var i = 0; i < auths.length; i++) {
+						if(auths[i].id == type) {
+							s = auths[i];
+							break;
+						}
+					}
+					if(!s.authResult) {
+						s.login(function(e) {
+							mui.toast("登录认证成功！");
+							authUserInfo(type);
+						}, function(e) {
+							mui.toast("登录认证失败！");
+						});
+					} else {
+						mui.toast("已经登录认证！");
+					}
+				}
+
+				// 微信登录认证信息 
+				function authUserInfo(type) {
+					var s;
+					for(var i = 0; i < auths.length; i++) {
+						if(auths[i].id == type) {
+							s = auths[i];
+							break;
+						}
+					}
+					if(!s.authResult) {
+						mui.toast("未授权登录！");
+					} else {
+						s.getUserInfo(function(e) {
+							var josnStr = JSON.stringify(s.userInfo);
+							var jsonObj = s.userInfo;
+							console.log("获取用户信息成功：" + josnStr);
+							showData(type, jsonObj);
+							authLogout();
+						}, function(e) {
+							alert("获取用户信息失败：" + e.message + " - " + e.code);
+						});
+					}
+				}
+
+				function showData(type, data) {
+					switch(type) {
+						case 'weixin':
+							headImage.src = data.headimgurl;
+							break;
+						case 'qq':
+							headImage.src = data.figureurl_qq_2;
+							break;
+						case 'sinaweibo':
+							headImage.src = data.avatar_large;
+							break;
+						default:
+							break;
+					}
+				}
+			}
+			//ruzhi
+			var text2 = document.querySelector('.text2');
+			var box = document.querySelector('.box');
+			box.onclick = function() {
+				box.style.display = "none"
+			}
+			var button_apply = document.querySelector('#button_apply');
+			button_apply.addEventListener('touchstart', function() {
+				// alert(this.innerHTML);
+				// alert('done');
+				this.classList.add('active');
+			});
+			button_apply.addEventListener('touchend', function() {
+				this.classList.remove('active');
+				var jid = localStorage.getItem('jid');
+
+				//alert($$$.siturl+'m=App&c=ApplyJob&a=resume_apply');
+
+				mui.ajax($$$.siturl + 'm=App&c=ApplyJob&a=resume_apply', {
+					type: 'post',
+					data: {
+						jid: jid,
+					},
+					dataType: 'json',
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(data.staus == 9) {
+							mui.openWindow({
+								url: '../login/bianji_delete.html',
+								id: 'bianji_delete',
+							})
+
+							return;
+						}
+
+						if(data.staus == 1) {
+							mui.alert(data.msg);
+							//						button_apply.onclick = function() {
+							//							//							box.style.display = "block"
+							//							//							text2.innerHTML = data.msg
+							//							
+							//						}
+
+							//						mui.alert(data.msg);
+							//mui.toast(data.msg,{ duration:'long', type:'div' })
+						}
+						if(data.staus == 2) {
+							mui.alert(data.msg);
+
+							//						mui.alert(data.msg);
+							//mui.toast(data.msg,{ duration:'long', type:'div' })
+						}
+						if(data.staus == 0) {
+							//mui.toast(data.msg,{ duration:'long', type:'div' }) 
+							mui.openWindow({
+								url: '../login/login.html',
+								id: 'login.html',
+							})
+
+						}
+					},
+					error: function(err) {
+						mui.alert(err);
+					}
+				})
+
+			})
+			button_apply.addEventListener('touchmove', function() {
+				this.classList.remove('active');
+			})
+
+			mui.init({
+				swipeBack: false
+			});
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: false //是否显示滚动条
+				});
+				//				var html2 = 
+
+				var item2 = document.getElementById('item2mobile');
+
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if(e.detail.slideNumber === 1) {
+						if(item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = 1
+							}, 500);
+						}
+					}
+				});
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if(this.checked) {
+						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+				var msgheight = document.querySelector('#msgheight');
+				msgheight.style.height = window.screen.availHeight - 110 + 'px';
+				//				console.log(msgheight.style.height);
+
+				//				
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

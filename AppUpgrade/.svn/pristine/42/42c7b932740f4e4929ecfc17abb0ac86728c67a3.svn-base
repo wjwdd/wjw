@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../../js/mui.min.js"></script>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	#logo {
+			width:100%;
+			height:160px;
+			padding:40px 0 33px 0;
+		}
+		#logo .box {
+			display:block;
+			width:90px;
+			margin:0 auto;
+		}
+		#logo .box img {
+			width:90px;
+			margin-top: 35px;
+		}
+		
+		/*文本框*/
+		#input_box .mui-input-row {
+			height:53px;
+		}
+		#input_box input {
+			width:50%;
+			height:53px;
+		}
+		#input_box label {
+			width:40px;
+			height:53px;
+			padding:0;
+		}
+		#input_box label span {
+			width:20px;
+			height:20px;
+			padding-left:8px;
+			padding-top:14px;
+		}
+    </style>
+    <script type="text/javascript" >
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+			<a class="wagecolor mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">找回密码</h1>	
+	</header>
+	<div class="cjs"></div>
+	<!--背景图-->	
+	<div style="margin-top:44px;width:100%;height:160px;box-sizing: border-box;">
+		<div id="logo">
+			<div class="box">
+				<img src="../login/images/logo.png" alt="" />
+			</div> 
+		</div>
+	</div>
+
+	<!--输入框-->
+	<div class="mui-input-group" id="input_box">
+	    
+		<div class="mui-input-row">
+	        <label style=""><span class="mui-icon mui-icon-contact"></span></label>
+	    <input type="tel" style="float: left;" class="mui-input-clear phonetelinp" placeholder="请输入手机号码">
+	    </div>
+	    <div class="mui-input-row" >
+	        <label style=""><span class="mui-icon mui-icon-chatboxes"></span></label>
+		    <input type="text"  style="float:left;" class="mui-input-clear verificationstr" placeholder="请输入手机验证码">
+	     	<button type="button"  class="mui-btn mui-btn-primary getverificationcode" style="width:60px;text-align:center;background-color:#5CA8FC;font-size: 9px;padding:0;height:23px;line-height: 23px;border:none;float:right;margin-top:15px;margin-right:9px;">获取验证码</button>
+	     </label>
+	    </div>
+
+		
+	</div>
+	
+	<!--验证按钮-->
+    <div class="mui-button-row">
+    	<div class="mui-content-padded" style="margin-top:100px;">
+			<button id='' class="mui-btn mui-btn-block mui-btn-primary verification" style="margin-bottom:0;background-color:#26aa12;height:40px;line-height: 40px;padding:0;border: 1px solid #26aa12">验证</button>
+			</div>
+		</div>
+    </div>
+</body> 
+
+<script>
+		document.addEventListener( "plusready",  function(){
+			
+			var getverificationcode=document.querySelector('.getverificationcode');
+				getverificationcode.addEventListener('click',function(){
+					$$.getverificoder();
+				});
+			var verification=document.querySelector('.verification');
+				verification.addEventListener('click',function(){
+					$$.verification();
+				});
+
+				(function(){
+					window.$$={
+							getverificoder:function getverificoder(){
+						 			
+								var tel=document.querySelector(".phonetelinp").value;
+								var regularMobile = /^13[0-9]{9}$|14[0-9]{9}$|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;	
+										
+								if (tel == "") {
+							         mui.toast('请填入手机号码',{ duration:'short', type:'div' })         
+							         return false;
+							    }
+								
+								if(!tel.match(regularMobile)){
+									 mui.toast('手机号码格式有误',{ duration:'short', type:'div' })         
+							         return false;
+								}
+									 mui.ajax($$$.siturl+'m=App&c=Mumber&a=sendmessagetoregist',{
+									     type:'post',
+									     data:{
+									     	mobile:tel,
+									     },
+									     dataType:'json',
+									     success:function(str){
+									     	
+						                	var data=str;
+						                	if(data.staus===0){
+						                		 mui.toast(data.msg,{ duration:'short', type:'div' }) 
+						                	}else{
+						                		 mui.toast(data.msg,{ duration:'short', type:'div' }) 
+						                	}
+						                	var timer=null;
+									var getverificationcode=document.getElementsByClassName('getverificationcode')[0];
+									getverificationcode.onclick=function(){
+										getverificationcode.innerHTML='';
+										clearInterval(timer);
+										var n=60;
+										timer=setInterval(function(){
+											n--;
+											if(n<0){
+												clearInterval(timer);
+												getverificationcode.innerHTML='获取验证码';
+						
+												}else{
+													getverificationcode.innerHTML=n+'秒';
+												}
+											},1000)	
+									}
+						                 },
+						                 error:function(xhr,type,errorThrown){
+//											mui.toast(xhr,{ duration:'short', type:'div' }) 
+										 }
+						                 
+									 })    
+								},
+								verification:function(){
+									var tel=document.querySelector(".phonetelinp").value;
+									var verificationstr=document.querySelector(".verificationstr").value;
+									mui.ajax($$$.siturl+'m=App&c=Mumber&a=vercodveri',{
+									     type:'post',
+									     data:{
+									     	mobile:tel,
+									     	str:verificationstr,
+									     },
+									     dataType:'json',
+									     success:function(str){
+						                	var data=str;
+						                	if(data.staus===0){
+						                		 mui.toast(data.msg,{ duration:'short', type:'div' }) ;
+						                	}else{
+						                		
+						                		mui.openWindow({
+												    url:'../setpassword/modilfipass.html',
+												    id:'modilfipass',
+												    extras:{
+												      
+												    },
+												    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+												    waiting:{
+												      autoShow:true,//自动显示等待框，默认为true
+												      title:'正在加载...',//等待对话框上显示的提示内容
+												    }
+												})
+						                		
+						                		
+						                	}
+						                 },
+						                 error:function(xhr,type,errorThrown){
+//											mui.toast(xhr,{ duration:'short', type:'div' }) 
+										 }
+									}) 
+								}
+						
+						}
+						
+				})();
+			
+
+		})
+	
+ 
+</script>
+
+</html>

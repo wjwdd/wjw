@@ -1,0 +1,216 @@
+<!doctype html>
+<html ng-app="commitCtr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link herf="../..css/comm.css" rel="stylesheet" />
+	</head>
+	<header id="header" class="mui-bar mui-bar-nav header-top">
+		<a href="../../index.html" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor"></a>
+		<h1 class="mui-title">最新面试</h1>
+	</header>
+	<style type="text/css">
+		.mui-table-view .mui-media-object {
+			max-width: 58px;
+			height: 58px;
+		}
+		
+		.mui-table-view .mui-media,
+		.mui-table-view .mui-media-body {
+			line-height: 19px;
+		}
+		
+		.xiao span {
+			display: inline-block;
+			//color: #5ca8fc;
+			border: 1px solid ;
+			border-radius: 5px;
+			padding: 0 5px;
+			margin-right: 5px;
+			font-size: 11px;
+			height: 18px;
+		}
+		
+		.mui-table-view-cell>a:not(.mui-btn) {
+			padding-top: 20px;
+		}
+		
+		.jizhao {
+			display: inline-block;
+			color: #fff;
+			background-color: #f68520;
+			position: absolute;
+			right: -5px;
+			top: 8px;
+			padding: 1px 10px;
+			font-size: 12px;
+			border-radius: 5px;
+		}
+		
+		.qian {
+			display: inline-block;
+			color: #f68520;
+			/*background-color: #f68520;*/
+			position: absolute;
+			right: 20px;
+			top: 40px;
+			/*padding: 2px 15px;*/
+			font-size: 14px;
+			border-radius: 5px;
+			font-weight: bold;
+		}
+		
+		.diqu {
+			display: inline-block;
+			color: #666666;
+			/*background-color: #f68520;*/
+			position: absolute;
+			right: 20px;
+			top: 60px;
+			/*padding: 2px 15px;*/
+			font-size: 12px;
+			border-radius: 5px;
+		}
+		
+		.mui-table-view-cell:after {
+			height: 0;
+		}
+		.green-work{
+			color:#26aa12;
+		}
+		
+		.tag1 {
+			color: #fe9d9e;
+			border: 1px solid #fe9d9e;
+		}
+		
+		.tag2 {
+			color: #73cfff;
+			border: 1px solid #73cfff;
+		}
+		
+		.tag3 {
+			color: #ffa773;
+			border: 1px solid #ffa773;
+		}
+		
+		.tag4 {
+			color: #5dc3ba;
+			border: 1px solid #5dc3ba;
+		}
+		
+		.tag5 {
+			color: #cb97f9;
+			border: 1px solid #cb97f9;
+		}
+		
+		.tag6 {
+			color: #ff84b5;
+			border: 1px solid #ff84b5;
+		}
+		
+		.tag7 {
+			color: #26aa12;
+			border: 1px solid #26aa12;
+		}
+		
+		.wagecolor{
+			color:  #26aa12;
+		}
+		
+		.dis{
+			color:#666666;
+			
+		}
+	</style>
+	<div class="cjs"></div>
+	<body ng-controller="myCtrl" class="outerScroller">
+		<div style="height: 50px;"></div>
+		<div class="scroll"></div>
+		<div class="" ng-repeat="x in shuju">
+			<div style="font-size: 14px; padding-left: 20px;">最新面试时间：<span class="wagecolor" style="" ng-bind="x.interviewtime">2017-06.05</span></div>
+			<ul class="mui-table-view" ng-click="tiaozhuan(this)">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;" style="position: relative;">
+						<img style="border-radius: 5px;" class="mui-media-object mui-pull-left" src="{{imgurl+x.logo}}">
+						<div class="mui-media-body">
+							<span style="font-size: 14px;" ng-bind="x.companyname">青岛海信集团</span>
+							<p class='mui-ellipsis' style="font-size: 13px;" ng-bind="x.category_cn">操作工</p>
+							<p class='mui-ellipsis xiao'>
+								<span ng-repeat="(k,v) in x.tag_cn |limitTo :3" ng-class="setclass(v)" >{{x.tag_cn[k]}} 
+										
+								</span>
+							</p>
+						</div>
+						<span class="jizhao">急招</span>
+						<span class="qian wagecolor"><span class="wagecolor" ng-bind="x.minwage">2000</span >-<span class="wagecolor" ng-bind="x.maxwage">4000</span>元</span>
+						<span class="diqu" ng-bind="x.district_cn">青岛|黄岛</span>
+					</a>
+				</li>
+				<div style="height: 1px; background-color: #f5f4f4;"></div>
+			</ul>
+		</div>
+	</body>
+	<div style="height: 47%;"></div>
+	<div class="scroll2"></div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/factory.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/fankui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		angular.module('commitCtr', ["myApp"])
+			.controller('myCtrl', function($scope, $http, $data) {
+				$data.mianshi().success(function(response) {
+					//					console.log(response.data)
+					$scope.shuju = response.data;
+					$scope.imgurl = $$$.imgurl;
+				})
+				$scope.setclass=function(y){
+				
+						if(y == '年终奖') return 'tag1';
+						else if(y == '工作餐')
+							return 'tag2';
+						else if(y == '五险一金')
+							return 'tag3';
+						else if(y == '长白班')
+							return 'tag4';
+						else if(y == '两班倒')
+							return 'tag5';
+						else if(y == '双休')
+							return 'tag6';
+						else if(y == '工作轻松')
+							return 'tag3';
+						else if(y == '单休')
+							return 'tag4';
+						else if(y == '恒温车间')
+							return 'tag5';
+						else if(y == '坐着上班')
+							return 'tag5';
+						else
+							return 'tag7';
+				}
+				$scope.tiaozhuan = function(e) {
+//					console.log(e.x.jid)
+					var id = e.x.jid
+					localStorage.setItem('jid', id);
+					mui.openWindow({
+						url: '/app/job/job.html',
+						id: 'job',
+						extras: {},
+						createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						waiting: {
+							autoShow: false, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				}
+			})
+	</script>
+	<script type="text/javascript">
+		mui.init()
+	</script>
+
+</html>

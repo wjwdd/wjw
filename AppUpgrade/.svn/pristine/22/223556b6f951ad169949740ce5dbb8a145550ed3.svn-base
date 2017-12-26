@@ -1,0 +1,94 @@
+	body{
+			font-family: "微软雅黑";
+		}
+		#header2{
+			background:#fff;
+			-webkit-box-shadow: 0 1px 0px #d7d8d8;
+		}
+		.mui-card-footer:before, .mui-card-header:after{
+			background-color: #fff;
+		}
+		.yhname{
+			color:#333333;
+			display: inline-block;
+			font-size:16px;
+		}
+		.sex{
+			display: inline-block;
+			width:15px;
+			height:15px;
+			background: url(../images/com_nan.png) center center no-repeat;
+			background-size:100% 100%;
+			margin-left:5px;
+			
+		}
+		.sexnv{
+			display: inline-block;
+			width:15px;
+			height:15px;
+			background: url(../images/nv.png) center center no-repeat;
+			background-size:100% 100%;
+		}
+		.dztx{
+			display: inline-block;
+			width:30px;
+			height:30px;
+			border-radius: 100%;
+			overflow: hidden;
+			margin-right:10px;
+			float:left;
+		}
+		.dz{
+			display: inline-block;
+			width:80px;
+			height:90px;
+			overflow: hidden;
+			position:absolute;
+			left:50%;
+			margin-left:-40px;
+			background: url(../images/dz.png) center 0px no-repeat;
+			padding-top:65px;
+			background-size: 100% 75%;
+		}
+		.select{
+			display: inline-block;
+			width:80px;
+			height:90px;
+			overflow: hidden;
+			position:absolute;
+			left:50%;
+			margin-left:-40px;
+			
+			padding-top:65px;
+			background: url(../images/afterdz.png) center 0px no-repeat;
+			background-size: 100% 75%;
+		}
+		.qbpl{
+			background:#fff;
+			overflow: hidden;
+		}
+		.qbplhead{
+			width:100%;
+			padding:10px 20px;
+			border-bottom: 1px solid #d0cece;
+			color:#d0cece;
+			
+		}
+		.huifu{
+			background: #f5f4f4;
+			
+			margin-bottom:10px;
+		}
+		.huifu p{
+			padding:5px 15px 5px;
+			margin-bottom:2px;
+		}
+		.lz{
+			color:#8593b0;
+		}
+		.hfnr{
+			color:#333333;
+		}
+		.mui-card-header{
+			padding-bottom:1px ;
+		}

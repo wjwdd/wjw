@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="app/citylist/citylist.html" style="color:#737373;">
+				<div style="width:80px;display: inline-block;" id="quanguo">
+					<div id="area" style="padding-left:8px;float:left;font-size:14px;line-height: 44px;width:50px ;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+
+					</div>
+					<div style="width:12px;height:100%;float:left;padding-left:2px;padding-top:11px;box-sizing: content-box;">
+						<img id="quanguo_img" src="images/xiala.png" style="width:100%;" alt="" />
+					</div>
+				</div>
+			</a>
+			<a href="app/search/search.html">
+				<div class="mui-title" style="right:80px;left:80px;display: inline-block;height:33px;margin-top:5px;background-color: #efefef;border-radius: 15px;border: 1px solid #bab9b7;">
+					<div style="position: absolute;left:14px;top:9px;width:19px;height:16px;background-image: url(images/sousuo.png);background-repeat: no-repeat;background-size: 19px 16px;">
+					</div>
+				</div>
+			</a>
+			<a href="app/zhaopin/zhao.html" style="color:#737373;">
+				<div id="zhaopin" style="float:right;font-size:14px;line-height: 44px;width:60px ;">
+					免费招聘
+				</div>
+			</a>
+		</header>
+		<script type="text/javascript">
+			mui.init({
+				subpages: [{
+					url: 'shouye.html', //下拉刷新内容页面地址 
+					id: 'shouye', //内容页面标志
+					styles: {
+						top: '48px', //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px； .....//其它参数定义 
+						bottom:'0',
+					}
+				}]
+			});
+		</script>
+	</body>
+
+</html>

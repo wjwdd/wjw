@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html ng-app="indexCtr">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style>
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			@font-face {
+				font-family: 'lanze';
+				src: url('lib/fonts/icomoon.eot') format('embedded-opentype'), url('lib/fonts/icomoon.svg') format('svg'), url('lib/fonts/icomoon.ttf') format('truetype'), url('lib/fonts/icomoon.woff') format('woff');
+			}
+			
+			[class^="icon-"],
+			[class*=" icon-"] {
+				font-family: lanze;
+				font-style: normal;
+			}
+			
+			.icon-mobilephone:before {
+				content: "\e908";
+				font-size: 13px;
+			}
+			/*头部栏颜色*/
+			
+			.header-top {
+				/*background-color: #5CA8FC;*/
+				opacity: 1;
+				z-index: 1;
+			}
+			/*#circle {
+				z-index: 9999;
+				height: 100px;
+			}*/
+			
+			#slider {
+				z-index: 0;
+				overflow: hidden;
+			}
+			
+			#circle .mui-table-view-cell {
+				padding-top: 0;
+				padding-bottom: 0;
+				background-color: #fff;
+				border: none;
+			}
+			
+			#circle .mui-table-view-cell span {
+				display: inline-block;
+				width: 3.5em;
+				height: 3.5em;
+				background-image: url(images/index_circle.png);
+				background-size: 410% 98%;
+				background-position: ;
+				background-repeat: no-repeat;
+			}
+			
+			#circle .mui-table-view-cell {
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.kuaisu {
+				background-position: 0%;
+			}
+			
+			.fujin {
+				background-position: 33%;
+			}
+			
+			.mingqi {
+				background-position: 64%;
+			}
+			
+			.zixun {
+				background-position: 98%;
+			}
+			/*筛选框*/
+			
+			#selector span {
+				display: inline-block;
+				border: 1px solid #737373;
+				border-radius: 5px;
+				margin-right: 9px;
+				margin-bottom: 14px;
+				height: 20px;
+				line-height: 10px;
+				padding: 6px 12px;
+				box-sizing: border-box;
+				font-size: 10px;
+				overflow: hidden;
+			}
+			
+			#selected {
+				padding: 12px 23px 14px 32px;
+			}
+			/*消息面板*/
+			
+			.news-tab {
+				height: 70px;
+				background-color: #fff;
+			}
+			
+			.news-tab .left {
+				width: 70px;
+				height: 100%;
+				float: left;
+				box-sizing: border-box;
+				padding: 12px 10px 12px 13px;
+			}
+			
+			.news-tab .left img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.news-tab .right {
+				width: 70%;
+				height: 100%;
+				float: left;
+				padding: 16px 13px 16px 0;
+			}
+			
+			.news-tab .right .line-one {
+				font-size: 14px;
+				line-height: 14px;
+				height: 14px;
+				margin-bottom: 12px;
+				color: #323232;
+				position: relative;
+			}
+			
+			.news-tab .right .line-one span {
+				position: absolute;
+				right: 0;
+				top: 0;
+				color: #5CA8FC;
+				font-size: 14px;
+			}
+			
+			.news-tab .right .line-two {
+				font-size: 12px;
+				line-height: 12px;
+				height: 12px;
+				color: #737373;
+			}
+			/*设置面板*/
+			
+			#tabbar-with-my .title {
+				position: relative;
+				height: 139px;
+				background-image: url("images/beijing.png");
+				background-repeat: no-repeat;
+				background-size: 100% 139px;
+				padding: 40px 13px 0 11px;
+				overflow: hidden;
+			}
+			
+			#tabbar-with-my .title .left {
+				/*width:17.3%;*/
+				padding-left: 11px;
+				width: 69px;
+				float: left;
+			}
+			
+			#tabbar-with-my .title .left img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#tabbar-with-my .title .right {
+				padding-top: 13px;
+				padding-left: 14px;
+				float: left;
+				color: #fff;
+				position: relative;
+				width: 70%;
+			}
+			
+			#tabbar-with-my .title .right .line-one {
+				margin-bottom: 13px;
+				font-size: 13px;
+				height: 13px;
+				line-height: 13px;
+			}
+			
+			#tabbar-with-my .title .right .line-two {
+				font-size: 11px;
+				height: 11px;
+				line-height: 11px;
+			}
+			
+			.arrow {
+				position: absolute;
+				right: 3px;
+				top: 50%;
+				margin-top: -6px;
+				width: 9px;
+				height: 20px;
+				overflow: hidden;
+			}
+			
+			.arrow::after {
+				content: ' ';
+				position: absolute;
+				right: 3px;
+				top: 0;
+				width: 12px;
+				height: 12px;
+				border: 3px solid #C4CDD9;
+				transform: rotate(45deg);
+			}
+			/*已申请职位，收藏。。。*/
+			
+			#tabbar-with-my .news-content .block {
+				width: 33.3%;
+				float: left;
+				margin: 13px 0;
+				font-size: 12px;
+				line-height: 12px;
+				background-color: #fff;
+			}
+			
+			#tabbar-with-my .news-content .block+div {
+				border-left: 1px solid #cdcdcd;
+			}
+			
+			#tabbar-with-my .news-content .block .img-t {
+				position: relative;
+				left: 50%;
+				margin-left: -15px;
+				width: 30px;
+			}
+			
+			#tabbar-with-my .news-content .block .text-b {
+				padding-top: 9px;
+				width: 100%;
+				text-align: center;
+			}
+			/*客服热线，招聘合作*/
+			
+			#tabbar-with-my .news-service .news-service-item {
+				width: 100%;
+				height: 60px;
+				background-color: #fff;
+			}
+			
+			#tabbar-with-my .news-service .news-service-item .left1 {
+				box-sizing: border-box;
+				padding: 17px 8px 0 10px;
+				height: 60px;
+				width: 40px;
+				float: left;
+			}
+			
+			#tabbar-with-my .news-service .news-service-item .left1 img {
+				width: 100%;
+			}
+			
+			#tabbar-with-my .news-service .news-service-item .left2 {
+				color: #757575;
+				font-size: 11px;
+				line-height: 11px;
+				float: left;
+				padding: 24px 0;
+			}
+			/*顶部栏颜色*/
+			/*header {*/
+			/*background-color: #5CA8FC !important;	*/
+			/*}*/
+			/*下拉框列表项小标签格式*/
+			
+			#sel_box {
+				/*height: 0px!important;*/
+				overflow-y: scroll;
+				background-color: #EBEBEB!important;
+				padding: 10px 10px;
+				padding-left: 25px;
+				display: block;
+				height: 80px;
+			}
+			
+			.sxbtn1,
+			.sxbtn2,
+			.sxbtn3,
+			.sxbtn4 {
+				display: block;
+				font-size: 10px;
+				background-color: #fff;
+				border-radius: 5px;
+				border: 1px solid #737373;
+				color: #333333;
+				text-align: center;
+				float: left;
+				/*background-color: red;*/
+			}
+			
+			.sxbtn1,
+			.sxbtn2,
+			.sxbtn4 {
+				width: 20%;
+				margin-right: 5%;
+				margin-bottom: 5%;
+			}
+			
+			.sxbtn3 {
+				width: 30%;
+				margin-right: 3%;
+				margin-bottom: 5%;
+			}
+			/*#sel_box div:hover {
+				background-color: #5CA8FC!important;
+				color: #FFFFFF;
+				border: 1px solid #5CA8FC;
+			}*/
+			/*.fuwu {
+				z-index: 1000;
+				border-bottom: 1px!important;
+			}*/
+			/*#bg {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				z-index: 500;
+				background-color: #333;
+				opacity: 0;
+				display: none;
+			}*/
+			
+			.xian {
+				border-bottom: 2px solid #F9F9F9;
+			}
+			
+			#job_list li {
+				/*padding: 10px!important;*/
+				/*background-color: red;*/
+			}
+			
+			#selector1,
+			#selector2,
+			#selector3,
+			#selector4 {
+				overflow: hidden;
+			}
+			/*#selector1,
+			#selector2,
+			#selector3,
+			#selector4:hover {
+				background-color: #5CA8FC!important;
+			}*/
+			
+			#slideDown1 {
+				display: none;
+				text-align: center;
+			}
+			
+			#slideDown2 {
+				display: none;
+				text-align: center;
+			}
+			/*.outerScroller {
+				overflow: hidden;
+			}*/
+			
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 0px;
+				z-index: 2;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 100px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			/*筛选*/
+			
+			#popover {
+				width: 100%;
+				height: 80px;
+				top: 45px!important;
+				margin-top: -0px;
+				border-radius: 0px;
+				background: #fff;
+			}
+			
+			.msk {
+				position: absolute;
+				top: 80px;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 1000px;
+				background-color: rgba(0, 0, 0, .3);
+			}
+			
+			.mui-backdrop {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 1;
+				background-color: rgba(0, 0, 0, .0);
+				display: none;
+			}
+			
+			.mui-popover .mui-popover-arrow {
+				display: none !important;
+			}
+			/*搜索*/
+			
+			.search {
+				width: 50%;
+				height: 33px;
+				float: left;
+				margin-top: 5px;
+				background-color: #efefef;
+				border-radius: 15px;
+				border: 1px solid #bab9b7;
+				position: relative;
+			}
+			/*tag的颜色*/
+			
+			.tag1 {
+				color: #fe9d9e;
+				border: 1px solid #fe9d9e;
+			}
+			
+			.tag2 {
+				color: #73cfff;
+				border: 1px solid #73cfff;
+			}
+			
+			.tag3 {
+				color: #ffa773;
+				border: 1px solid #ffa773;
+			}
+			
+			.tag4 {
+				color: #5dc3ba;
+				border: 1px solid #5dc3ba;
+			}
+			
+			.tag5 {
+				color: #cb97f9;
+				border: 1px solid #cb97f9;
+			}
+			
+			.tag6 {
+				color: #ff84b5;
+				border: 1px solid #ff84b5;
+			}
+			
+			.tag7 {
+				color: #26aa12;
+				border: 1px solid #26aa12;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+				margin-top: 1px;
+				padding-top: 1px
+			}
+			
+			.wuwifi {
+				width: 100%;
+				height: 200px;
+				background: url(images/wuwifi.png) center center no-repeat;
+				background-size:20% 20%;
+				display: none;
+				text-align: center;
+				line-height: 300px;
+			}
+			/*.mui-backdrop1{
+				background:blanchedalmond;
+				height:1000px;
+				z-index: 1000;
+			}*/
+			
+		</style>
+	</head>
+
+	<body ng-controller="myCtrl">
+		<header id="header" class="mui-bar mui-bar-nav header-top" style="position:fixed;z-index: 3;background:#fff;">
+			<!--<a href="app/login/bianji_delete.html"><h1 class="mui-title">蓝泽信息</h1></a>-->
+
+			<div class="selectcity" style="width:25%;display:block;float:left;" id="quanguo">
+				<div ng-bind='city' id="area" style="padding-left:8px;color:#26aa12;font-weight:500;float:left;font-size:18px;line-height: 44px;width:50px ;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+					
+				</div>
+				<span class="mui-icon mui-icon-arrowdown" style="color:#26aa12;font-weight:bold;"></span>
+				<!--<div style="width:12px;height:100%;float:left;padding-left:2px;padding-top:11px;box-sizing: content-box;">
+							<img id="quanguo_img" src="images/xiala.png" style="width:100%;" alt="" />
+						</div>-->
+			</div>
+
+			<div class="search">
+				<div style="position: absolute;left:14px;top:9px;width:19px;height:16px;background-image: url(images/sousuo.png);background-repeat: no-repeat;background-size: 19px 16px;">
+
+				</div>
+				<p style="position: absolute;left:40px;top:7px;">职位,企业名</p>
+			</div>
+
+			<div style="width:25%;float:left;overflow: hidden;">
+				<div class="mfzp" id="zhaopin" style="float:right;font-size:16px;line-height: 44px;color:#26aa12;font-weight:500;">
+					免费招聘
+				</div>
+				<div id="fanhuidingbu" style="display:none;float:right;font-size:16px;line-height: 44px;color:#26aa12;font-weight:500;">
+					返回顶部
+				</div>
+			</div>
+		</header>
+
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen cjs">
+				<!--<div id="slider" class="mui-slider" style="height:120px;">
+							<img src="images/beijing.png" style="height:120px;width:100% ;"/>
+					</div>-->
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-slider" style="height:120px; background: url(images/beijing.png) center center no-repeat;background-size:100% 100%;">
+
+									<div class="mui-slider-group mui-slider-loop">
+										<!--第一个内容区容器-->
+										<div class="mui-slider-item mui-slider-item-duplicate">
+											<!-- 具体内容 -->
+											<img class="lbimg" data-job='{{lunbo.siled[4].jid}}' data-isgot='{{lunbo.siled[4].isgot}}' ng-src="{{imgurl+lunbo.siled[4].img}}" alt="" />
+										</div>
+										<div class="mui-slider-item" ng-repeat="lb in lunbo.siled">
+											<!-- 具体内容 -->
+											<img class="lbimg" data-job='{{lb.jid}}' data-isgot='{{lb.isgot}}' ng-src="{{imgurl+lb.img}}" alt="" />
+										</div>
+										<div class="mui-slider-item mui-slider-item-duplicate">
+											<!-- 具体内容 -->
+											<img class="lbimg" data-job='{{lunbo.siled[0].jid}}' data-isgot='{{lunbo.siled[0].isgot}}' ng-src="{{imgurl+lunbo.siled[0].img}}" alt="" />
+										</div>
+
+									</div>
+
+									<div class="mui-slider-indicator">
+
+										<div class="mui-indicator" ng-repeat='lb in lunbo.siled'></div>
+									</div>
+								</div>
+
+								<div class="mui-content zhe" style="padding:0;background-color: #fff;margin-top: 0px;" id="circle">
+									<ul class="mui-table-view mui-grid-view mui-grid-9" style="margin:0;">
+										<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 kuaisu" style="padding:10px 0px;">
+
+											<span class="kuaisu"></span>
+											<div class="mui-media-body" style="text-overflow: initial;">快速入职</div>
+
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 fujin" style="padding:10px 0px;">
+
+											<span class="fujin"></span>
+											<div class="mui-media-body" style="text-overflow: initial;">附近职位</div>
+
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mingqing" style="padding:10px 0px;">
+
+											<span class="mingqi"></span>
+											<div class="mui-media-body" style="text-overflow: initial;">名企推荐</div>
+
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 zhichang" style="padding:10px 0px;">
+
+											<span class="zixun"></span>
+											<div class="mui-media-body" style="text-overflow: initial;">职场分类</div>
+
+										</li>
+									</ul>
+								</div>
+
+								<!--四个小圆图标-->
+
+								<!--筛选框-->
+								<div style="height:44px;position: relative;background: #fff;margin-top:3px;" id="selector" class="fuwu">
+									<!--下拉框-->
+
+									<!--区域-->
+									<div id="selector1" class="xian1 sxup" style="width:25%;height:44px;float: left;background-color:#fff;line-height: 44px;font-size:13px;padding-left:21px;box-sizing: border-box">
+										<div class="sel-text" style="float:left;" id="quyu" ng-bind='sxquyu'>
+											区域
+										</div>
+										<div id="adown" class="mui-icon mui-icon-arrowdown" style="font-size:20px;color:#26aa12;font-weight:bold;"></div>
+									</div>
+									<!--职位-->
+									<div id="selector2" class="xian2 sxup" style="width:25%;height:44px;float: left;background-color:#fff;line-height: 44px;font-size:13px;padding-left:21px;box-sizing: border-box">
+										<div class="sel-text" style="float:left;" id="zhiwei" ng-bind="sxzhiwei">
+											职位
+										</div>
+										<div class="mui-icon mui-icon-arrowdown" style="font-size:20px;color:#26aa12;font-weight:bold;"></div>
+									</div>
+									<!--薪资-->
+									<div id="selector3" class="xian3 sxup" style="width:25%;height:44px;float: left;background-color:#fff;line-height: 44px;font-size:13px;padding-left:21px;box-sizing: border-box">
+										<div class="sel-text" style="float:left;" id="xinzi" ng-bind="sxxinzi">
+											薪资
+										</div>
+										<div class="mui-icon mui-icon-arrowdown" style="font-size:20px;color:#26aa12;font-weight:bold;"></div>
+									</div>
+									<!--福利-->
+									<div id="selector4" class="xian4 sxup" style="width:25%;height:44px;float: left;background-color:#fff;line-height: 44px;font-size:13px;padding-left:21px;box-sizing: border-box">
+										<div class="sel-text" style="float:left;" id="fuli" ng-bind="sxfuli">
+											福利
+										</div>
+										<div class="mui-icon mui-icon-arrowdown" style="font-size:20px;color:#26aa12;font-weight:bold;"></div>
+										<!--<div class="sel-img" style="padding-left:6px;float: left;">
+											<img src="images/xiala.png" class="tu4" style="width:14px;height:10px;" alt="">
+										</div>-->
+									</div>
+
+									<!--模态框-->
+
+									<div id="popover" class="mui-popover pdiqu">
+										<div class="mui-popover-arrow"></div>
+
+										<div class="mui-scroll-wrapper1" style="background:#fff;height:80px;margin-top:-3px;overflow:hidden;border-radius: 0px;">
+											<div class="mui-scroll1 sx" style="padding:10px;">
+												<div class="sx">
+													<div ng-click="sxtj(this)" ng-click='sxbtn1(this)' data-bx="bx" class="sxbtn1">不限</div>
+													<div ng-click="sxtj(this)" class="sxbtn1" ng-repeat="x in quyu" ng-bind='x.categoryname'></div>
+
+												</div>
+
+											</div>
+										</div>
+										<div class="msk">
+
+										</div>
+									</div>
+									<div id="popover" class="mui-popover pzhiwei">
+										<div class="mui-popover-arrow"></div>
+
+										<div class="mui-scroll-wrapper1" style="background:#fff;height:80px;margin-top:-3px;overflow:hidden;border-radius: 0px;">
+											<div class="mui-scroll1 sx" style="padding:10px;">
+
+												<div class="sx" style="overflow: hidden;">
+													<div ng-click="sxzw(this)" class="sxbtn2">不限</div>
+													<div ng-click="sxzw(this)" class="sxbtn2" ng-repeat="x in zhiwei" ng-bind='x.categoryname'></div>
+
+												</div>
+
+											</div>
+
+										</div>
+										<div class="msk">
+
+										</div>
+									</div>
+									<div id="popover" class="mui-popover pxinzi">
+										<div class="mui-popover-arrow"></div>
+
+										<div class="mui-scroll-wrapper1" style="background:#fff;height:80px;margin-top:-3px;overflow:hidden;border-radius: 0px;">
+											<div class="mui-scroll1 sx" style="padding:10px;">
+
+												<div class="sx" style="overflow: hidden;">
+													<div ng-click="sxxz(this)" class="sxbtn3">不限</div>
+													<div ng-click="sxxz(this)" class="sxbtn3" ng-repeat="x in xinzi" ng-bind='x.c_name'></div>
+
+												</div>
+
+											</div>
+
+										</div>
+										<div class="msk">
+
+										</div>
+									</div>
+									<div id="popover" class="mui-popover pfuli">
+										<div class="mui-popover-arrow"></div>
+
+										<div class="mui-scroll-wrapper1" style="background:#fff;height:80px;margin-top:-3px;overflow:hidden;border-radius: 0px;">
+											<div class="mui-scroll1 sx" style="padding:10px;">
+
+												<div class="sx" style="overflow: hidden">
+													<div ng-click="sxfl(this)" class="sxbtn4">不限</div>
+													<div ng-click="sxfl(this)" class="sxbtn4" ng-repeat="x in fuli" ng-bind='x.c_name'></div>
+
+												</div>
+
+											</div>
+
+										</div>
+										<div class="msk">
+
+										</div>
+									</div>
+
+								</div>
+								<div class="wuwifi">
+									您的网络断开了~
+								</div>
+								<ul class="mui-table-view wifiul" style="background:#f5f4f4;">
+									<li class="mui-table-view-cell jobdet" style="width:100%;padding-left:3px;padding-bottom:1px;padding-top:6px;margin-top:3px;background:#fff;" ng-repeat="(k,x) in data" ng-click="jobdet(this,e)" data-id="{{x.jid}}">
+										<div style="padding:3px 0;">
+
+											<div style="width:23%;float:left;padding-right:10px;">
+												<img class="allimg" ng-src="{{imgurl+x.logo}}" style="margin-left: 5px;width:100%;height:62px;border-radius: 8px;">
+
+											</div>
+
+											<div class="" style="float:left;width:77%;">
+												<div class="" style="width:100%">
+
+													<div class="">
+														<div class="" style="font-weight:700;font-size:14px;padding-bottom:10px;line-height: 14px;" ng-bind="x.jobs_name"></div>
+													</div>
+													<div class="" style="position: relative;font-size:14px;padding-bottom: 7px;line-height: 12px;">
+														<div class="" style="color:#737373;" ng-bind="x.category_cn"></div>
+														<div class="" style="color:#26aa12;font-size:1.2em;position:absolute;right:0px;top:0;" ng-bind="x.minwage + '-' + x.maxwage"></div>
+													</div>
+													<!--<span ng-if="k<5" class="" style="color:white;display: inline-block;width: 40px;height:17px;text-align:center;font-size:10px;border-bottom-left-radius:3px;border-top-left-radius: 3px;font-weight:400;position: absolute;top:8px;right:0px;background: #ff7113;">急招</span>-->
+													<div class="" style="position:relative;font-size:10px;">
+														<div class="">
+															<span ng-repeat="(k,y) in x.tag" ng-class="setStyle(y)" ng-if="k<3" style="font-size:10px;line-height: 12px;height:16px;padding:2px 4px;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 5px;margin-right:3px;" ng-bind="y"></span>
+														</div>
+														<div class="" style="position: absolute;right:0px;bottom:0px;" ng-bind="x.district_cn"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/factory.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<script>
+			mui.init({})
+			angular.module('indexCtr', ['myApp'])
+				.controller('myCtrl',
+					function($scope, $http, $data) {
+
+						mui('.mui-scroll-wrapper1').scroll({
+							bounce: false,
+							indicators: true, //是否显示滚动条
+							scrollY: true, //是否竖向滚动
+							scrollX: false, //是否横向滚动
+							startX: 0, //初始化时滚动至x
+							startY: -0, //初始化时滚动至y
+						});
+
+						var page = 1;
+						var did = '';
+						var zid = '';
+						var xid = '';
+						var fid = '';
+						var end;
+						(function($) {
+							//阻尼系数
+							var deceleration = mui.os.ios ? 0.001 : 0.0003;
+							$('.mui-scroll-wrapper').scroll({
+								bounce: false,
+								indicators: false, //是否显示滚动条
+								scrollY: true, //是否竖向滚动
+								deceleration: deceleration,
+								scrollX: true, //是否横向滚动
+								startX: 0, //初始化时滚动至x
+								startY: 0, //初始化时滚动至y
+							});
+							//返回顶部
+							var fanhuidingbu = document.querySelector('#fanhuidingbu');
+							var zhaopin = document.querySelector('#zhaopin');
+							var scroll = $('.mui-scroll-wrapper').scroll();
+							document.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
+								//				console.log(scroll.y);
+								if(scroll.y > -800) {
+									fanhuidingbu.style.display = "none";
+									zhaopin.style.display = "block";
+								} else {
+									fanhuidingbu.style.display = "block";
+									zhaopin.style.display = "none";
+
+								}
+							})
+							$(document.body).on('tap', '#fanhuidingbu', function() {
+								$('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 2000); //100毫秒滚动到顶
+							})
+							end = false;
+							$.ready(function() {
+								//循环初始化所有下拉刷新，上拉加载。
+								$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+									$(pullRefreshEl).pullToRefresh({
+										down: {
+											callback: function() {
+												var self = this;
+												setTimeout(function() {
+
+													page = 1;
+													xr(page);
+													self.endPullDownToRefresh();
+												}, 1500);
+											}
+										},
+										up: {
+											callback: function() {
+												var self = this;
+
+												setTimeout(function() {
+
+													page++;
+													$data.indexdata(page).success(function(response) {
+														//														console.log(JSON.stringify(response.data.length));
+
+														var data = response.data;
+														if(data.length == 0) end = true;
+
+														for(var i = 0; i < data.length; i++) {
+															$scope.data.push(data[i]);
+														}
+
+														//						$scope.tag=response.data.tag;
+														//						console.log(response.data.tag);
+														//						console.log($scope.classname2)
+													});
+													//													console.log(end);
+													self.endPullUpToRefresh(end);
+												}, 1000);
+											}
+										}
+									});
+								});
+
+							});
+						})(mui);
+						window.addEventListener('zlisindex', function(e) {
+							//在父页面中添加监听事件，刷新页面
+							//							console.log(11);
+
+							var cityid = localStorage.getItem('cityid');
+							$data.indexquyu(cityid).success(function(response) {
+								//console.log(JSON.stringify(response));
+								$scope.city = localStorage.getItem('cityName');
+								$scope.quyu = response.data;
+
+							});
+
+						});
+
+						//轮播图点击事件
+						mui(document.body).on('tap', '.lbimg', function() {
+
+							if(this.getAttribute("data-isgot") == 2) {
+								mui.openWindow({
+									url: 'app/tianzhuan/tiaozhuan.html',
+									id: 'tiaozhuan',
+									createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									waiting: {
+										autoShow: false, //自动显示等待框，默认为true
+
+									}
+								})
+							} else {
+								localStorage.setItem('jid', this.getAttribute("data-job"));
+								mui.openWindow({
+									url: 'app/job/job.html',
+									id: 'job',
+									createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									waiting: {
+										autoShow: true, //自动显示等待框，默认为true
+										title: '正在加载...', //等待对话框上显示的提示内容
+									}
+								})
+							}
+
+						})
+						//职场分类
+						mui(document.body).on('tap', '.zhichang', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/circle/zhichang/zhichang.html',
+								id: 'zhichang.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//名企推荐
+						mui(document.body).on('tap', '.mingqi', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/circle/mingqi/famousenterprise.html',
+								id: 'famousenterprise.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//附近职位
+						mui(document.body).on('tap', '.fujin', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/circle/fujin/fujin.html',
+								id: 'fujin.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//快速入职
+						mui(document.body).on('tap', '.kuaisu', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/circle/kuaisu/kuaisu.html',
+								id: 'kuaisu.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//搜索
+						mui(document.body).on('tap', '.selectcity', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/citylist/citylist.html',
+								id: 'citylist.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//免费招聘
+						mui(document.body).on('tap', '.mfzp', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/zhaopin/zhao.html',
+								id: 'zhao.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+							})
+						})
+						//城市选择
+						mui(document.body).on('tap', '.search', function() {
+
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/search/search.html',
+								id: 'search.html',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+							})
+						})
+						//职位详情
+						mui('.mui-table-view').on('tap', '.jobdet', function() {
+
+							var jid = this.getAttribute('data-id');
+
+							localStorage.setItem('jid', jid);
+							//					alert(this.x.jid);
+							mui.openWindow({
+								url: 'app/job/job.html',
+								id: 'job',
+								createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+
+							})
+						})
+						//判断wifi
+						var wuwifi = document.querySelector('.wuwifi');
+						var wifiul = document.querySelector('.wifiul');
+						var tips=document.querySelector('.mui-pull-bottom-tips');
+
+						mui.plusReady(function() {
+							plus.navigator.closeSplashscreen();
+							var nt = plus.networkinfo.getCurrentType();
+							switch(nt) {　　　　
+								case plus.networkinfo.CONNECTION_ETHERNET:
+									　　　　
+								case plus.networkinfo.CONNECTION_WIFI:
+									wifiul.style.display = 'block';
+									wuwifi.style.display = 'none';
+									tips.style.display = 'block';　　　　
+									break;　　　　
+								case plus.networkinfo.CONNECTION_CELL2G:
+									　　　　
+								case plus.networkinfo.CONNECTION_CELL3G:
+									　　　　
+								case plus.networkinfo.CONNECTION_CELL4G:
+									　　　　　　mui.toast("当前网络非WiFi");　　　　　　
+									break;　　　　
+								default:
+									wifiul.style.display = 'none';
+									wuwifi.style.display = 'block';
+									tips.style.display = 'none';　　
+									mui.toast("当前没有网络");　　　　　　
+									break;　　
+							}
+							document.addEventListener("netchange", onNetChange, false);
+
+							function onNetChange() {
+
+								var nt = plus.networkinfo.getCurrentType();
+								switch(nt) {　　　　
+									case plus.networkinfo.CONNECTION_ETHERNET:
+										　　　　
+									case plus.networkinfo.CONNECTION_WIFI:
+										wifiul.style.display = 'block';
+										wuwifi.style.display = 'none';
+										tips.style.display = 'block';
+										var indexre=plus.webview.getWebviewById('index1.html');
+										var comre=plus.webview.getWebviewById('community.html');
+										var xiaoxire=plus.webview.getWebviewById('xiaoxi.html');
+										var wodere=plus.webview.getWebviewById('wode.html');
+										indexre.reload();　
+										wodere.reload();
+										xiaoxire.reload();
+										comre.reload();　　　　
+										break;　　　　
+									case plus.networkinfo.CONNECTION_CELL2G:
+										　　　　
+									case plus.networkinfo.CONNECTION_CELL3G:
+										　　　　
+									case plus.networkinfo.CONNECTION_CELL4G:
+										　　　　　　mui.toast("当前网络非WiFi");　　　　　　
+										break;　　　　
+									default:
+										wifiul.style.display = 'none';
+										wuwifi.style.display = 'block';
+										tips.style.display = 'none';
+										
+										mui.toast("当前没有网络");　　　　　　
+										break;　　
+								}
+							}
+
+						})
+
+						//渲染
+						xr(page);
+
+						function xr(page) {
+							$data.indexdata(page).success(function(response) {
+								//							console.log(JSON.stringify(response));
+								$scope.data = response.data;
+								$scope.imgurl = $$$.imgurl;
+								$scope.imgshow = true;
+								$scope.sxquyu = '区域';
+								$scope.sxzhiwei = '职位';
+								$scope.sxxinzi = '薪资';
+								$scope.sxfuli = '福利';
+								$scope.city = localStorage.getItem('cityName');
+								//								console.log(localStorage.getItem('cityName'));
+								//								console.log(localStorage.getItem('cityName'));
+								if(localStorage.getItem('cityName') == null) {
+
+									$scope.city = '青岛';
+
+								}
+								//								console.log($scope.data[1].tag);
+								$scope.setStyle = function(y) {
+
+									if(y == '年终奖') return 'tag1';
+
+									else if(y == '工作餐')
+										return 'tag2';
+									else if(y == '五险一金')
+										return 'tag3';
+									else if(y == '长白班')
+										return 'tag4';
+									else if(y == '两班倒')
+										return 'tag5';
+									else if(y == '双休')
+										return 'tag6';
+									else if(y == '工作轻松')
+										return 'tag3';
+									else if(y == '单休')
+										return 'tag4';
+									else if(y == '恒温车间')
+										return 'tag5';
+									else if(y == '坐着上班')
+										return 'tag5';
+									else
+										return 'tag7';
+
+								};
+
+							});
+
+						}
+
+						//筛选渲染
+						if(localStorage.getItem('cityName') == null) {
+
+							var cityid = 805;
+						} else {
+							var cityid = localStorage.getItem('cityid');
+						}
+
+						//						console.log(cityid);
+						$data.indexquyu(cityid).success(function(response) {
+							//							console.log(JSON.stringify(response.data));
+							$scope.quyu = response.data;
+							//							console.log($scope.quyu[0].categoryname);
+
+						});
+						$data.indexzhiwei().success(function(response) {
+							//							console.log(JSON.stringify(response));
+							$scope.zhiwei = response.zhiwei;
+							//								console.log(response.zhiwei.length);
+							//								for(var i=0;i<response.zhiwei.length;i++){
+							//									console.log(response.zhiwei[i].categoryname);
+							//								}
+
+						});
+						$data.indexxinzi().success(function(response) {
+							//							console.log(JSON.stringify(response));
+							$scope.xinzi = response.wge;
+
+							//								console.log(JSON.stringify(response.wge[1].c_name));
+
+						});
+						$data.indexfuli().success(function(response) {
+							//							console.log(JSON.stringify(response));
+							$scope.fuli = response.welfare;
+
+						});
+						//						document.querySelectorAll('.sx').nextElementSibling.remove();
+
+						mui('#selector').on('tap', '.xian1', function() {
+
+							//							mui(".pzhiwei").popover("hide");
+							//							mui(".pxinzi").popover("hide");
+							//							mui(".pfuli").popover("hide");
+							//							sxhuifu();
+							//							
+
+							sxhuifu(this);
+							mui(".pdiqu").popover("toggle");
+
+						})
+
+						mui('#selector').on('tap', '.xian2', function() {
+							//							mui(".pdiqu").popover("hide");
+							//
+							//							mui(".pxinzi").popover("hide");
+							//							mui(".pfuli").popover("hide");
+							sxhuifu(this);
+
+							mui(".pzhiwei").popover("toggle");
+						})
+						mui('#selector').on('tap', '.xian3', function() {
+							//							mui(".pdiqu").popover("hide");
+							//							mui(".pzhiwei").popover("hide");
+							//
+							//							mui(".pfuli").popover("hide");
+							sxhuifu(this);
+
+							mui(".pxinzi").popover("toggle");
+						})
+						mui('#selector').on('tap', '.xian4', function() {
+							//							mui(".pdiqu").popover("hide");
+							//							mui(".pzhiwei").popover("hide");
+							//							mui(".pxinzi").popover("hide");
+							sxhuifu(this);
+
+							mui(".pfuli").popover("toggle");
+						})
+						var sxup = document.querySelectorAll('.sxup');
+
+						mui(document.body).on('tap', '.msk', function() {
+							allsxhuifu();
+							mui(".pdiqu").popover("hide");
+							mui(".pzhiwei").popover("hide");
+							mui(".pxinzi").popover("hide");
+							mui(".pfuli").popover("hide");
+						});
+						mui(document.body).on('touchmove', '.msk', function() {
+							allsxhuifu();
+							mui(".pdiqu").popover("hide");
+							mui(".pzhiwei").popover("hide");
+							mui(".pxinzi").popover("hide");
+							mui(".pfuli").popover("hide");
+						});
+						//筛选的点击事件
+						mui(document.body).on('tap', '.sxbtn1', function() {
+
+							if(this.innerHTML == '不限') {
+								$scope.sxquyu = '区域';
+								did = '';
+							} else {
+								$scope.sxquyu = this.innerHTML;
+								localStorage.setItem('sel_did', this.innerHTML);
+								did = '&dist=' + localStorage.getItem('sel_did');
+								console.log(did);
+
+							}
+
+							$data.indexshaixuan(did, zid, xid, fid).success(function(response) {
+								console.log(JSON.stringify(response));
+								$scope.data = response.data;
+
+							})
+							allsxhuifu();
+							mui(".pdiqu").popover("hide");
+						})
+						mui(document.body).on('tap', '.sxbtn2', function() {
+
+							//						console.log(this.x.categoryname);
+							if(this.innerHTML == '不限') {
+								$scope.sxzhiwei = '职位';
+								zid = '';
+							} else {
+								$scope.sxzhiwei = this.innerHTML;
+								localStorage.setItem('sel_zid', this.innerHTML);
+								zid = '&job=' + localStorage.getItem('sel_zid');
+								//								console.log(zid);
+
+							}
+							$data.indexshaixuan(did, zid, xid, fid).success(function(response) {
+								console.log(JSON.stringify(response));
+								$scope.data = response.data;
+
+							})
+							allsxhuifu();
+							mui(".pzhiwei").popover("hide");
+						})
+						mui(document.body).on('tap', '.sxbtn3', function() {
+
+							//						console.log(this.x.categoryname);
+							if(this.innerHTML == '不限') {
+								$scope.sxxinzi = '薪资';
+								xid = '';
+							} else {
+								$scope.sxxinzi = this.innerHTML;
+								localStorage.setItem('sel_xid', this.innerHTML);
+								var regxid = localStorage.getItem('sel_xid');
+								var re = /([0-9]+)([0-9]+)/g;
+								min = regxid.match(re)[0];
+								max = regxid.match(re)[1];
+								console.log(min);
+								xid = '&min=' + min + '&max=' + max;
+								//							console.log(did);
+								//							console.log(zid);
+								//							console.log(xid);
+
+							}
+							$data.indexshaixuan(did, zid, xid, fid).success(function(response) {
+								console.log(JSON.stringify(response));
+								$scope.data = response.data;
+							})
+							allsxhuifu();
+							mui(".pxinzi").popover("hide");
+						})
+						mui(document.body).on('tap', '.sxbtn4', function() {
+
+							//						console.log(this.x.categoryname);
+							if(this.innerHTML == '不限') {
+								$scope.sxfuli = '福利';
+								fid = '';
+							} else {
+								$scope.sxfuli = this.innerHTML;
+								localStorage.setItem('sel_fid', this.innerHTML);
+								fid = '&welfare=' + localStorage.getItem('sel_fid');
+								console.log(fid);
+
+							}
+							$data.indexshaixuan(did, zid, xid, fid).success(function(response) {
+								console.log(JSON.stringify(response));
+								$scope.data = response.data;
+							})
+							allsxhuifu();
+							mui(".pfuli").popover("hide");
+						})
+
+						function sxhuifu(a) {
+							for(var i = 0; i < 4; i++) {
+								//								sxup[i].children[1].className = "mui-icon mui-icon-arrowdown";
+								if(sxup[i] == a) {
+									if(a.children[1].className == "mui-icon mui-icon-arrowdown") {
+										//								alert(this.children[1].className);
+										a.children[1].className = "mui-icon mui-icon-arrowup"
+									} else if(a.children[1].className == "mui-icon mui-icon-arrowup") {
+
+										a.children[1].className = "mui-icon mui-icon-arrowdown"
+									}
+								} else {
+									sxup[i].children[1].className = "mui-icon mui-icon-arrowdown"
+								}
+							}
+						}
+
+						function allsxhuifu() {
+							for(var i = 0; i < 4; i++) {
+
+								sxup[i].children[1].className = "mui-icon mui-icon-arrowdown"
+
+							}
+						}
+						//轮播图
+						$data.indexlunbo().success(function(response) {
+							//							console.log(JSON.stringify(response));
+							$scope.lunbo = response.data;
+							//							console.log($scope.lunbo.siled[1]);
+							//						$scope.tag=response.data.tag;
+							//						console.log(response.data.tag);
+							//						console.log($scope.classname2)
+						});
+						mui.plusReady(function() {
+							//获得slider插件对象
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+							});
+						});
+
+					})
+			//关闭启动页
+			mui.plusReady(function() {
+				plus.navigator.closeSplashscreen();
+			})
+		</script>
+	</body>
+
+</html>

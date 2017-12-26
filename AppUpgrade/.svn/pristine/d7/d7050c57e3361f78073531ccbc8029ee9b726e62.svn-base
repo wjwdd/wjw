@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css" />-->
+	</head>
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+		
+		<style type="text/css">
+		/*头部区域*/
+		
+		.mui-bar {
+			background-color: #5CA8FC;
+		}
+		
+		.mui-bar .mui-icon:active {
+			opacity: 1;
+		}
+		/*内容区域*/
+		
+		.mui-card {
+			margin: 0;
+			margin-bottom: 10px;
+		}
+		
+		.mui-card-footer:before,
+		.mui-card-header:after {
+			background-color: #fff;
+		}
+		
+		.mui-card-footer:before {
+			position: static;
+		}
+		/*图片*/
+		
+		.smallul {
+			padding: 0;
+			/*background-color: #ccc;*/
+			width: 100%;
+			box-sizing: border-box;
+		}
+		
+		.smallul::after,
+		.smallul::before {
+			content: ' ';
+			height: 0;
+			visibility: hidden;
+			display: block;
+			clear: both;
+		}
+		
+		.smallul li {
+			list-style: none;
+			float: left;
+			width: 32%;
+			margin-right: 1%;
+			margin-bottom: 10px;
+			height: 110px;
+			background-color: #fff;
+			border: 1px solid #ededed;
+		}
+		
+		@media screen and (min-width: 768px) {
+			.smallul li {
+				width: 13%;
+				margin-right: 1%;
+			}
+		}
+		
+		#footer {
+			position: fixed;
+			top: 44px;
+			background-color: #fff;
+		}
+		
+		.cheng {
+			width: 100%;
+			height: 88px;
+		}
+		
+		.mui-control-content {
+			position: relative;
+			display: block;
+		}
+		
+		.block {
+			float: left;
+			list-style: none;
+			width: 50%;
+		}
+		
+		#content {
+			width: 200%;
+			padding-left: 0;
+			background-color: #fff;
+			margin-top: 5px;
+		}
+		
+		#sliderSegmentedControl {
+			//margin-top: 45px;
+		}
+		
+		.mui-control-content {
+			background-color: white;
+			min-height: 215px;
+		}
+		
+		.mui-control-content .mui-loading {
+			margin-top: 50px;
+		}
+		/*#item1mobile {
+				overflow：scroll;
+			}*/
+		
+		.mui-table-view-cell {
+			/*background: red;*/
+		}
+		
+		#bigtabar {
+			height: 100%;
+			overflow: auto;
+			/*background-color: red;*/
+			/*overflow：hidden;*/
+		}
+		
+		#bigtabar2 {
+			height: 100%;
+			overflow: auto;
+			/*background-color: red;*/
+			/*overflow：hidden;*/
+		}
+		
+		.rome {
+			//background-color: red;
+		}
+		
+		.fl {
+			float: left;
+		}
+		
+		.fr {
+			float: right;
+		}
+		
+		.clear {
+			clear: both;
+		}
+		
+		.top {
+			padding-top: 55px;
+			padding-bottom: 15px;
+			position: relative;
+		}
+		
+		.fabu {
+			width: 50%;
+			text-align: center;
+			color: deepskyblue;
+		}
+		
+		.canyu {
+			width: 50%;
+			text-align: center;
+		}
+		
+		.think {
+			height: 2px;
+			width: 50%;
+			background-color: deepskyblue;
+			position: absolute;
+			top: 89px;
+			left: 0;
+			/*display: none;*/
+		}
+		
+		.think2 {
+			height: 2px;
+			width: 50%;
+			background-color: deepskyblue;
+			position: absolute;
+			top: 89px;
+			right: 0;
+			display: none;
+		}
+		
+		.tiaozhuan {
+			position: fixed;
+			top: 9px;
+			left: 13px;
+			z-index: 20;
+			/*background-color: red;*/
+		}
+		.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{
+			background-color:#26AA12;
+		}
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+			color:#26AA12;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #fff;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #22aa12;"></a>
+			<h1 class="mui-title" style="color: #000;">社区动态</h1>
+		</header>
+		<div class="mui-content" style="height:100%;">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile" style="border-right:1px solid #ccc;">
+						我发布的
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						我参与的
+					</a>
+
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group" id="msgheight">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view  refreshContainer" id="bigtabar">
+
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view  refreshContainer" id="bigtabar2">
+
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+
+			//我发发布的
+			mui.ajax($$$.siturl + 'm=App&c=Mydis&a=MyTopic&page=1', {
+				type: 'get',
+				data: {},
+				dataType: 'json',
+				success: function(data) {
+					//mui.alert(JSON.stringify(data));
+					new CreatList({
+						id: "bigtabar",
+						evclass: 'tourl',
+						data: data.data,
+					})
+				},
+				error: function(xht, err) {
+					//						mui.alert(xht);
+				}
+			});
+
+			// 函数定义、我发布的数据列表
+			function CreatList(option) {
+				this.id = option.id || 'work_detail';
+				this.bg = option.bg || '#fff';
+				this.data = option.data;
+				this.evclass = option.evclass;
+				this.init();
+
+			}
+			CreatList.prototype = {
+				init: function() {
+					this.insert();
+				},
+				getData: function() {
+					var datali = this.data;
+					var ary = new Array();
+					return datali;
+				},
+				creat: function() {
+					var res = "";
+					(function($) {
+						for(var i = 0; i < $.length; i++) {
+
+							var img = $[i].reply.img;
+							var lis = "";
+							if(img != null) {
+								//alert(img.length)	
+								for(var j = 0; j < img.length; j++) {
+									lis += '<li><img src="' + $$$.imgurl + img[j] + ' " style="width: 100%;height: 100%; " /></li>';
+								};
+
+							}
+							res += '<li class="mui-table-view-cell jok" onclick="gocomdetal(this)" data-id="' + $[i].id + '">';
+							res += '<div class="" id="tabbar">';
+							res += '	<!--页眉，放置标题-->';
+							res += '	<div class="mui-card-header mui-card-media" >';
+							res += '		<img style="width: 42px;height:42px;border-radius: 21px; " src="' + $$$.imgurl + $[i].avatar + '" />';
+							res += '		<div class="mui-media-body " style="position:reletive;color: #22aa12;font-size: 15px;margin-left: 58px; ">';
+							res += $[i].uidname;
+							res += '			<p style="color: #646464;font-size: 8px;padding-top: 13px; ">' + $[i].addtimen + '</p>';
+
+							// 删除按钮
+							res += '<div onclick="goDel(this,event)" style="width:50px;height:50px;color: #22aa12;position:absolute;top:10px;right:10px;"><span class="mui-icon mui-icon mui-icon-trash rome" ></span>';
+
+							res += '</div>';
+
+							res += '	</div>';
+
+							res += '	<!--内容区-->';
+							res += '	<div class="mui-card-content " style="padding-left: 0px;padding-top:10px; ">';
+							res += '		<p style="font-size: 13px;color: #323232; ">' + $[i].content + '</p>';
+							res += '		<ul class="smallul">';
+
+							res += lis;
+							res += '		</ul>';
+							res += '	</div>';
+							res += '	<!--页脚，放置补充信息或支持的操作-->';
+							res += '	<div class="mui-card-footer ">';
+							res += '		<div class="zanping " style="float:right; ">';
+							res += '			<img src="images/pinglun.png " style="width: 16px;height: 15px;margin-right: 7px; " />';
+							res += '			<span id=" " style="padding-right: 40px; ">' + $[i].replucont + '</span>';
+							res += '			<img src="images/dianzan.png " style="width: 16px;height: 15px;margin-right: 7px; " />';
+							res += '			<span id=" " style="padding-right: 13px; ">' + $[i].onfabulous + '</span>';
+							res += '		</div>';
+							res += '	</div>';
+							res += '</div>';
+							res += '</li>';
+						}
+					})(this.getData())
+					return res;
+				},
+				insert: function() {
+
+					var ele = document.querySelector('#' + this.id);
+
+					var data = this.creat();
+
+					var div = document.createElement('div');
+					div.innerHTML = data;
+
+					if(ele.appendChild) {
+						ele.appendChild(div);
+					} else {
+						ele.append(div);
+					}
+				},
+			}
+
+			//我参与的
+
+			var html2 = '';
+			// 请求数据
+			mui.ajax($$$.siturl + 'm=App&c=Mydis&a=MyJoinTop&page=1', {
+				type: 'get',
+				data: {},
+				dataType: 'json',
+				success: function(data) {
+					//	console.log(JSON.stringify(data));
+					var datatohtml = document.querySelector("#bigtabar2");
+					datatohtml.innerHTML = CreaUlLi(data.data);
+
+				},
+				error: function(xht, err) {}
+			});
+
+			// 函数定义、我发布的数据列表
+			// 我参与的页面的数据
+			function CreaUlLi(data) {
+				var $ = data;
+				var res = '';
+				for(var i = 0; i < $.length; i++) {
+					var img = $[i].reply.img;
+					var lis = "";
+					if(img != null) {
+						for(var j = 0; j < img.length; j++) {
+							lis += '<li><img src="' + $$$.imgurl + img[j] + ' " style="width: 100%;height: 100%; " /></li>';
+						};
+					}
+					res += '<li class="mui-table-view-cell" style="list-style:none;" onclick="gocomdetal(this)" data-id="' + $[i].id + '">';
+					res += '<div class="" id="tabbar">';
+					res += '	<!--页眉，放置标题-->';
+					res += '	<div class="mui-card-header mui-card-media" >';
+					res += '		<img style="width: 42px;height:42px;border-radius: 21px; " src="' + $$$.imgurl + $[i].avatar + '" />';
+					res += '		<div class="mui-media-body " style="color: #5ca8fc;font-size: 15px;margin-left: 58px; ">';
+					res += $[i].uidname;
+					res += '			<p style="color: #646464;font-size: 8px;padding-top: 13px; ">' + $[i].addtimen + '</p>';
+					res += '		</div>';
+					res += '	</div>';
+					res += '	<!--内容区-->';
+					res += '	<div class="mui-card-content " style="padding-left: 13px; ">';
+					res += '		<p style="font-size: 13px;color: #323232; ">' + $[i].content + '</p>';
+					res += '		<ul class="smallul">';
+					res += lis;
+					res += '		</ul>';
+					res += '	</div>';
+					res += '	<!--页脚，放置补充信息或支持的操作-->';
+					res += '	<div class="mui-card-footer ">';
+					res += '		<div class="zanping " style="float:right; ">';
+					res += '			<img src="images/pinglun.png " style="width: 16px;height: 15px;margin-right: 7px; " />';
+					res += '			<span id=" " style="padding-right: 40px; ">' + $[i].replucont + '</span>';
+					res += '			<img src="images/dianzan.png " style="width: 16px;height: 15px;margin-right: 7px; " />';
+					res += '			<span id=" " style="padding-right: 13px; ">' + $[i].onfabulous + '</span>';
+					res += '		</div>';
+					res += '	</div>';
+					res += '</div>';
+					res += '</li>';
+				}
+				return res;
+			}
+		</script>
+		<script>
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: false //是否显示滚动条
+				});
+				var html2 = '';
+
+				var item2 = document.getElementById('item2mobile');
+
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if(e.detail.slideNumber === 1) {
+						if(item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = html2;
+							}, 500);
+						}
+					}
+				});
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if(this.checked) {
+						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+				var msgheight = document.querySelector('#msgheight');
+				msgheight.style.height = window.screen.availHeight - 100 + 'px';
+				//				console.log(msgheight.style.height);
+
+				//				
+			})(mui);
+		</script>
+	</body>
+
+</html>

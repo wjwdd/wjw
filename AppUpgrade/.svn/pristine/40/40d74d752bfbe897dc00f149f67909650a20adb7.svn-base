@@ -1,0 +1,41 @@
+	.tag1 {
+		color: #fe9d9e;
+		border: 1px solid #fe9d9e;
+	}
+	
+	.tag2 {
+		color: #73cfff;
+		border: 1px solid #73cfff;
+	}
+	
+	.tag3 {
+		color: #ffa773;
+		border: 1px solid #ffa773;
+	}
+	
+	.tag4 {
+		color: #5dc3ba;
+		border: 1px solid #5dc3ba;
+	}
+	
+	.tag5 {
+		color: #cb97f9;
+		border: 1px solid #cb97f9;
+	}
+	
+	.tag6 {
+		color: #ff84b5;
+		border: 1px solid #ff84b5;
+	}
+	
+	.tag7 {
+		color: #26aa12;
+		border: 1px solid #26aa12;
+	}
+	.wagecolor{
+		color:  #26aa12;
+	}
+	.dis{
+		color:#666666;
+		
+	}

@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				preloadPages: [{
+					url: 'index.html',
+					id: 'index',
+				}],
+
+			});
+
+			mui.plusReady(function() {
+				/**
+				 * 获取本地存储中launchFlag的值
+				 * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem
+				 * 若存在，说明不是首次启动，直接进入首页；
+				 * 若不存在，说明是首次启动，进入引导页；
+				 */
+				//				localStorage.setItem('cjs',plus.navigator.getStatusbarHeight());
+				var launchFlag = plus.storage.getItem("launchFlag");
+				//				console.log(launchFlag);
+				//				plus.push.createMessage('content');
+				var info = plus.push.getClientInfo();
+				console.log(JSON.stringify(info));
+				var Message = plus.push.getAllMessage();
+				//				console.log(JSON.stringify(Message));
+				var pushid = info.id;
+				var token = info.token;
+				var clientid = info.clientid;
+				var appid = info.appid;
+				var appkey = info.appkey;
+				var uid = localStorage.getItem('user_uid');
+				//				console.log(localStorage.getItem('user_uid'));
+				mui.ajax($$$.siturl + 'm=app&c=ac&a=getClicId', {
+					type: 'post',
+					dataType: 'json',
+					data: {
+						uid: uid,
+						id: pushid,
+						token: token,
+						clientid: clientid,
+						appid: appid,
+						appkey: appkey,
+					},
+					success: function(data) {
+						//						console.log(JSON.stringify(data));
+
+					}
+				})
+				//								launchFlag = true;
+				//				getPushInfo();
+				//				function getPushInfo() {
+				//					var info = plus.push.getClientInfo();
+				//					console.log("获取客户端推送标识信息：");
+				//					console.log("token: " + info.token);
+				//					console.log("clientid: " + info.clientid);
+				//					console.log("appid: " + info.appid);
+				//					console.log("appkey: " + info.appkey);
+				//				}
+				//				listAllPush();
+
+				function listAllPush() {
+					var msgs = null;
+					switch(plus.os.name) {
+						case "Android":
+							msgs = plus.push.getAllMessage();
+							break;
+						default:
+							break;
+					}
+					if(!msgs) {
+						outSet("此平台不支持枚举推送消息列表！");
+						return;
+					}
+					console.log("枚举消息列表（" + msgs.length + "）：");
+					for(var i in msgs) {
+						var msg = msgs[i];
+						console.log(i + ": " + msg.title + " - " + msg.content);
+					}
+				}
+				if(launchFlag) {
+
+					mui.openWindow({
+						url: "index.html",
+						id: "index",
+
+					});
+
+					//						var nwaiting = plus.nativeUI.showWaiting(); 
+					//						webviewShow = plus.webview.create(url);
+					//						var currentView = plus.webview.currentWebview();
+					//						currentView.show('slide-in-right', 300);
+					//						plus.nativeUI.closeWaiting();
+
+				} else {
+					mui.openWindow({
+						url: "guide.html",
+						id: "guide"
+					});
+				}
+			});
+
+			//自动登录
+			function recordUserMsg(data) {
+				localStorage.setItem('user_name', data.data.username);
+				localStorage.setItem('user_pass', data.data.pass);
+				localStorage.setItem('user_uid', data.data.uid);
+				localStorage.setItem('user_info', JSON.stringify(data.data));
+				var timestamp = Date.parse(new Date());
+				localStorage.setItem('time', timestamp);
+				localStorage.setItem('user_info_sess', JSON.stringify(data.data))
+			}
+			var login_uid = localStorage.getItem('user_name');
+			var login_pass = localStorage.getItem('user_pass');
+			if(login_uid != null || login_pass != null || login_uid != '' || login_pass != '') {
+				mui.ajax($$$.siturl + 'm=App&c=Mumber&a=logoin', {
+					type: 'post',
+					dataType: 'json',
+					data: {
+						uname: login_uid,
+						password: login_pass
+					},
+					success: function(data) {
+						//		                    	console.log(JSON.stringify(data));
+						if(data.staus == 0) {
+
+						} else if(data.staus == 1) {
+							recordUserMsg(data);
+						}
+
+					}
+				})
+			}
+
+			//			function plusReady() {
+			//				ws = plus.webview.currentWebview();
+			//				embed = plus.webview.getWebviewById('index');
+			//				embed.onloaded = embedLoaded;
+			//				
+			//			}
+			//			if(window.plus) {
+			//				plusReady();
+			//			} else {
+			//				document.addEventListener('plusready', plusReady, false);
+			//			}
+			//			// 页面加载完成事件回调函数
+			//			function embedLoaded(e) {
+			//				ws.append(embed);
+			//			}
+		</script>
+	</body>
+
+</html>

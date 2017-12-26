@@ -1,0 +1,4 @@
+#header2{
+			background:#fff;
+			-webkit-box-shadow: 0 1px 0px #d7d8d8;
+		}

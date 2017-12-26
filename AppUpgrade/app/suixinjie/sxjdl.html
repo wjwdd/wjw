@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body,.mui-content{
+			background:#fff;
+		}
+		.sxjz {
+			width: 100%;
+		}
+		
+		.renzheng {
+			width: 80%;
+			position: absolute;
+			bottom: 50px;
+			left: 10%;
+			width: 80%;
+			background: #26aa12;
+			border: 1px solid #26aa12;
+			line-height: 25px;
+			font-size: 17px;
+		}
+		
+		.bangzhu {
+			width: 25px;
+			line-height: 20px;
+			border-radius: 100%;
+			border: 2px solid #fff;
+			text-align: center;
+			color: #fff;
+			position: absolute;
+			top: 10px;
+			right: 5%;
+			display: inline-block;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+			<h1 class="mui-title">随薪借</h1>
+		</header>
+		<div class="mui-scroll-wrapper " style="padding-top:45px;">
+			<div class="mui-scroll allheight">
+				<div class="mui-content " style="position:relative;">
+					<img class="sxjz" src="../../images/suixinjiejs.png" alt="" />
+					<button type="button" class="mui-btn mui-btn-success renzheng">立即申请</button>
+					<div class="bangzhu">?</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui(document.body).on('tap', '.bangzhu', function() {
+				mui.openWindow({
+					url: 'sxjbangzhu.html',
+					id: 'sxjbangzhu.html',
+				})
+			})
+			var renzheng = document.querySelector('.renzheng');
+			var userinfo = JSON.parse(localStorage.getItem('user_info')); //用户信息
+			mui(document.body).on('tap', '.renzheng', function() {
+				mui.plusReady(function() {
+					mui.ajax($$$.siturl + 'm=app&c=Sxj&a=getsxj&uid=' + userinfo.uid, {
+						type: 'get',
+						dataType: 'json',
+						data: {},
+						success: function(data) {
+							console.log(JSON.stringify(data[0]));
+							if(JSON.stringify(data[0]) != undefined) {
+
+								var customerName = data[0].name;
+								var accessMode = "";
+								var channelNo = "C0000000108";
+								var companyName = "直招帮";
+								var deviceInfo = localStorage.getItem('deviceInfo'); //陀螺仪
+								var md5IdCard = data[0].idcard;; //身份证号
+								var merCode = "1000006"; //商户号
+								var merUserId = data[0].uid; //商户用户ID
+								var mobileNo = userinfo.mobile; //手机号
+								mui.ajax($$$.siturl + $$$.suixinjie + +1000001, {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										accessMode: accessMode,
+										channelNo: channelNo,
+										companyName: companyName,
+										customerName: customerName,
+										deviceInfo: deviceInfo, //陀螺仪
+										md5IdCard: md5IdCard, //身份证号
+										merCode: merCode, //商户号
+										merUserId: merUserId, //商户用户ID
+										mobileNo: mobileNo, //手机号
+									},
+									success: function(data) {
+										if(data.code == '0000' && data.faceFlag == '1') {
+											wn = plus.webview.create(data.url, 'test', {
+												'titleNView': {
+													'backgroundColor': '#fff',
+													'titleText': '随薪借',
+													'titleColor': '#000',
+													autoBackButton: true
+												}
+											});
+											wn.show("slide-in-right");
+										} else {
+											mui.openWindow({
+												url: 'shimingrenzheng.html',
+												id: 'shimingrenzheng.html',
+											})
+										}
+
+									},
+									error: function(a) {
+										console.log(JSON.stringify(a));
+									}
+								})
+							} else {
+								mui.openWindow({
+									url: 'shimingrenzheng.html',
+									id: 'shimingrenzheng.html',
+								})
+							}
+
+						},
+						error: function(a) {
+							console.log(JSON.stringify(a));
+						}
+					})
+
+				})
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		
+		
+		.pan {
+			width: 280px;
+			height: 280px;
+			margin: 95px auto 30px;
+			position: relative;
+			background: url(images/pan.png) center center no-repeat;
+			background-size: 100% 100%;
+		}
+		
+		.pointer {
+			width: 250px;
+			height: 250px;
+			position: absolute;
+			top: 15px;
+			left: 15px;
+		}
+		
+		.rotate {
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -15px;
+			margin-left: -15px;
+			z-index: 1000;
+			background: #fff;
+		}
+		
+		.cjpan {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -50px;
+			z-index: 2;
+			border-radius: 50%;
+		}
+		
+		.zjmd {
+			width: 90%;
+			height: 40px;
+			background: #fff;
+			margin: 30px auto;
+			position: relative;
+			box-shadow: 1px 1px 2px #ae6557;
+		}
+		
+		.cjsm {
+			width: 90%;
+			height: 250px;
+			margin: 30px auto 50px;
+			background: #fff;
+			position: relative;
+			box-shadow: 1px 1px 2px #ae6557;
+		}
+		
+		.inner {
+			width: 100%;
+			height: 40px;
+			padding-left: 115px;
+			list-style: none;
+			overflow: scroll;
+			z-index: 2;
+		}
+		
+		.gdli {
+			width: 100%;
+			margin: 0px auto;
+			height: 40px;
+			line-height: 40px;
+			list-style: none;
+			font-size: 14px;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12"></a>
+			<h1 class="mui-title">每日抽奖</h1>
+		</header>
+		<div class="mui-scroll-wrapper cjs ">
+			<div class="mui-scroll allheight" style="margin-top:35px;width: 100%;background: url(images/s.png) repeat;background-size: 100%;">
+				<div class="turntable-bg">
+					<!--<div class="mask"><img src="images/award_01.png"/></div>-->
+					<div class="pan">
+
+						<div class="pointer"><img style="width:100%;height:100%;" src="images/cj_03.png" alt="turntable" />
+							<div id="filetolist" class="cjpan">
+								<!--<img  style="width:100%;height:100%;" src="images/cjpan_03.png" alt="pointer" />-->
+								<div class="rotate" id="rotate">
+									<img style="width:100px;position:absolute;left:-35px;bottom:-35px;" src="images/zhizhen.png" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="zjmd">
+					<div style="width:30%;height:30px;background:url(images/zj_03.png) center center;position: absolute;top:3px;left:-13px;border-top-right-radius:10px;border-bottom-right-radius:10px;">
+						<p style="color:#fff;line-height: 30px;padding:0 10px;font-size:16px;">中奖名单</p>
+						<img src="../../images/tysj.png" alt="" style="position: absolute;top:30px;left:0px;" />
+						<img src="../../images/laba_03.png" alt="" style="width:20px;height:20px;position: absolute;top:5px;right:-25px;" />
+					</div>
+					<div class="inner">
+
+					</div>
+				</div>
+				<div class="cjsm">
+					<div style="width:30%;height:30px;background:url(images/zj_03.png) center center;position: absolute;top:10px;left:-13px;border-top-right-radius:10px;border-bottom-right-radius:10px;">
+						<p style="color:#fff;line-height: 30px;padding:0 10px;font-size:16px;">抽奖说明</p>
+						<img src="../../images/tysj.png" alt="" style="position: absolute;top:30px;left:0px;" />
+
+					</div>
+					<div style="padding:50px 10px 10px;">
+						<p style="color:#5d5d5d;">①每100积分可以抽奖一次，抽奖时自动从积分中扣除。</p>
+						<p style="color:#5d5d5d;">②抽中话费的用户，我们将在三个工作日内充值到您的绑定手机号中。</p>
+						<p style="color:#5d5d5d;">③抽中其他实物的用户，我们将尽快与您取得联系，发放奖品。</p>
+						<p style="color:#5d5d5d;">④活动最终解释权，归直招帮所有。</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		mui.init();
+	</script>
+	<script type="text/javascript" src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/JQ1.1.13.js"></script>
+	<script type="text/javascript" src="js/awardRotate.js"></script>
+	<script type="text/javascript" src="../../js/aes.js"></script>
+	<script type="text/javascript" src="../../js/pad-zeropadding.js"></script>
+	<script type="text/javascript" src="../../js/sec.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var inner = document.querySelector('.inner');
+			mui.ajax($$$.siturl + 'm=App&c=Tool&a=listPrize', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+//					console.log(JSON.stringify(data));
+					if(data.data) {
+						//						console.log(data.data.length);
+						for(var i = 0; i < data.data.length; i++) {
+
+							var dli = document.createElement('li');
+							dli.className = 'gdli';
+							dli.innerHTML = '恭喜：' + data.data[i].username + '抽中' + '<span style="color:#ff8900;">' + data.data[i].prizeno + '</span>';
+							inner.appendChild(dli);
+
+						}
+
+						if(data.data.length > 1) {
+							var gdli = document.querySelector('.gdli');
+							lih = gdli.clientHeight * 2;
+							lihs = gdli.clientHeight;
+//							console.log(lih);
+							var gundong = document.querySelector('.gundong');
+							var num = 0;
+							var timer = null;
+							var timer2 = null;
+							runup();
+
+							function runup() {
+								timer = setInterval(function() {
+									//								console.log(num);
+									num++;
+									
+									if(num >= lih) {
+										num = 0;
+									}
+									inner.scrollTop = num;
+									if(num % lihs == 0) {
+										clearInterval(timer);
+										clearTimeout(timer2);
+										timer2 = setTimeout(function() {
+											runup();
+										}, 1000)
+									}
+									//									console.log(num);
+									
+									//									console.log(inner.scrollTop );
+								}, 80)
+							}
+						}
+
+					}
+
+				}
+			})
+			var rotateTimeOut = function() {
+				$('#rotate').rotate({
+					angle: 0,
+					animateTo: 0,
+					duration: 8000,
+					callback: function() {
+						alert('网络超时，请检查您的网络设置！');
+					}
+				});
+			};
+			var bRotate = false;
+
+			var rotateFn = function(awards, angles, txt) {
+				bRotate = !bRotate;
+				$('#rotate').stopRotate();
+				$('#rotate').rotate({
+					angle: 0,
+					animateTo: angles + 1800,
+					duration: 8000,
+					callback: function() {
+						mui.alert(txt);
+						bRotate = !bRotate;
+					}
+				})
+			};
+
+			$('#filetolist').click(function() {
+				//				alert(222);
+				mui.ajax($$$.siturl + 'm=App&c=Tool&a=randomendcode', {
+					type: 'get',
+					data: {},
+					dataType: 'json',
+					success: function(data) {
+						//						alert(data.staus);
+						if(data.staus == '1') {
+							var decrypted = CryptoJS.AES.decrypt($.trim(data.data), key, {
+								iv: iv,
+								padding: CryptoJS.pad.ZeroPadding
+							});
+							decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+							if(bRotate) return;
+							var item = parseInt(decrypted) //rnd(0,7);
+//							console.log(item);
+							switch(item) {
+								case 0:
+									//var angle = [26, 88, 137, 185, 235, 287, 337];
+									var num1 = suiji(0, 1);
+									if(num1 == 0) {
+										var num = suiji(350, 330);
+									} else {
+										var num = suiji(25, 0);
+									}
+
+									rotateFn(0, num, '谢谢参与');
+									break;
+								case 1:
+									//var angle = [88, 137, 185, 235, 287];
+									var num = suiji(320, 280);
+									console.log(num);
+									rotateFn(0, num, '10元话费');
+									break;
+									//							case 2:
+									//								//var angle = [137, 185, 235, 287];
+									//								rotateFn(2, 88, '免单50元');
+									//								break;
+									//							case 3:
+									//								//var angle = [137, 185, 235, 287];
+									//								rotateFn(3, 137, '免单10元');
+									//								break;
+									//							case 4:
+									//								//var angle = [185, 235, 287];
+									//								rotateFn(4, 185, '免单5元');
+									//								break;
+									//							case 5:
+									//								//var angle = [185, 235, 287];
+									//								rotateFn(5, 185, '免单5元');
+									//								break;
+									//							case 6:
+									//								//var angle = [235, 287];
+									//								rotateFn(6, 235, '免分期服务费');
+									//								break;
+									//							case 7:
+									//								//var angle = [287];
+									//								rotateFn(7, 287, '提高白条额度');
+									//								break;
+							}
+						} else {
+							mui.alert(data.msg);
+						}
+
+					},
+					error: function(e, a) {
+						//console.log(a);
+					}
+				})
+
+				function suiji(Max, Min) {
+					var Range = Max - Min;
+					var Rand = Math.random();
+					return(Min + Math.round(Rand * Range));
+				}
+				/*
+					if(bRotate)return;
+		
+					var item = rnd(0,7);
+
+					switch (item) {
+						case 0:
+							//var angle = [26, 88, 137, 185, 235, 287, 337];
+							rotateFn(0, 337, '未中奖');
+							break;
+						case 1:
+							//var angle = [88, 137, 185, 235, 287];
+							rotateFn(1, 26, '免单4999元');
+							break;
+						case 2:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(2, 88, '免单50元');
+							break;
+						case 3:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(3, 137, '免单10元');
+							break;
+						case 4:
+							//var angle = [185, 235, 287];
+							rotateFn(4, 185, '免单5元');
+							break;
+						case 5: 
+							//var angle = [185, 235, 287];
+							rotateFn(5, 185, '免单5元');
+							break; 
+						case 6:
+							//var angle = [235, 287];
+							rotateFn(6, 235, '免分期服务费');
+							break;
+						case 7:
+							//var angle = [287];
+							rotateFn(7, 287, '提高白条额度');
+							break;
+					}
+
+					*/
+				//console.log(item);
+			});
+		});
+
+		function rnd(n, m) {
+			return Math.floor(Math.random() * (m - n + 1) + n)
+		}
+	</script>

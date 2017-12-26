@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+	</head>
+	<style type="text/css">
+		.gundong {
+			width: 80%;
+			margin: 50px auto;
+			height: 43px;
+			border: 1px solid #ff2c2c;
+			/*overflow: hidden;*/
+			padding-left: 45px;
+			background: url(../../images/laba_03.png) 10px center no-repeat;
+			z-index: 3;
+		}
+		
+		.gdli {
+			width: 100%;
+			margin: 0px auto;
+			height: 40px;
+			line-height: 40px;
+			list-style: none;
+			font-size: 16px;
+		}
+		
+		.inner {
+			width: 100%;
+			height: 40px;
+			margin: 0px auto;
+			list-style: none;
+			overflow: auto;
+			z-index: 2;
+		}
+	</style>
+
+	<body style="background:#f5f4f4;">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12"></a>
+			<h1 class="mui-title">体检返费</h1>
+			<span class="sczl" style="position:absolute;right:10px;bottom:10px;color:#26AA12;" onclick="check()">上传资料</span>
+		</header>
+
+		<div class="mui-scroll-wrapper" style="margin-top:55px;">
+			<div class="mui-scroll cjs" style="background: #fff;padding-bottom: 100px;border-bottom:1px solid #ccc;margin-bottom: 50px;">
+				<div class="tjlc" style="width:100%;height:130px;border-bottom:1px solid #bdbdbd;padding:10px 30px;">
+
+					<div onclick="check()" style="width:20%;height:100%;float:left;position: relative;margin-right:20%;">
+						<div style="width:60px;height:60px;position: relative;overflow: hidden;background: url(../../images/scfp.png) center center no-repeat;background-size:105%,105%;border-radius: 100%;">
+
+							<span class="lcsczl" style="width:100%;height:100%;display:block;background:rgba(0,0,0,0.3);position: absolute;top:0px;left:0px;">
+								<span style="display:inline-block;width:100%;text-align: center;line-height:60px;color:#fff;font-size: 10px;">资料已通过审核</span>
+							</span>
+						</div>
+						<span style="width:20%;height:100%;float:left;position: absolute;top:20px;right:-35px;display: inline-block;"><span class="mui-icon mui-icon-forward" style="color:#26AA12;"></span></span>
+						<span style="color:#26aa12;font-size:14px;position: absolute;bottom: 10px;">上传资料</span>
+					</div>
+
+					<div onclick="qiandao()" style="width:20%;height:100%;float:left;position: relative;margin-right:20%;">
+						<div style="width:60px;height:60px;position: relative;overflow: hidden;background: url(../../images/sczl.png) center center no-repeat;background-size:105%,105%;border-radius: 100%;">
+
+							<span class="lcsczl" style="width:100%;height:100%;display:block;background:rgba(0,0,0,0.3);position: absolute;top:0px;left:0px;border-radius: 100%;">
+								<span style="display:inline-block;width:100%;text-align:center;line-height:60px;color:#fff;font-size: 10px;">资料已通过审核</span>
+							</span>
+						</div>
+						<span style="width:20%;height:100%;float:left;position: absolute;top:20px;right:-35px;display: inline-block;"><span class="mui-icon mui-icon-forward" style="color:#26AA12;"></span></span>
+						<span style="color:#26aa12;font-size:14px;position: absolute;bottom: 10px;">立即签到</span>
+					</div>
+
+					<div style="width:20%;height:100%;float:left;position: relative;margin-right:0%;">
+						<div style="width:60px;height:60px;position: relative;overflow: hidden;background: url(../../images/wftx.png) center center no-repeat;background-size:105%,105%;border-radius: 100%;">
+
+							<span class="lcsczl" style="width:100%;height:100%;display:block;background:rgba(0,0,0,0.3);position: absolute;top:0px;left:0px;border-radius: 100%;">
+								<span style="display:inline-block;width:100%;text-align: center;line-height:60px;color:#fff;font-size: 10px;">资料已通过审核</span>
+							</span>
+						</div>
+
+						<span style="color:#26aa12;font-size:14px;position: absolute;bottom: 10px;">提现成功</span>
+					</div>
+				</div>
+				<div class="tjlc" style="text-align:center;margin-top:60px;margin-bottom:60px;">
+					<div class="scing">
+						<p style="color:#000;font-size: 20px;font-weight: 500;">你本月已签到<span class="qdday" style="padding:0px 5px;color:#ff2432;font-size: 30px;">8</span>天</p>
+						<p style="color:#000;font-size: 20px;font-weight: 500;">距离领取体检返费还差<span class="cqdday">7</span>天</p>
+					</div>
+					<div class="nosc" style="display: none;">
+						<p style="color:#000;font-size: 20px;font-weight: 500;">请上传体检资料</p>
+					</div>
+					<div class="gundong">
+						<!--<marquee class="inner" direction="up" loop="infinite" scrollamount="3"   align="left"  ></marquee>-->
+						<div class="inner">
+
+						</div>
+					</div>
+
+				</div>
+				<div class="tjsuccess" style="width:100%;height:200px;line-height:230px;text-align:center;display: none;padding:20px;"><img style="width:70%;height:100%;" src="../../images/tjffsuc.png" alt="" /></div>
+				<div style="box-shadow: 0 0px 8px #ccc;width:90%;height:250px;margin:10px auto;position:relative;">
+					<div style="width:38%;height:30px;background: #26aa12;position: absolute;top:20px;left:-13px;">
+						<p style="color:#fff;line-height: 30px;padding:0 10px;font-size: 16px;">体检返费说明</p>
+						<img src="../../images/tysj.png" alt="" style="position: absolute;top:30px;left:0px;" />
+					</div>
+					<div style="padding:60px 10px 10px;">
+						<p style="color:#5d5d5d;">①只有用户通过直招帮申请入职后才可以申请报销体检费。</p>
+						<p style="color:#5d5d5d;">②正式入职后，可上传效体检费用发票，审核通过后签到 有效。
+						</p>
+						<p style="color:#5d5d5d;">③签到满15天后，用户可以提交银行卡等提现资料，客服 将在3个工作日内完成审核。
+						</p>
+						<p style="color:#5d5d5d;">④最终解释权归直招帮所有。</p>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			window.addEventListener('tjff', function(e) {
+				//在父页面中添加监听事件，刷新页面
+				console.log(11);
+				location.reload();
+			});
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration,
+				scrollX: true, //是否横向滚动
+			});
+
+			var inner = document.querySelector('.inner');
+			var sczl = document.querySelector('.sczl');
+			var qdday = document.querySelector('.qdday');
+			var cqdday = document.querySelector('.cqdday');
+			var tjsuccess = document.querySelector('.tjsuccess');
+			var tjlc = document.querySelectorAll('.tjlc');
+			var lcsczl = document.querySelectorAll('.lcsczl');
+			var scing = document.querySelector('.scing');
+			var nosc = document.querySelector('.nosc');
+			var lih;
+			var lihs;
+			mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=bdkserv', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+
+					if(data.data.data) {
+						console.log(data.data.data.length);
+						for(var i = 0; i < data.data.data.length; i++) {
+
+							var dli = document.createElement('li');
+							dli.className = 'gdli';
+							dli.innerHTML = '恭喜：' + data.data.data[i].name + '成功领取' + data.data.data[i].filed + '元体检费';
+							inner.appendChild(dli);
+
+						}
+						if(gdli) {
+							var gdli = document.querySelector('.gdli');
+							lih = gdli.clientHeight * data.data.data.length;
+							lihs = gdli.clientHeight;
+							console.log(lih);
+							var gundong = document.querySelector('.gundong');
+							var num = 0;
+							runup();
+
+							function runup() {
+								timer = setInterval(function() {
+									//								console.log(num);
+									num += 2;
+									if(num >= lih) {
+										num = 0;
+									}
+									inner.scrollTop = num;
+								}, 100)
+							}
+						}
+
+					}
+
+				}
+			})
+
+			//gundong
+			//			runup();
+
+			//页面渲染
+			mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=progressCL', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					console.log(JSON.stringify(data));
+					if(data.staus == '0') {
+						sczl.innerHTML = '上传资料';
+						lcsczl[0].children[0].innerHTML = data.msg;
+						lcsczl[1].style.display = "none";
+						lcsczl[2].style.display = "none";
+						scing.style.display = "none";
+						nosc.style.display = "block";
+					} else if(data.staus == '1') {
+						sczl.innerHTML = '查看资料';
+						scing.style.display = "block";
+						nosc.style.display = "none";
+						if(data.data.istakephyf == '0') {
+							lcsczl[0].children[0].innerHTML = data.data.pass_cn;
+							lcsczl[1].children[0].innerHTML = data.data.sign_cn;
+							lcsczl[2].children[0].innerHTML = data.data.phsy_cn;
+							qdday.innerHTML = data.data.rest;
+							if(data.data.rest >= 15) {
+								cqdday.innerHTML = 0;
+							} else {
+								cqdday.innerHTML = 15 - data.data.rest;
+							}
+
+							if(data.data.shuju != null) {
+								console.log(JSON.stringify(data.data));
+
+							}
+						} else if(data.data.istakephyf == '1') {
+							tjsuccess.style.display = 'block';
+							tjlc[0].style.display = 'none';
+							tjlc[1].style.display = 'none';
+						}
+					}
+
+					//					mui.alert(data.msg);
+
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					mui.alert(xhr);
+				}
+			})
+
+			function check() {
+				mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=index', {
+					type: 'get',
+					dataType: 'json',
+					success: function(data) {
+
+						console.log(JSON.stringify(data));
+						if(data.data.data.name == undefined) {
+
+							mui.openWindow({
+								url: 'sczl.html',
+								id: 'sczl.html'
+							})
+						} else {
+
+							mui.openWindow({
+								url: 'tijianfanfeichek.html',
+								id: 'tijianfanfeichek.html'
+							})
+						}
+						//					mui.alert(data.msg);
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.alert(xhr);
+					}
+				})
+
+			}
+
+			function qiandao() {
+
+				mui.openWindow({
+					url: '../qiandao/qiandao.html',
+					id: 'qiandao.html'
+				})
+
+			}
+
+			//			function check() {
+			//				mui.openWindow({
+			//					url: 'tijianfanfeichek.html',
+			//					id: 'tijianfanfeichek.html'
+			//				})
+			//			}
+		</script>
+	</body>
+
+</html>

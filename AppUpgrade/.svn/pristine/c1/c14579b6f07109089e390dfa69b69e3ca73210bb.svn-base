@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../../css/jiazaidonghua.css" rel="stylesheet" />
+		<link href="../../../css/comm.css" rel="stylesheet" />
+		<style>
+			li {
+				list-style: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--顶部栏-->
+        <header id="header" class="mui-bar mui-bar-nav header-top" >
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor"></a>
+            <h1 class="mui-title">附近职位</h1>
+        </header>
+        <div class="jiazai">
+			<div class="spinner">
+			  <div class="spinner-container container1">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			  </div>
+			  <div class="spinner-container container2">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			  </div>
+			  <div class="spinner-container container3">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			  </div>
+			</div>
+		</div>
+		<div class="cjs"></div>
+		<div id="job_list" style="background-color: #fff;padding-top:44px;">
+
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="js/fujin.js"></script>
+		<script src="../../../js/jiazaidonghua.js"></script>
+		<script>
+//			var CLLocationManager = plus.ios.import("CLLocationManager");
+//			var authorizationStatus = CLLocationManager.authorizationStatus();
+//			console.log(authorizationStatus);
+//			switch(authorizationStatus) {
+//			      case 0:
+//			      /// User has not yet made a choice with regards to this application
+//			      break;
+//			      case 1:
+//			      // This application is not authorized to use location services.  Due
+//			    // to active restrictions on location services, the user cannot change
+//			    // this status, and may not have personally denied authorization
+//			      break;
+//			      case 2:
+//			        // User has explicitly denied authorization for this application, or
+//			    // location services are disabled in Settings.
+//			      break;
+//			      case 3:
+//			        // User has granted authorization to use their location at any time,
+//			    // including monitoring for regions, visits, or significant location changes.
+//			      break;
+//			      case 4:
+//			       // User has granted authorization to use their location only when your app
+//			    // is visible to them (it will be made visible to them if you continue to
+//			    // receive location updates while in the background).  Authorization to use
+//			    // launch APIs has not been granted.
+//			      break;
+//			      case 5:
+//			     // This value is deprecated, but was equivalent to the new -Always value.
+//			      break;
+//			      defalut:
+//			      break;
+//			}
+
+			
+		</script>
+	</body>
+	
+</html>

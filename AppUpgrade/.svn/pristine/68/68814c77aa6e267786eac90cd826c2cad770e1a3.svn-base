@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			li {
+				list-style: none;
+				background-color: #fff;
+			}
+		</style>
+		<link href="../../css/comm.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<!--顶部栏-->
+		<header id="header" class="mui-bar mui-bar-nav header-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor"></a>
+			<h1 class="mui-title">已申请职位</h1>
+		</header>
+		<div class="cjs"></div>
+		<div style="padding-top:45px;">
+			<ul id="job_list" class="mui-table-view" style="background:#f5f4f4;">
+			</ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.ajax($$$.siturl + 'm=App&c=IsLogo&a=applyjob', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					if(data.staus == 1) {
+						var jobs = data.data;
+						for(var x = 0; x < jobs.length; x++) {
+							new CreateList_index({
+								id: 'job_list',
+								data: jobs[x]
+							})
+						}
+					}
+				},
+				error: function(err) {
+					//mui.alert(err);
+				}
+			});
+		</script>
+		<!--函数定义-->
+		<script type="text/javascript">
+			function CreateList_index(option) {
+				this.id = option.id || 'work_detail';
+				this.bg = option.bg || '#fff';
+				this.data = option.data;
+				this.init();
+			}
+			CreateList_index.prototype = {
+				init: function() {
+					// 处理id
+					var id = this.birthId(this.id);
+					// 创建并插入预制组件
+					var str = this.create(this.data);
+					this.insert(id, str);
+				},
+				birthId: function(id) {
+					var query = '#' + id;
+					return query;
+				},
+				create: function(data) {
+					/*定义组件字符串*/
+					var tags = data.tag_cn.split(',');
+					var leng = 0;
+					if(tags.length > 3) {
+						leng = 3;
+
+					} else {
+						leng = tags.length;
+					}
+					var srce = '';
+					for(var i = 0; i < leng; i++) {
+						var tageclass = this.tagcolor(tags[i]);
+						srce += '<span style="font-size:10px;line-height: 14px;height:14px;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 3px;margin-right:3px;" class="' + tageclass + '" >' + tags[i] + '</span>';
+					}
+					var result = '';
+
+					// 立即执行函数，只是为了可以点击折叠按钮而已，没有实际功能。里边放置的是result(职位详细信息字符串)
+					(function(data) {
+						result += '';
+						result += '<li  class="mui-table-view-cell " style="box-sizing: border-box;border-bottom:1px solid #CDCDCD; margin:auto" data-id="' + data.jid + '">';
+						result += '<div style="padding:0px 0px;margin:0 0 0 0 ;">';
+						result += '<div style="width:26%;float:left;padding-right:13px;">';
+						result += '<img src="' + $$$.imgurl + data.logo + '" style="width:100%;height:62px;border-radius: 8px;">';
+						result += '</div>';
+						result += '<div class="" style="float:left;width:74%;">';
+						result += '<div class="" style="width:100%">';
+						result += '<div  class="">';
+						result += '<div class="" style="font-weight:700;font-size:14px;padding-bottom:10px;line-height: 14px;">' + data.jobs_name + '</div>';
+						result += '</div>';
+						result += '<div  class="" style="position: relative;font-size:12px;padding-bottom: 7px;line-height: 12px;">';
+						result += '<div class="" style="color:#737373;">' + data.category_cn + '</div>';
+						result += '<div class="wagecolor" style="font-size:1.5em;position:absolute;right:13px;top:0;">' + data.minwage + '-' + data.maxwage + '元</div>';
+						result += '</div>';
+						result += '<div  class="" style="position:relative;font-size:15px;">';
+						result += '<div class="">';
+						result += srce;
+						result += '</div>';
+						result += '<div class="dis" style="position: absolute;right:13px;bottom:0;">' + data.district_cn + '</div>';
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';
+						result += '</li>';
+						result += ''
+					})(data);
+					return result;
+				},
+				insert: function(id, result) {
+					var div = document.createElement('div');
+					div.innerHTML = result;
+					div.addEventListener('click', function() {
+						goJobLink(this);
+					})
+					var box = document.querySelector(id);
+					if(box.appendChild) {
+						box.appendChild(div);
+					} else {
+						box.append(div);
+					}
+				},
+				tagcolor: function(y) {
+					if(y == '年终奖') return 'tag1';
+					else if(y == '工作餐')
+						return 'tag2';
+					else if(y == '五险一金')
+						return 'tag3';
+					else if(y == '长白班')
+						return 'tag4';
+					else if(y == '两班倒')
+						return 'tag5';
+					else if(y == '双休')
+						return 'tag6';
+					else if(y == '工作轻松')
+						return 'tag3';
+					else if(y == '单休')
+						return 'tag4';
+					else if(y == '恒温车间')
+						return 'tag5';
+					else if(y == '坐着上班')
+						return 'tag5';
+					else
+						return 'tag7';
+
+				},
+
+			};
+
+			function goJobLink(e) {
+				var li = e.childNodes[0];
+				var dataid = li.getAttribute("data-id");
+
+				var jid = localStorage.setItem('jid', dataid);
+				mui.openWindow({
+					url: '../job/job.html',
+					id: 'job',
+					extras: {
+						jid: jid
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					waiting: {
+						autoShow: true, //自动显示等待框，默认为true
+						title: '正在加载...', //等待对话框上显示的提示内容
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

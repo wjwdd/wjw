@@ -1,0 +1,498 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<style>
+			#kuaisu_content .mui-table-view-cell {
+				border-bottom:1px solid #ecebeb;
+				padding:0px;
+				height:40px;
+			}
+			#kuaisu_content .needed {
+				font-size:12px;
+				color:red;
+			}
+			#kuaisu_content label {
+				width:20%;
+				font-size:12px;
+				line-height: 40px;
+				padding:0;
+				height:100%;
+				padding-left:8px;
+				box-sizing: border-box;
+				color:#373737;
+				font-family: [PingFang];
+			}
+			#kuaisu_content input {
+				width:80%;
+				font-size:12px;
+				line-height: 30px;
+				height: 30px;
+				margin-top: 5px;
+			}
+
+			#kuaisu_content .mui-table-view-cell a {
+				margin:0;
+				font-size:12px;
+				line-height: 40px;
+			}
+			#kuaisu_content .mui-table-view-cell a input {
+				visibility: hidden;
+				margin:0;
+			}
+
+			/*弹出面板*/
+			.mui-popover {
+				text-align: center;
+				line-height:40px;
+			}
+			.mui-popover .mui-popover-arrow {
+				visibility: hidden;
+			}
+			.mui-popover .mui-table-view {
+				border-radius: 5px;
+			}
+			.djxs{
+				position:absolute;
+				right:11.2rem;
+				color:#BEBEBE;
+			}
+			#header{
+			background:#fff;
+			-webkit-box-shadow: 0 1px 0px #d7d8d8;
+		}
+		.mui-table-view-cell:after{
+			background:#fff; ;
+		}
+		.kefutime{
+			width:80%;
+			margin:25px 10% 10px;
+			text-align: center;
+			position: relative;
+		}
+		
+		</style>
+	</head>
+
+	<body>
+	<!--顶部栏-->
+	<header id="header" class="mui-bar mui-bar-nav header-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+		<h1 class="mui-title" style="color:#26aa12;">快速入职</h1>
+	</header>
+	<div class="cjs"></div>
+	<!--图片-->
+	<img style="padding-top:44px;width:100%;" src="image/kuaisutop.png" alt="" />
+	<div id="kuaisu_content" style="margin-top:-10px;">
+		<ul class="mui-table-view">
+			<!--用户名-->
+			 <li class="mui-table-view-cell" >
+			 	<div class="mui-input-row">
+			        <label>联系人<span class="needed">*</span></label>
+			    	<input id="username" type="text" class="mui-input-clear" placeholder="请输入您的姓名">
+			    </div>
+			 </li>
+			<!--性别-->
+			 <li class="mui-table-view-cell">
+				<div class="mui-input-row" id="sex">
+					<label>性别<span class="needed">*</span></label>
+					<label style="float:left;width:20px;" for="gender1">男</label>
+					<input style="float:left;width:25px;margin-top:16px;margin-left:5px;height:18px; background: #ccc;" name="radio" value="男" id="gender1" type="radio" checked="checked" >
+					<label style="float:left;width:20px;" for="gender2">女 </label>
+					<input style="float:left;width:25px;margin-top:16px;margin-left:5px;height:18px; background: #ccc;" name="radio" value="女" id="gender2" type="radio" >
+				</div>
+			 </li>
+			 <!--出生年份-->
+			 <li class="mui-table-view-cell" id="age" >
+				<a class="mui-navigate-right" href="#age_pop" id="openPopover" >
+					
+					<label>出生年份<span class="needed">*</span></label><div class="con" style="position: absolute;left:20%;top:0;"><span style="color:#BEBEBE">请输入您的出生年份</span></div>
+					<input id="ages" type="text" class="mui-input-clear"  placeholder="请输入您的手机号">
+			 	</a>
+			 </li>
+			<!--手机号-->
+			 <li class="mui-table-view-cell">
+				<div class="mui-input-row">
+					<label>手机号<span class="needed">*</span></label>
+					<input id="phoneNumber" type="text" class="mui-input-clear" placeholder="请输入您的手机号" >
+				</div>
+			 </li>
+			<!--意向职位-->
+			 <li class="mui-table-view-cell" id="zhiwei" style="position: relative;">
+				 <a class="mui-navigate-right" href="#jobs_pop" id="openPopover">
+				 	
+					<label>意向职位</label><div class="con" style="position: absolute;left:20%;top:0;color:#77b4fc;"><span style="color:#77b4fc;">(选填)</span></div>
+					<input id="jobs" type="text" class="mui-input-clear" placeholder="请输入您的意向职位" value="sds">
+				 </a>
+
+			 </li>
+			<!--期望区域-->
+			 <li class="mui-table-view-cell" id="quyu">
+				<a class="mui-navigate-right" href="#areas_pop" id="openPopover">
+					
+					<label>期望区域</label><div class="con" style="position: absolute;left:20%;top:0;color:#77b4fc;"><span style="color:#77b4fc">(选填)</span></div>
+					<input id="areas" type="text" class="mui-input-clear" placeholder="请输入您的期望区域" value="sdsds"> 
+			 	</a>
+			 </li>
+			<!--期望薪资-->
+			 <li class="mui-table-view-cell" id="xinzi">
+				<a class="mui-navigate-right" href="#wages_pop" id="openPopover">
+					
+					<label>期望薪资</label><div class="con" style="position: absolute;left:20%;top:0; color:#77b4fc;"><span style="color:#77b4fc">(选填)</span></div>
+					<input id="wages" type="text" class="mui-input-clear" placeholder="请输入您的期望薪资">
+				</a>
+			 </li>
+		</ul>
+		<div class="kefutime">
+			<!--<span style="display: inline-block;width:10%;height:1px ;background: #666666;position: absolute;top:50%;left:0px;"></span>	-->
+			<span style="padding:0px 5px;color:#666666;font-size:14px;">客服服务时间：8:00-18:00</span>
+	<!--		<span style="display: inline-block;width:10%;height:1px ;background: #666666;position: absolute;top:50%;right:0px;"></span>-->
+		</div>
+		<button id="submit" style="margin:10px 10%;background-color: #26aa12;width:80%;color:#fff; padding:10px 0;border-radius:20px;border:0px;">快速提交</button>
+		<div class="zxms" style="overflow: hidden;width:50%;margin:20px 26% 5px;"><img style="width:100%"  src="image/ksms.png" alt="" /></div>
+		
+		<!--弹出框-->
+		<div id="age_pop" class="mui-popover">
+			<div class="csnf">
+				出生年份
+			</div>
+			<ul class="mui-table-view mui-scroll-wrapper" style="height:300px;">
+				<li class="mui-scroll nianfen">
+					
+				</li>
+			</ul>
+		</div>
+		<div id="jobs_pop" class="mui-popover">
+			<div class="mui-table-view-cell">
+				意向职位
+			</div>
+			<ul class="mui-table-view mui-scroll-wrapper" style="height:300px;">
+				<li class="mui-scroll yixiangzhiwei">
+					
+				</li>
+			</ul>
+			 
+			
+		</div>
+		<div id="areas_pop" class="mui-popover">
+			<div class="mui-table-view-cell">
+				期望区域
+			</div>
+			<ul class="mui-table-view mui-scroll-wrapper" style="height:300px;">
+				<li class="mui-scroll diqu">
+	
+				</li>
+			</ul>
+		</div>
+		<div id="wages_pop" class="mui-popover">
+			<div class="mui-table-view-cell" >
+				期望薪资
+			</div>
+			<ul class="mui-table-view " >
+				<li class="mui-scroll ulwage">
+					<li class="mui-table-view-cell"></li>
+					<li class="mui-table-view-cell"></li>
+					<li class="mui-table-view-cell"><li>
+					<li class="mui-table-view-cell"></li>
+					<li class="mui-table-view-cell"></li>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			mui.init();
+			//最新面试
+//			function zxms(){
+//					
+//			}
+			var zxms=document.querySelector('.zxms');
+			zxms.addEventListener('click',function(){
+				
+				mui.openWindow({
+				    url:'../../tongzhi/mianshi.html',
+				    id:'mianshi.html',
+				    createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				   show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				      aniShow:'slide-in-bottom',//页面显示动画，默认为”slide-in-right“；
+				     
+				    },
+				})
+			},false)
+			
+			//
+			var u11=localStorage.getItem('usernametosuqi');
+			var t11=localStorage.getItem('telephonetosuqi');
+			if( u11!=null  && t11 != null){
+				 var user_input1 = document.querySelector('#username');
+	             var phoneNumber_input1 = document.querySelector('#phoneNumber');
+	             user_input1.setAttribute('value',u11);
+	             phoneNumber_input1.setAttribute('value',t11)
+	             phoneNumber_input1.removeAttribute('placeholder');
+	             user_input1.removeAttribute('placeholder');
+	             user_input1.style.lineHeight = '20px';
+	             phoneNumber_input1.style.lineHeight = '20px';          
+			}              
+                
+			setshuju('.yixiangzhiwei');
+			setshuju('.ulwage');
+			setshuju('.diqu');
+			setshuju('.nianfen');
+			function setshuju(id,option){
+				
+				mui.ajax($$$.siturl+'m=App&c=Tool&a=squidJoin',{
+                    type:'get',
+					data:{
+						
+					},
+					dataType:'json', 
+					success:function (str) {
+						
+						if(id=='.yixiangzhiwei'){
+							insertdata(id,str.category);
+							addTrigger('#jobs','#jobs_pop');
+						}
+						
+						if(id=='.ulwage'){
+							insertdata(id,str.wge);
+							addTrigger('#wages','#wages_pop');
+						}
+						
+						if(id=='.diqu'){
+							insertdata(id,str.getDiqu[0].disdata);
+							addTrigger('#areas','#areas_pop');
+						}
+						if(id=='.nianfen'){
+							
+							addTrigger('#ages','#age_pop');
+						}
+						
+                    },
+                   error:function(xhr,type,errorThrown){
+						mui.toast('保存失败，稍后再试',{ duration:'short', type:'div' }) ;
+					},
+				});
+			
+				
+			}
+			function insertdata(id,category){
+				
+				var data=datas(id,category);
+				var jobs = document.querySelector(id);
+				var result='';
+				for(var i=0;i<data.length;i++){
+				 	//alert(data[i].data);
+				 	result+='<li class="mui-table-view-cell"><a href="#">'+data[i].data+'</a></li>';
+				}
+				jobs.innerHTML=result;
+			}
+			
+			function datas(id,data){
+				
+				var ar=[];
+				if(id=='.yixiangzhiwei'){
+					for(d in data){
+						var res={};
+						res.id=data[d].id;
+						res.data=data[d].categoryname;
+						ar.push(res);
+					}
+				}
+				
+				if(id=='.ulwage'){
+					for(d in data){
+						var res={};
+						res.id=data[d].c_id;
+						res.data=data[d].c_name;
+						ar.push(res);
+					}
+				}
+				
+				if(id=='.diqu'){
+					for(d in data){
+						var res={};
+						res.id=data[d].id;
+						res.data=data[d].cnane;
+						ar.push(res);
+					}
+				}
+			//alert(JSON.stringify(ar));
+				return ar;
+			}
+			
+
+			// 使选中的pop选项赋值给其底部隐藏的input的value
+            
+            //addTrigger('#areas','#areas_pop');
+            // addTrigger('#wages','#wages_pop');
+            
+            function addTrigger(textId,popId){
+                var pop = document.querySelector(popId);
+                var lis = pop.children[1].children[0].children;
+               
+                var input_hidden = document.querySelector(textId);
+                for(var x = 0; x < lis.length; x++){
+                    lis[x].onclick = function () {
+                    	 
+                        input_hidden.value = this.children[0].innerHTML;
+                        var con = input_hidden.parentNode.children[1];
+						con.innerHTML = this.children[0].innerHTML;
+                        mui(popId).popover('hide');
+                    }
+                }
+			}
+
+
+			// 提交按钮
+			var submit = document.querySelector('#submit');
+            submit.addEventListener('click',function () {
+
+                var user_input = document.querySelector('#username');
+                var radios = document.querySelectorAll('#sex input');
+                var phoneNumber_input = document.querySelector('#phoneNumber');
+				 var age_input = document.querySelector('#ages');
+				var gender = "";
+                for(var x = 0; x < radios.length; x++){
+					if(radios[x].checked){
+					    gender = radios[x].value;
+					    //console.log(gender);
+					}
+				}
+				// 校验是否为空
+				if(!user_input.value){
+                    mui.alert('请输入用户名');
+                    return;
+				}
+                if(!phoneNumber_input.value){
+                    	mui.alert('请输入您的联系方式');
+                    return;
+                }
+                if(!age_input.value){
+                    	mui.alert('请输入您的出生年份');
+                    return;
+                }
+                var regularMobile = /^13[0-9]{9}$|14[0-9]{9}$|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;
+
+                 if(!phoneNumber_input.value.match(regularMobile)) {
+                        mui.alert('手机号码格式有误');
+                        return;
+                }
+                
+				localStorage.setItem('usernametosuqi',user_input.value);
+				localStorage.setItem('telephonetosuqi',phoneNumber_input.value);
+
+                var jobs = document.querySelector('#jobs');
+                var areas = document.querySelector('#areas');
+                var wages = document.querySelector('#wages');
+
+               /* if(!jobs.value){
+                    alert('请选择意向职位');
+                    return;
+                }
+                if(!areas.value){
+                    alert('请选择期望工作区域');
+                    return;
+                }
+                if(!wages.value){
+                    alert('请选择期望薪资');
+                    return;
+                }
+*/
+//                alert(user_input.value);
+//                alert(gender);
+//                alert(phoneNumber_input.value);
+//                alert(jobs.value);
+//                alert(areas.value);
+//                alert(wages.value);
+
+				//alert($$$.siturl+'m=App&c=index&a=squidJoin');
+                mui.ajax($$$.siturl+'m=App&c=index&a=squidJoin',{
+                    type:'post',
+					data:{
+							username:user_input.value,
+							tel:phoneNumber_input.value,
+							sex:gender,
+							area:areas.value,
+							expjob:jobs.value,
+							expwage:wages.value,
+							age:age_input.value,
+							
+					},
+					dataType:'json',
+					success:function (str) {
+						if(str.staus==1){
+							mui.alert(str.msg);
+							//mui.toast('保存成功',{ duration:'short', type:'div' }) ;
+							
+							// 预加载主页面
+							var mainPage = mui.preload({
+								"id": 'index',
+								"url": '../../../index.html'
+							});
+							
+							
+							// 跳转到登录后的界面
+							var toMain = function() {
+								mui.fire(mainPage, 'show', null);
+								setTimeout(function() {
+									mui.openWindow({
+										id: 'index',
+										show: {
+											aniShow: 'pop-in'
+										},
+										waiting: {
+											autoShow: false
+										}
+									});
+								}, 3000);
+							};
+							
+							toMain();
+						}
+						if(str.staus==0){
+							mui.toast('保存失败，请稍后再试',{ duration:'short', type:'div' }) ;
+						}
+						
+                    },
+                   error:function(xhr,type,errorThrown){
+						mui.toast('保存失败，稍后再试',{ duration:'short', type:'div' }) ;
+					},
+				});
+            })
+			var date=new Date();
+			var year=date.getFullYear();
+			var agepop=document.getElementById('age_pop');
+			var nianfen=document.getElementsByClassName('nianfen')[0];
+			var mli;
+			var a;
+			var p2;
+			for(i=0;i<47;i++){
+				a=year-18-i;
+//				mli=document.createElement('li');
+//				mli.className='mui-table-view-cell';
+//				p2=document.getElementsByClassName('csnf')[i];
+//				console.log(p2);
+//				nianfen.appendChild(p2);
+				nianfen.innerHTML+='<li class="mui-table-view-cell"><a href="#">'+a+'</a></li>';
+			}
+//			'<li class="mui-table-view-cell"><a href="#">'+data[i].data+'</a></li>'
+		</script>
+		<script>
+			
+			    
+			
+		</script>
+	</body>
+
+</html>

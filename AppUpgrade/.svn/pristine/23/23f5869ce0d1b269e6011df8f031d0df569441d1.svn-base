@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/mui.picker.min.css" />
+		<style type="text/css">
+			*{
+				padding:0px;
+				margin:0px;
+			}
+		
+			html,
+			body {
+				width: 100%;
+				padding:0 3px;
+			}
+			
+			.tuijianruzhi {
+				width: 100%;
+				top: 10px
+			}
+			#tuifcg{
+				background:#fff ;
+				height:100%;
+				
+			}
+			#tuifcg li{
+				width:100%;
+				height:50px;
+				border-bottom: 1px solid #ccc;
+				line-height: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="">
+			<a  class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor" ></a>
+			<h1 id="title_company" class="mui-title">推荐好友</h1>
+		</header>
+		
+		
+		<div class="cjs"></div>
+		<div class="" style="width:100%;margin-top:68px;border-bottom: 2px solid #e6e6e6;padding:10px 3px;font-size: 15px; font-family: '微软雅黑';background-color: #FFFFFF;">
+			<span style="display: inline-block;width:30%;padding:0 5%;border-right:1px solid #0062CC;font-size:.8rem;">姓名</span>
+			<!--<span style="display: inline-block;margin-left: 38%;">推荐人数</span>-->
+			<span style="display: inline-block;width:50%;text-align:center;font-size:.8rem;">电话</span>
+		</div>
+		
+		<ul id="tuifcg" style="">
+			
+			<!--<li>
+				<span style="display: inline-block;width:30%;padding:0 5%;border-right:1px solid #fff;font-size:.4rem;">军委</span>
+				<span style="display: inline-block;width:50%;text-align:center;font-size:.5rem;">15064281195</span>
+			</li>-->
+		</ul>
+	</body>
+	
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script>
+		mui.init()
+		var tuifcg = document.querySelector('#tuifcg');
+		
+		document.addEventListener("plusready", function() {
+			//localStorage.setItem("isTuiFried",'2');
+			mystajax();
+			function mystajax() {
+				mui.ajax($$$.siturl +  'm=App&c=Tool&a=getTfriend', {
+					type: 'get',
+					dataType: 'json',
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(data.staus == 1) {
+								for(i=0;i<data.data.length;i++){
+									tuifcg.innerHTML+='<li><span style="display: inline-block;width:30%;padding:0 5%;border-right:1px solid #fff;font-size:.8rem;">'+data.data[i].name+'</span><span style="display: inline-block;width:50%;text-align:center;font-size:.8rem;">'+data.data[i].tele+'</span></li>';
+								}
+
+						}
+						if(data.staus == 0) {
+//								alert(data.msg);
+							//							var mytuijianruzhi = document.querySelector('.mytuijianruzhi');
+							//							var wotuijian = document.querySelector('.wotuijian');
+							//							mytuijianruzhi.style.display = "none";
+							//							wotuijian.style.display = "none";
+						}
+
+					},
+					error: function(xhr, err) {
+						//alert(err);
+					}
+				});
+			}
+		})
+</script>
+</html>

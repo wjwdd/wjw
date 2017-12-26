@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+	</head>
+	<style type="text/css">
+		#popover {
+			min-width: 282px;
+			height: 300px;
+			top: 50% !important;
+			margin-top: -150px;
+			left: 50% !important;
+			margin-left: -141px;
+		}
+		
+		@media (min-width: 400px) {
+			#popover {
+				width: 80%;
+				margin-left: -40%;
+			}
+		}
+		
+		.mui-popover .mui-popover-arrow {
+			display: none !important;
+		}
+		
+		.msg-name,
+		.msg-cardno,
+		.msg-back,
+		.msg-backaddress{
+			font-family: 'Helvetica Neue', Helvetica, sans-serif;
+			line-height: 1.1;
+			float: left;
+			width: 65%;
+			text-align: right;
+			padding: 11px 30px;
+		}
+		
+	</style>
+
+	<body style="background:#f5f4f4;">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#000"></a>
+			<h1 class="mui-title">资料详情</h1>
+		</header>
+
+		<div class="mui-scroll-wrapper" style="margin-top:55px;">
+			<div class="mui-scroll cjs" style="background: #fff;padding-bottom: 100px;border-bottom:1px solid #ccc;margin-bottom: 50px;">
+				<div class="mui-input-row">
+					<label>姓名</label>
+					<div class="msg-name"></div>
+				</div>
+				<div class="mui-input-row">
+					<label>卡号</label>
+					<div class="msg-cardno">卡号</div>
+
+				</div>
+				<div class="mui-input-row">
+					<label>银行</label>
+					<div class="msg-back">银行</div>
+
+				</div>
+				<div class="mui-input-row">
+					<label>开户地区</label>
+					<div class="msg-backaddress">开户地区</div>
+				</div>
+				<h5 style="color:#5DA8FC;text-align:left;padding:10px;">上传身份证信息</h5>
+				<div style="width:90%;margin:0 5%;border:1px solid #e1e1e1">
+					<div class="fullpathidentitysignpic" style="width:80%;margin:5% 10%;height:140px;background:url(../../images/zmsfz.png) center center no-repeat;background-size:100% 100%;"></div>
+					<p style="text-align: center;">身份证正面</p>
+				</div>
+				<div style="width:90%;margin:10px 5%;border:1px solid #e1e1e1">
+					<div class="fullpathidentityrevepic" style="width:80%;margin:5% 10%;height:140px;background:url(../../images/fmsfz.png) center center no-repeat;background-size:100% 100%;"></div>
+					<p style="text-align: center;">身份证正面</p>
+				</div>
+				<h5 style="color:#5DA8FC;text-align:left;padding:10px;">上传体检单</h5>
+				<div onclick="sczl(this)" style="width:90%;margin:0 5%;border:1px solid #e1e1e1">
+					<div class="fullpathphysicalcheck" style="width:80%;margin:5% 10%;height:140px;background:url(../../images/sctjd.png) center center no-repeat;background-size:100% 100%;"></div>
+					<p style="text-align: center;">体检单正面</p>
+				</div>
+
+				<button class="mui-btn mui-btn-primary mui-btn-block edit-user-info" style="width:50%;margin:10px auto;padding:5px;background:#5dbafa;border:1px solid #5dbafa;">编辑</button>
+			</div>
+
+		</div>
+		<!--弹出窗口-->
+		<div id="popover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-content-padded ">
+				<h4 style="color:#5DA8FC;text-align:center;padding:10px;">请选择银行</h4>
+				<div class="fxzw"></div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			window.addEventListener('tjcheck', function(e) {
+				//在父页面中添加监听事件，刷新页面
+				//				console.log(11);
+				location.reload();
+
+			});
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration,
+				scrollX: true, //是否横向滚动
+			});
+
+			mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=index', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					var edity = JSON.stringify(data.data.data);
+					var name = document.querySelector(".msg-name");
+					var cardno = document.querySelector(".msg-cardno");
+					var back = document.querySelector(".msg-back");
+					var backaddress = document.querySelector(".msg-backaddress");
+					var fullpathidentitysignpic = document.querySelector(".fullpathidentitysignpic");
+					var fullpathidentityrevepic = document.querySelector(".fullpathidentityrevepic");
+					var fullpathphysicalcheck = document.querySelector(".fullpathphysicalcheck");
+					//var edituserinfo=document.querySelector(".edit-user-info");
+					name.innerHTML = data.data.data.name;
+					cardno.innerHTML = data.data.data.cardno;
+					back.innerHTML = data.data.data.back;
+					backaddress.innerHTML = data.data.data.backaddress;
+					fullpathidentitysignpic.style.background = "url(" + $$$.imgurl + data.data.data.fullpathidentitysignpic + ") center center no-repeat";
+					fullpathidentityrevepic.style.background = "url(" + $$$.imgurl + data.data.data.fullpathidentityrevepic + ") center center no-repeat";
+					fullpathphysicalcheck.style.background = "url(" + $$$.imgurl + data.data.data.fullpathphysicalcheck + ") center center no-repeat"
+					//編輯按鈕綁定事件
+					mui(".mui-scroll ").on("tap", ".edit-user-info", function() {
+						if(data.data.data.pass == "0") {
+							mui.openWindow({
+								id: "sczlbj",
+								url: "sczlbj.html",
+								extras: {
+									edity: edity
+								}
+							})
+							//								console.log(edity);
+						}
+						if(data.data.data.pass == "1") {
+							mui.alert("资料已审核通过，不能继续编辑");
+						}
+					})
+				}
+			})
+		</script>
+	</body>
+
+</html>

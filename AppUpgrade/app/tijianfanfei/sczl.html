@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+	</head>
+	<style type="text/css">
+		#popover {
+			min-width: 282px;
+			height: 300px;
+			top: 50% !important;
+			margin-top: -150px;
+			left: 50% !important;
+			margin-left: -141px;
+		}
+		
+		@media (min-width: 400px) {
+			#popover {
+				width: 80%;
+				margin-left: -40%;
+			}
+		}
+		
+		.mui-popover .mui-popover-arrow {
+			display: none !important;
+		}
+		
+		.backli {
+			list-style: none;
+			padding: 5px 10px;
+		}
+		
+		.mui-table-view-cell:after {
+			height: 0px;
+			!important;
+		}
+	</style>
+
+	<body style="background:#f5f4f4;">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12"></a>
+			<h1 class="mui-title">上传资料</h1>
+		</header>
+
+		<div class="mui-scroll-wrapper" style="margin-top:55px;">
+			<div class="mui-scroll cjs" style="background: #fff;padding-bottom: 100px;border-bottom:1px solid #ccc;margin-bottom: 50px;">
+				<div class="mui-input-row">
+					<label>姓名</label>
+					<input type="text" name="name" id="name" class="mui-input-clear" placeholder="请填写姓名" style="text-align:right;padding-right:30px;">
+				</div>
+				<div class="mui-input-row">
+					<label>卡号</label>
+					<input type="text" name="cardno" id="cardno" class="mui-input-clear" placeholder="请填写卡号" style="text-align: right;padding-right:30px;">
+				</div>
+				<li class="mui-table-view-cell" style="position: relative;list-style: none;" onclick="xzyh()">
+
+					<label>银行</label>
+					<div id="con" style="position: absolute;right:30px;top:10px;color:#22aa12;"><span style="color:#22aa12;text-align: right;">请选择银行</span></div>
+					<input name="back" type="text" id="back" class="mui-input-clear" style="display: none;">
+
+				</li>
+				<div class="mui-input-row">
+					<label>开户地区</label>
+					<input type="text" name="backaddress" id="backaddress" class="mui-input-clear" placeholder="请填写开户地区" style="text-align: right;padding-right:30px;">
+				</div>
+				<h5 style="color:#22aa12;text-align:left;padding:10px;">上传身份证信息</h5>
+				<div onclick="sczl(this)" style="width:90%;margin:0 5%;border:1px solid #e1e1e1;position:relative;">
+					<img src="../../images/zmsfz.png" style="width:80%;margin:5% 10%;height:140px;">
+					<p style="text-align: center;">请上传身份证正面</p>
+					<input name="identitysignpic" type="" id="identitysignpic" style="display: none;" />
+					<p class="mui-progressbar mui-progressbar-infinite jdt" style="display: none;width:60%;margin: 100px auto;position:absolute;top:0;left:20%;"></p>
+
+				</div>
+				<div onclick="sczl(this)" style="width:90%;margin:10px 5%;border:1px solid #e1e1e1;position:relative;">
+					<img src="../../images/fmsfz.png" style="width:80%;margin:5% 10%;height:140px;">
+					<p style="text-align: center;">请上传身份证正面</p>
+					<input name="identityrevepic" type="" id="identityrevepic" style="display: none;" />
+					<p class="mui-progressbar mui-progressbar-infinite jdt" style="display: none;width:60%;margin: 100px auto;position:absolute;top:0;left:20%;"></p>
+				</div>
+				<h5 style="color:#22aa12;text-align:left;padding:10px;">上传体检单</h5>
+				<div onclick="sczl(this)" style="width:90%;margin:0 5%;border:1px solid #e1e1e1;position:relative;">
+					<img src="../../images/sctjd.png" style="width:80%;margin:5% 10%;height:140px;">
+					<p style="text-align: center;">请上传身份证正面</p>
+					<input name="physicalcheck" type="" id="physicalcheck" style="display: none;" />
+					<p class="mui-progressbar mui-progressbar-infinite jdt" style="display: none;width:60%;margin: 100px auto;position:absolute;top:0;left:20%;"></p>
+				</div>
+
+				<button class="mui-btn mui-btn-primary mui-btn-block " onclick="submit(this)" style="width:50%;margin:10px auto;padding:5px;background:#22aa12;border:1px solid #22aa12;">提交</button>
+			</div>
+
+		</div>
+		<!--弹出窗口-->
+		<div id="popover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-content-padded ">
+				<h4 style="color:#22aa12;text-align:center;padding:10px;">请选择银行</h4>
+
+				<div class="mui-scroll-wrapper" style="margin-top:40px;">
+					<div class="mui-scroll backul">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration,
+				scrollX: true, //是否横向滚动
+			});
+			//渲染银行
+			var backul = document.querySelector('.backul');
+			mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=backChose', {
+				type: 'get',
+
+				dataType: 'json',
+				success: function(data) {
+					//					console.log(JSON.stringify(data.data.back.length));
+
+					for(var i = 0; i < data.data.back.length; i++) {
+						var backli = document.createElement('li');
+						backli.className = "backli";
+						backli.setAttribute('onclick', 'selectback(this)');
+						backli.innerHTML = data.data.back[i].back;
+						backul.appendChild(backli);
+					}
+					//					console.log(backli.outerHTML);
+				}
+			})
+			var back = document.querySelector('#back');
+			var con = document.querySelector('#con');
+
+			function selectback(e) {
+				var isback = e.innerHTML;
+				//				alert(isback);
+				back.value = isback;
+				con.innerHTML = isback;
+				mui("#popover").popover("toggle");
+			}
+
+			function xzyh() {
+				mui("#popover").popover("toggle");
+			}
+
+			function sczl(e) {
+
+				// 从相册中选择图片
+				var isthis = e.children[0];
+				var isinput = e.children[2];
+				var isjdt = e.children[3];
+				console.log(e.children[0].outerHTML);
+				console.log("从相册中选择图片:");
+
+				plus.gallery.pick(function(path) {
+					isjdt.style.display = 'block';
+					console.log(path);
+					plus.io.resolveLocalFileSystemURL(path, function(entry) {
+						// 可通过entry对象操作test.html文件 
+
+						var reader = null;
+						entry.file(function(file) {
+							reader = new plus.io.FileReader();
+							reader.onloadend = function(e) {
+								plus.console.log("Read success");
+								// Get data
+								plus.console.log(e.target.result);
+							};
+							reader.readAsDataURL(file);
+							reader.onload = function(e) {
+
+								console.log(this.result);
+								//显示文件  
+								//												addimages.innerHTML = '<img style="width:100%" src="' + this.result + '" alt="" />';
+								mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=savefileTouin', {
+									type: 'post',
+									data: {
+										img: this.result
+									},
+									dataType: 'json',
+									success: function(data) {
+										console.log(JSON.stringify(data));
+
+										//										isthis.style.background = "url(" + $$$.imgurl + data.data.filepath + ") center center no-repeat"
+										//										isthis.style.backgroundSize = "100% 100%";
+
+										isthis.src = $$$.imgurl + data.data.filepath;
+										isthis.onload = function() {
+											isjdt.style.display = 'none';
+										}
+										isinput.value = data.data.savepath;
+										//										console.log(isinput.value);
+									}
+								})
+							}
+						}, function(e) {
+							console.log(e.message);
+						});
+					}, function(e) {
+						alert("Resolve file URL failed: " + e.message);
+					});
+
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image"
+				});
+
+			}
+			//提交
+
+			function submit() {
+				var isuid = localStorage.getItem('user_uid');
+				var nameval = document.querySelector('#name').value;
+				var cardnoval = document.querySelector('#cardno').value;
+				var backval = document.querySelector('#back').value;
+				var backaddressval = document.querySelector('#backaddress').value;
+				var identitysignpic = document.querySelector('#identitysignpic').value;
+				var identityrevepic = document.querySelector('#identityrevepic').value;
+				var physicalcheck = document.querySelector('#physicalcheck').value;
+				//				console.log(identitysignpic);
+				//				console.log(identityrevepic);
+				//				console.log(physicalcheck);
+
+				if(!nameval) {
+					mui.alert('请输入姓名');
+					return;
+				}
+
+				if(!cardnoval) {
+					mui.alert('请输入卡号');
+					return;
+				}
+
+				var regularMobile = /^\d{16}|\d{19}$/;
+				if(!cardnoval.match(regularMobile)) {
+					mui.alert('银行卡号格式有误');
+					return;
+				}
+				if(!backval) {
+					mui.alert('请选择银行');
+					return;
+				}
+				if(!backaddressval) {
+					mui.alert('请选择开户地址');
+					return;
+				}
+				if(!identitysignpic) {
+					mui.alert('请上传身份证正面');
+					return;
+				}
+				if(!identityrevepic) {
+					mui.alert('请上传身份证反面');
+					return;
+				}
+				if(!physicalcheck) {
+					mui.alert('请上传体检单');
+					return;
+				}
+
+				mui.ajax($$$.siturl + 'm=App&c=SignInformation&a=saveuserinfo', {
+					type: 'post',
+					data: {
+						name: nameval,
+						uid: isuid,
+						cardno: cardnoval,
+						back: backval,
+						backaddress: backaddressval,
+						identitysignpic: identitysignpic,
+						identityrevepic: identityrevepic,
+						physicalcheck: physicalcheck,
+					},
+					dataType: 'json',
+					success: function(data) {
+						//						alert(111);
+						console.log(JSON.stringify(data));
+						mui.alert(data.data.msg);
+						setTimeout(function() {
+							mui.openWindow({
+								id: 'tijianfanfeichek.html',
+								url: 'tijianfanfeichek.html',
+							})
+						}, 1000)
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.alert(xhr);
+					}
+				})
+
+			}
+		</script>
+	</body>
+
+</html>

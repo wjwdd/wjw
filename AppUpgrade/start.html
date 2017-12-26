@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				preloadPages: [{
+					url: 'index.html',
+					id: 'index',
+
+				}],
+
+			});
+
+			mui.plusReady(function() {
+				/**
+				 * 获取本地存储中launchFlag的值
+				 * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem
+				 * 若存在，说明不是首次启动，直接进入首页；
+				 * 若不存在，说明是首次启动，进入引导页；
+				 */
+				//				localStorage.setItem('cjs',plus.navigator.getStatusbarHeight());
+				var launchFlag = plus.storage.getItem("launchFlag");
+				
+				if(launchFlag) {
+
+					mui.openWindow({
+						url: "index.html",
+						id: "index",
+
+					});
+
+
+				} else {
+					mui.openWindow({
+						url: "guide.html",
+						id: "guide"
+					});
+				}
+
+
+			})
+			//自动登录
+			function recordUserMsg(data) {
+				localStorage.setItem('user_name', data.data.username);
+				localStorage.setItem('user_pass', data.data.pass);
+				localStorage.setItem('user_uid', data.data.uid);
+				localStorage.setItem('user_info', JSON.stringify(data.data));
+				var timestamp = Date.parse(new Date());
+				localStorage.setItem('time', timestamp);
+				localStorage.setItem('user_info_sess', JSON.stringify(data.data))
+			}
+			var login_uid = localStorage.getItem('user_name');
+			var login_pass = localStorage.getItem('user_pass');
+			if(login_uid != null || login_pass != null || login_uid != '' || login_pass != '') {
+				mui.ajax($$$.siturl + 'm=App&c=Mumber&a=logoin', {
+					type: 'post',
+					dataType: 'json',
+					data: {
+						uname: login_uid,
+						password: login_pass
+					},
+					success: function(data) {
+						//		                    	console.log(JSON.stringify(data));
+						if(data.staus == 0) {
+
+						} else if(data.staus == 1) {
+							recordUserMsg(data);
+						}
+
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

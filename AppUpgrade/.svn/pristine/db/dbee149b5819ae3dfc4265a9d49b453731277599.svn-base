@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../../css/iconfont.css" />
+		<!--<link href="../../../css/jiazaidonghua.css" rel="stylesheet" />-->
+
+		<style>
+			li {
+				list-style: none;
+			}
+			
+			.staricon {
+				font-size: 15px;
+				height: 15px;
+				line-height: 15px;
+				color: #DF6659;
+			}
+		</style>
+		<script type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+			<h1 class="mui-title">名企推荐</h1>
+		</header>
+		<div class="cjs"></div>
+		<div class="mui-scroll-wrapper ">
+			<div class="mui-scroll allheight">
+				<div class="mui-slider" style="padding-top:44px;">
+					<div class="mui-slider-group mui-slider-loop" id="slider">
+
+					</div>
+				</div>
+
+				<ul class="mui-table-view uilist first_content" id="refreshContainer" style="margin-top: 0px;">
+					<img class="lunbotupain" src="" style="width: 100%;height:100%;" />
+
+				</ul>
+			</div>
+		</div>
+	</body>
+	<!--<script src="js/mingqi.js"></script>-->
+	<script src="../../../js/mui.min.js"></script>
+	<!--<script src="../../../js/jiazaidonghua.js"></script>-->
+	<script>
+		mui(document.body).on('tap', '#header', function() {
+			mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 1000); //100毫秒滚动到顶
+		})
+		var luinbo = document.querySelector(".lunbotupain");
+		luinbo.src = $$$.imgurl + "data/app/lunbo.png";
+
+		mui.ajax($$$.siturl + 'm=App&c=Tool&a=mingqilunbo5', {
+			type: 'get',
+			data: {
+
+			},
+			dataType: 'json',
+			success: function(data) {
+				var sliderbox = document.querySelector('#slider');
+			}
+		})
+
+		function Creat_MQ(option) {
+			this.index = option.i;
+			this.id = option.id;
+			this.data = option.data;
+
+			this.init();
+		}
+		Creat_MQ.prototype = {
+			init: function() {
+				var lidata = this.creater(this.datafun(),this.index);
+
+				this.insert(lidata);
+			},
+			datafun: function() {
+				return this.data;
+			},
+			creater: function(data,index) {
+				var result = "";
+				var img='';
+				(function(data) {
+					var cimg = document.createElement('img');
+					cimg.src = $$$.imgurl + data.logo;
+					cimg.className = 'cimg';
+					cimg.onload = function() {
+						document.getElementsByClassName('apendimg')[index].appendChild(cimg);
+					}
+					result += '<li class="mui-table-view-cell mui-media" style="padding: 11px 0 11px 15px;" data-id=' + data.id + ' onclick="gotolind(this)">';
+					result += '<a href="javascript:;" style="width: 100%;height: 90px;">';
+					result += '<div class="apendimg" style="width:23%;height:62px;float:left;padding-right:13px;">';
+					result += img;
+					result += '</div>';
+					//						result += '<img class="mui-media-object mui-pull-left" src="' + $$$.imgurl + data.logo + '" style="position:relative;float:left;height: 60px;width:20%;border-radius: 3px;margin-top: .4em;max-width: none;">';
+					result += '<div class="mui-media-body" style="position: relative;float:left; width: 70%;">';
+					result += '<p class="mui-ellipsis" style="padding-left: 0px; font-size: 13px; color: black;">' + data.companyname + '</p>';
+					result += '<div class="" style=" height: 15px;margin-left: 0px; font-size: 17px; line-height: 15px; margin-bottom: 5px;">';
+					result += '<span style="color:#FD963B;font-size:13px;"  class="mui-icon iconfont icon-wujiaoxing" ></span>';
+					result += '<span style="color:#FD963B;font-size:13px;"  class="mui-icon iconfont icon-wujiaoxing" ></span>';
+					result += '<span style="color:#FD963B;font-size:13px;" class="mui-icon iconfont icon-wujiaoxing" ></span>';
+					result += '<span style="color:#FD963B;font-size:13px;" class="mui-icon iconfont icon-wujiaoxing" ></span>';
+					result += '<span style="color:#FD963B;font-size:13px;" class="mui-icon iconfont icon-wujiaoxing" ></span>';
+					result += '</div>';
+					result += '<p class=""></p><span style="padding-left: 0px;font-size: 13px;color: black;" class="mui-ellipsis">' + data.district_cn + '</span>';
+					result += '<span class="show" style="color:#26aa12;font-size: 13px;color: black; display: inline-block; float: right; height: 17px;line-height: 17px;color:#22aa12;" class="mui-ellipsis" onclick="show(this)">' + "在招" + '' + data.count + '' + "个职位" + '<span class="mui-icon mui-icon-arrowdown" style="color:#26AA12;font-size:18px;"></span></span>';
+					result += '</div>';
+					result += '</a>';
+					result += '<div class="bg" style="background-color:#ECEAEA; padding-top: 15px; padding-left: 15px; display:none;">';
+					for(var x = 0; x < data.tagUrl.length; x++) {
+						result += '<span class="bg2" style="font-size: 13px; display: inline-block; padding:3px 15px; border:1px solid #8D8D8D;border-radius: 5px; margin-bottom: 15px; margin-right: 25px; color: #000;" data-jobid="' + data.tagUrl[x].id + '" onclick="openjob(this)">' + data.tagUrl[x].tag + '</span>'
+					}
+					result += '</div>';
+					result += '</li>';
+
+				})(data)
+				return result;
+			},
+			insert: function(data) {
+				var self = this;
+				var div = document.createElement('div');
+				var list = document.querySelector(this.id);
+				div.innerHTML = data;
+
+				if(list.append) {
+					list.append(div);
+				} else {
+					list.appendChild(div);
+				}
+				var lilist = div.children;
+
+			},
+		};
+		//阻止冒泡
+		function stopPropagation() {
+			var event = window.event || event;　
+			if(event.stopPropagation) {　　
+				event.stopPropagation();　　
+			} else {　　　　
+				event.cancelBubble = true;　　
+			}
+		}
+
+		function show(data, e) {
+
+			stopPropagation(e);
+			//			console.log(data)
+			var bg = data.parentNode.parentNode.parentNode.childNodes[1];
+			if(bg.style.display == "none") {
+				bg.style.display = "block";
+			} else {
+				bg.style.display = "none";
+			}
+		}
+
+		function openjob(data, e) {
+			stopPropagation(e);
+			var datajobid = data.getAttribute("data-jobid");
+			localStorage.setItem("jid", datajobid);
+			mui.openWindow({
+				url: '../../job/job.html',
+				id: 'job',
+				extras: {
+
+				},
+				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				waiting: {
+					autoShow: true, //自动显示等待框，默认为true
+					title: '正在加载...', //等待对话框上显示的提示内容
+				}
+			})
+		}
+
+		var page = 1;
+
+		mui.ajax($$$.siturl + 'm=App&c=index&a=minqitj&page=' + page, {
+			type: 'get',
+			data: {},
+			dataType: 'json',
+			success: function(str) {
+				crea('.uilist', str.data);
+
+				function crea(id, data) {
+					for(var i = 0; i < data.length; i++) {
+						new Creat_MQ({
+							i:i,
+							id: id,
+							data: data[i]
+						})
+					}
+
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				mui.toast('遇到问题，正在完善', {
+					duration: 'short',
+					type: 'div'
+				});
+			}
+		})
+
+		function pullfresh_function() {
+			page++;
+			request();
+			this.endPullupToRefresh(false);
+
+			function request() {
+				mui.ajax($$$.siturl + 'm=App&c=index&a=minqitj&page=' + page, {
+					type: 'get',
+					data: {},
+					dataType: 'json',
+					success: function(str) {
+
+						crea('.uilist', str.data);
+
+						function crea(id, data) {
+							var list = new Creat_MQ({
+								id: id,
+								data: data,
+							})
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast('遇到问题，正在完善', {
+							duration: 'short',
+							type: 'div'
+						});
+					}
+				})
+			}
+		}
+
+		function tiaozhuan(data) {
+			gotolind(data);
+		}
+
+		function gotolind(t) {
+			var gosid = t.getAttribute('data-id');
+			localStorage.setItem('cid', gosid);
+			mui.openWindow({
+				url: '../../company/company.html',
+				id: '../../company/company.html',
+				extras: {},
+				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				waiting: {
+					autoShow: true, //自动显示等待框，默认为true
+				}
+			})
+		}
+	</script>
+
+</html>

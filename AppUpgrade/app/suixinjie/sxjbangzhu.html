@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.mui-collapse-content {
+			background: #e46e26!important;
+			color: #fff;
+		}
+		.mui-collapse-content p{
+			color: #fff;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+			<h1 class="mui-title">常见问题</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view wentilis">
+				<li v-for="x in wtitems" class="mui-table-view-cell mui-collapse ">
+					<a class="mui-navigate-right" href="#">{{x.wenti}}</a>
+					<div class="mui-collapse-content">
+						<p v-html="x.daan"></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var data = [{
+					wenti: '1、随薪借是什么？',
+					daan: '随薪借是一款面向合作企业员工的个人信用贷款，客户无需抵押和担保，全流程线上办理,随时题地满足客户的资金需求。 '
+				}, {
+					wenti: '2、随薪借的产品特色是什么？',
+					daan: '1、申请易：一张身份证搞定一切事情<br>2、 额度高： 教育、 美容......环游世界都够了<br>3、 期限活： 最短一个月， 最长一年， 还款灵活无压力<br>4、 价格低： 最低日息仅万分之2 .3 <br>'
+				}, {
+					wenti: '3、随薪借的申请条件是什么？',
+					daan: '随薪借合作企业正式员工可申请贷款，其体合作企业明细可通过产品页面查询。 '
+				},
+				{
+					wenti: '4、随薪借额度有多少？',
+					daan: '随薪借额度最高为30万元，具体额度将综合客户的个人资质进行评估。 '
+				},
+				{
+					wenti: '5、随薪借可分为几期？',
+					daan: '随薪借支持客户分1/3/6/12期还款，客户可自由选择还款期数。 '
+				},
+				{
+					wenti: '6、随薪借的利率为多少',
+					daan: '以1万元为例，分期12期，手续费0.7%每月利息：10000*0.7%=70元每月还款本金：10000/12=833.33元每月还款总额：70+833.33=903.33元 '
+				},
+				{
+					wenti: '7、随薪借如何还款？',
+					daan: '约定还救日,我司会至客户的绑定借记卡自动划扣还救。 '
+				},
+				{
+					wenti: '8、随薪借如何申请？',
+					daan: '在产品介绍页点击立即申请按照步骤即可完成。 '
+				},
+				{
+					wenti: '9、随薪借支持多次申请吗？',
+					daan: '随薪借支持多次申请，客户在当前贷款结清后，可再次申请随薪借额度。 '
+				}
+			]
+			var news = new Vue({
+				el: '.wentilis',
+				data: {
+					wtitems: data,
+				},
+
+			});
+		</script>
+	</body>
+
+</html>

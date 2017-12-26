@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html ng-app="wodeCtr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<style type="text/css">
+			li {
+				list-style: none;
+			}
+			
+			.staricon {
+				font-size: 15px;
+				height: 15px;
+				line-height: 15px;
+				color: #DF6659;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			@font-face {
+				font-family: 'lanze';
+				src: url('lib/fonts/icomoon.eot') format('embedded-opentype'), url('lib/fonts/icomoon.svg') format('svg'), url('lib/fonts/icomoon.ttf') format('truetype'), url('lib/fonts/icomoon.woff') format('woff');
+			}
+			
+			[class^="icon-"],
+			[class*=" icon-"] {
+				font-family: lanze;
+				font-style: normal;
+			}
+			
+			.icon-mobilephone:before {
+				content: "\e908";
+				font-size: 13px;
+			}
+			/*头部栏颜色*/
+			
+			.header-top {
+				/*background-color: #5CA8FC;*/
+				opacity: 1;
+			}
+			
+			#circle .mui-table-view-cell {
+				padding-top: 0;
+				padding-bottom: 0;
+				background-color: #fff;
+				border: none;
+			}
+			
+			#circle .mui-table-view-cell span {
+				display: inline-block;
+				width: 2.4em;
+				height: 2.3em;
+				background-image: url(images/index_circle.png);
+				background-size: 200% 200%;
+				background-repeat: no-repeat;
+			}
+			
+			.kuaisu {
+				background-position: left bottom;
+			}
+			
+			.fujin {
+				background-position: left top;
+			}
+			
+			.zixun {
+				background-position: right bottom;
+			}
+			
+			.mingqi {
+				background-position: right top;
+			}
+			/*筛选框*/
+			
+			#selector span {
+				display: inline-block;
+				border: 1px solid #737373;
+				border-radius: 5px;
+				margin-right: 9px;
+				margin-bottom: 14px;
+				height: 20px;
+				line-height: 10px;
+				padding: 6px 12px;
+				box-sizing: border-box;
+				font-size: 10px;
+				overflow: hidden;
+			}
+			
+			#selected {
+				padding: 12px 23px 14px 32px;
+			}
+			/*消息面板*/
+			
+			.news-tab {
+				height: 70px;
+				background-color: #fff;
+			}
+			
+			.news-tab .left {
+				width: 70px;
+				height: 100%;
+				float: left;
+				box-sizing: border-box;
+				padding: 12px 10px 12px 13px;
+			}
+			
+			.news-tab .left img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.news-tab .right {
+				width: 70%;
+				height: 100%;
+				float: left;
+				padding: 16px 13px 16px 0;
+			}
+			
+			.news-tab .right .line-one {
+				font-size: 14px;
+				line-height: 14px;
+				height: 14px;
+				margin-bottom: 12px;
+				color: #323232;
+				position: relative;
+			}
+			
+			.news-tab .right .line-one span {
+				position: absolute;
+				right: 0;
+				top: 0;
+				color: #5CA8FC;
+				font-size: 14px;
+			}
+			
+			.news-tab .right .line-two {
+				font-size: 12px;
+				line-height: 12px;
+				height: 12px;
+				color: #737373;
+			}
+			/*设置面板*/
+			
+			#tabbar-with-my .title {
+				/*display: inline-block;*/
+				position: relative;
+				/*background-color:#fff;*/
+				background-repeat: no-repeat;
+				background-size: 100% 139px;
+				padding: 40px 13px 0 11px;
+				overflow: hidden;
+				text-align: center;
+			}
+			
+			#tabbar-with-my .title .left {
+				/*width:17.3%;*/
+				width: 50px;
+				float: left;
+			}
+			
+			#tabbar-with-my .title .left img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#tabbar-with-my .title .right {
+				color: #fff;
+				position: relative;
+				color: #000;
+				font-size: 17px;
+				text-align: center;
+			}
+			
+			#tabbar-with-my .title .right .line-one {}
+			
+			#tabbar-with-my .title .right .line-two {
+				font-size: 11px;
+				height: 11px;
+				line-height: 11px;
+				/*display: none;*/
+			}
+			
+			.arrow {
+				position: absolute;
+				right: 3px;
+				top: 50%;
+				margin-top: -6px;
+				width: 9px;
+				height: 20px;
+				overflow: hidden;
+			}
+			
+			.arrow::after {
+				content: ' ';
+				position: absolute;
+				right: 3px;
+				top: 0;
+				width: 12px;
+				height: 12px;
+				border: 3px solid #C4CDD9;
+				transform: rotate(45deg);
+			}
+			/*已申请职位，收藏。。。*/
+			
+			#tabbar-with-my .news-content .block {
+				width: 33.3%;
+				float: left;
+				margin: 13px 0;
+				font-size: 12px;
+				line-height: 12px;
+			}
+			
+			#tabbar-with-my .news-content .block+div {}
+			
+			#tabbar-with-my .news-content .block .img-t {
+				position: relative;
+				left: 50%;
+				font-size: 20px;
+				color: #fff;
+				width: 20px;
+			}
+			
+			#tabbar-with-my .news-content .block .text-b {
+				margin-top: 9px;
+				/*width: 100%;*/
+				text-align: center;
+				color: #fff;
+				font-size: 15px;
+				border-right: 1px solid #fff;
+				margin-left: 5px;
+				z-index: 100;
+			}
+			/*客服热线，招聘合作*/
+			/*#tabbar-with-my .news-service .news-service-item {
+				width: 100%;
+				height: 50px;
+				background-color: #fff;
+			}
+			*/
+			/*#tabbar-with-my .news-service .news-service-item .left1 {
+				box-sizing: border-box;
+				padding: 17px 8px 0 10px;
+				height: 50px;
+				width: 40px;
+				float: left;
+			}
+			
+			#tabbar-with-my .news-service .news-service-item .left1 img {
+				width: 100%;
+			}
+			
+			#tabbar-with-my .news-service .news-service-item .left2 {
+				color: #000;
+				font-size: 14px;
+				line-height: 11px;
+				float: left;
+				padding: 24px 0;
+				font-family: "微软雅黑";
+			}*/
+			/*顶部栏颜色*/
+			/*header {*/
+			/*background-color: #5CA8FC !important;	*/
+			/*}*/
+			/*下拉框列表项小标签格式*/
+			
+			#sel_box div {
+				display: inline-block;
+				font-size: 10px;
+				height: 24px;
+				line-height: 20px;
+				box-sizing: border-box;
+				padding: 4px 12px;
+				background-color: #F5F4F4;
+				border-radius: 3px;
+				margin-bottom: 13px;
+				margin-right: 9px;
+				border: 1px solid #737373;
+			}
+			
+			.btitle {
+				background-image: url("images/wode.png");
+				background-size: 100% 100%;
+				/*background:#fff;*/
+				height: 270px;
+				margin-top: -20px;
+			}
+			
+			.news-service-item {
+				width: 100%;
+				height: 50px;
+				background-color: #fff;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0px;
+			}
+			
+			.left1 {
+				width: 50px;
+				height: 50px;
+				display: block;
+				float: left;
+			}
+			
+			.kefu {
+				display: block;
+				float: left;
+				height: 50px;
+				line-height: 50px;
+				margin-left: 10px;
+				font-size: 16px;
+				color: #000;
+			}
+		</style>
+
+	</head>
+
+	<body ng-controller="myCtrl">
+		<!--我的-->
+		<div class="mui-scroll-wrapper ">
+			<div class="mui-scroll">
+				<div id="tabbar-with-my" class="" style="background-color: #efefef;">
+					<!--顶部区域-->
+					<div id="cjs"></div>
+					<div class="btitle">
+
+						<div id="title" class="title">
+
+							<div class="head" style="position: relative;">
+								<span class="setting" style="position:absolute;top:0px;right:10px;z-index:1000;"><img style="width:25px;height:25px;" src="images/shezhi.png" alt="" /></span>
+
+								<div ng-if="dling==true" class="right" style="padding-left: 0;width:100%;">
+									<span style="height:90px;width:90px;display:inline-block;border-radius:50%;background:#7fc46f;">
+								<span ng-click="bianji(this)" style="height:80px;width:80px;display:inline-block;border-radius:50%;background:#afdc98;margin-top:5px;position:relative;overflow: hidden;">
+									<img ng-src='{{imgurl+data.avatars}}' alt="" style="width:75px;height:75px;position:absolute;top:2.5px;left:2.5px;border-radius:50%;">
+								</span>
+
+									</span>
+									<div style=" color:#fff;font-size:18px;font-weight:bold;width:100%;display:block;padding:5px 10px;" ng-bind='data.userdata.realname'></div>
+									<div style=" color:#fff;font-size:18px;width:100%;display:block;padding:0px 10px;">{{data.username}}</div>
+								</div>
+
+							</div>
+							<div class="head" style="position: relative;">
+								<div ng-if="dling==false" class="right" style="padding-left: 0;width:100%;padding:20px 0px;">
+									<span style="height:90px;width:90px;display:inline-block;border-radius:50%;background:#7fc46f;">
+										<span ng-click="ljdenglu(this)" style="height:80px;width:80px;display:inline-block;border-radius:50%;background:#afdc98;margin-top:5px;position:relative;overflow: hidden;">
+											<img src='images/weidl.png' alt="" style="width:75px;height:75px;position:absolute;top:2.5px;left:2.5px;border-radius:50%;">
+										</span>
+
+									</span>
+									<div ng-click="ljdenglu(this)" style=" color:#fff;font-size:20px;font-weight:bold;width:100%;display:block;padding:15px 10px;">立即登录</div>
+
+								</div>
+							</div>
+						</div>
+						<!--已申请职位，收藏，社区动态-->
+						<div class="news-content" style="overflow: hidden;display: block;">
+
+							<div class="block" ng-click="yishenqing(this)">
+								<div class="img-t" ng-bind="sqdata.appcount">
+									1
+								</div>
+								<div class="text-b">
+									已申请职位
+								</div>
+							</div>
+
+							<div class="block" ng-click="sc(this)">
+								<div class="img-t" ng-bind="sqdata.favcount">
+									2
+								</div>
+								<div class="text-b">
+									收 藏
+								</div>
+							</div>
+
+							<div class="block" ng-click="shequdt(this)">
+								<div class="img-t" ng-bind="sqdata.displaycount">
+									3
+								</div>
+								<div class="text-b" style="border-right:0px;">
+									社区动态
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<!--客服热线，招聘合作-->
+					<div class="news-service">
+						<!--客服热线，调起本地的电话-->
+
+						<li ng-click="kefu(this)" class="news-service-item mui-table-view-cell" style="position:relative;">
+							<div class="left1" style="background:url(images/xlogo.png) 3px 6px no-repeat;background-size:95% 650%;">
+
+							</div>
+							<div class="left2">
+								<div class="kefu">客服热线</div>
+								<span style="display:block;color:#26aa12;line-height:50px;float:right;margin-right:50px;">400-833-4588</span>
+								<span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+
+							</div>
+						</li>
+
+						<li ng-click="zphz(this)" class="news-service-item zphz mui-table-view-cell" style="margin-top:5px;position:relative;">
+							<span class="left1" style="background:url(images/xlogo.png) 3px -56px no-repeat;background-size:95% 600%;">
+							
+						</span>
+							<div class="left2">
+								<div class="kefu">招聘合作</div>
+								<span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+							</div>
+						</li>
+
+						<li ng-click="tjrz(this)" class="news-service-item tjrz mui-table-view-cell" style="position:relative;">
+							<span class="left1" style="background:url(images/xlogo.png) 3px -99px no-repeat;background-size:97% 600%;">
+							
+						</span>
+							<div class="left2 ">
+								<div class="kefu">推荐入职</div>
+								<span style="font-size:16px;color:#999999;position:absolute;top:14px;right:70px;display: inline-block;">抢！入职奖励<img src="images/jiangli.png" alt=""style="width:30px;height:30px;position:absolute;top:-7px;" /></span><span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+							</div>
+						</li>
+						<li ng-click="qd(this)" class="news-service-item qd mui-table-view-cell" style="margin-top:5px;position:relative;">
+							<span class="left1" style="background:url(images/xlogo.png) 3px -163px no-repeat;background-size:95% 620%;">
+							
+						</span>
+							<div class="left2 ">
+								<div class="kefu">签到有礼</div>
+								<span style="font-size:16px;color:#999999;position:absolute;top:14px;right:70px;display: inline-block;">赢好礼<img src="images/qdyl.png" alt=""style="width:30px;height:30px;position:absolute;top:-7px;" /></span><span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+
+							</div>
+						</li>
+
+						<li ng-click="jifenchoujiang(this)" class="news-service-item jifenchoujiang mui-table-view-cell" style="position:relative;">
+							<span class="left1" style="background:url(images/xlogo.png) 3px -204px no-repeat;background-size:95% 600%;">
+							
+						</span>
+							<div class="left2 ">
+								<div class="kefu">积分抽奖</div>
+								<span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+							</div>
+						</li>
+						<li ng-click="tjff(this)" class="news-service-item tjff mui-table-view-cell" style="position:relative;">
+							<span class="left1" style="background:url(images/xlogo.png) 3px -251px no-repeat;background-size:90% 600%;">
+							
+						</span>
+							<div class="left2 ">
+								<div class="kefu">体检返费</div>
+
+								<span style="font-size:16px;color:#999999;position:absolute;top:14px;right:70px;display: inline-block;"><img src="images/fanf.png" alt=""style="width:30px;height:30px;position:absolute;top:-7px;" /></span><span class="mui-navigate-right" style="position:absolute;top:50%;right:10px;"></span>
+
+							</div>
+						</li>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/factory.js" text/javascript " charset="utf-8 "></script>
+	<script>
+		mui.init({});
+		angular.module('wodeCtr', ['myApp'])
+			.controller('myCtrl',
+				function($scope, $http, $data) {
+					window.addEventListener('ymrefresh', function(e) {
+					//在父页面中添加监听事件，刷新页面
+<!--								console.log(11);-->
+								location.reload();	
+
+					});
+					window.addEventListener('zhuce', function(e) {
+					//在父页面中添加监听事件，刷新页面
+									console.log(112323232);
+									location.reload();
+					
+
+					});
+//					$scope.imgurl=$$$.imgurl;
+					var login_uid = localStorage.getItem('user_name');
+					var login_pass = localStorage.getItem('user_pass');
+					
+					var str='';
+					var yisheq;
+					var newscontent=document.querySelector('.news-content');
+					var title=document.querySelector('#title');
+					mui.ajax($$$.siturl + 'm=App&c=Mumber&a=logoin', {
+						type: 'post',
+						dataType: 'json',
+						data: {
+							uname: login_uid,
+							password: login_pass
+						},
+						success: function(data) {
+
+							
+							if(data.staus==1){
+								str+='<div class="head " style="position: relative; ">';
+								str+='<span class="setting " style="position:absolute;top:-10px;right:10px;z-index:1000; "><img style="width:25px;height:25px; " src="images/shezhi.png " alt=" " /></span>';
+		
+								str+='<div  class="right " style="padding-left: 0;width:100%; ">';
+								str+='<span style="height:90px;width:90px;display:inline-block;border-radius:50%;background:#7fc46f; ">';
+								str+='<span onclick="bianji(this) " style="height:80px;width:80px;display:inline-block;border-radius:50%;background:#afdc98;margin-top:5px;position:relative;overflow: hidden; ">';
+								str+='<img src=" '+$$$.imgurl+data.data.avatars+' "  alt=" " style="width:75px;height:75px;position:absolute;top:2.5px;left:2.5px;border-radius:50%; ">';
+								str+='</span>';
+		
+								str+='</span>';
+								str+='<div style=" color:#fff;font-size:18px;font-weight:bold;width:100%;display:block;padding:5px 10px; " >'+data.data.userdata.realname+'</div>';
+								str+='<div style=" color:#fff;font-size:18px;width:100%;display:block;padding:0px 10px; ">'+data.data.username+'</div>';
+								str+='</div>';		
+								str+='</div>';
+								
+								$data.indexwodesq().success(function(response) {
+			//						console.log(yisheq);
+									
+										newscontent.style.display='block';
+										$scope.sqdata = response.data;
+									
+			//							console.log(JSON.stringify(response.data));
+										
+										
+								})
+							}else if(data.staus==0){
+								str+='<div class="head " style="position: relative; ">';
+									str+='<div class="right " style="padding-left: 0;width:100%;padding:20px 0px; ">';
+										str+='<span style="height:90px;width:90px;display:inline-block;border-radius:50%;background:#7fc46f; ">';
+											str+='<span onclick="ljdenglu(this) " style="height:80px;width:80px;display:inline-block;border-radius:50%;background:#afdc98;margin-top:5px;position:relative;overflow: hidden; ">';
+												str+='<img src="images/weidl.png " alt=" " style="width:75px;height:75px;position:absolute;top:2.5px;left:2.5px;border-radius:50%; ">';
+											str+='</span>';
+	
+										str+='</span>';
+										str+='<div onclick="ljdenglu(this) " style=" color:#fff;font-size:20px;font-weight:bold;width:100%;display:block;padding:15px 10px; ">立即登录</div>';
+	
+									str+='</div>';
+								str+='</div>';
+								newscontent.style.display='none';
+							}
+							title.innerHTML=str;
+							
+						},
+						error: function(xhr, err) {
+							//											 mui.alert(xhr);
+						}
+						
+					});
+						
+					function recordUserMsg(data) {
+						localStorage.setItem('user_name', data.data.username);
+						localStorage.setItem('user_pass', data.data.pass);
+						localStorage.setItem('user_info', JSON.stringify(data.data));
+						var timestamp = Date.parse(new Date());
+						localStorage.setItem('time', timestamp);
+						localStorage.setItem('user_info_sess', JSON.stringify(data.data))
+					}
+					
+						
+					
+					
+					//设置
+					mui(document.body).on('tap','.setting',function(){
+						mui.openWindow({
+							url: 'app/setting/setting.html',
+							id: 'setting.html'
+						})
+					})						
+					
+					//已申请
+					$scope.yishenqing=function(){
+						mui.openWindow({
+							url: 'app/apply/apply.html',
+							id: 'apply.html'
+						})
+					}
+					//收藏
+					$scope.sc=function(){
+						mui.openWindow({
+							url: 'app/shoucang/shoucang.html',
+							id: 'shoucang.html'
+						})
+					}
+					//社区动态
+					$scope.shequdt=function(){
+						mui.openWindow({
+							url: 'app/community/myTop.html',
+							id: 'myTop.html'
+						})
+					}
+					
+					//招聘合作
+					$scope.zphz=function(){
+						mui.openWindow({
+							url: 'app/zhaopin/zhao.html',
+							id: 'zhao.html'
+						})
+					}
+					//推荐入职
+					$scope.tjrz=function(){
+						mui.openWindow({
+							url: 'app/tuijian/tuiFriend.html',
+							id: 'tuiFriend.html'
+						})
+					}
+					
+					//签到有礼
+					$scope.qd=function(){
+						$data.dengl().success(function(data) {
+							console.log(JSON.parse(data));
+							if(data == 0) {
+							mui.openWindow({
+								url: 'app/login/login.html',
+								id: 'login.html'
+							})
+						} else if(data == 1) {
+							//提示签到成功；
+							mui.ajax($$$.siturl + 'm=app&c=PersonPoint&a=siginto', {
+								type: 'get',
+								dataType: 'json',
+								success: function(data) {
+									//									console.log(JSON.stringify(data));
+									if(data.staus == 0) {
+										setTimeout(function() {
+											mui.alert(data.data);
+										}, 500)
+
+									} else if(data.staus == 1) {
+										setTimeout(function() {
+											mui.alert(data.msg);
+										}, 500)
+									}
+
+								}
+							})
+							mui.openWindow({
+								url: 'app/qiandao/qiandao.html',
+								id: 'qiandao.html'
+							})
+						}
+						})
+					}
+					
+					//积分抽奖
+					$scope.jifenchoujiang=function(){
+						$data.dengl().success(function(data){
+							if(data == 0) {
+							mui.openWindow({
+								url: 'app/login/login.html',
+								id: 'login.html'
+							})
+						} else if(data == 1) {
+
+							mui.openWindow({
+								url: 'app/prize/dazhuanpan.html',
+								id: 'dazhuanpan.html.html'
+							})
+						}
+						})
+					}
+					//体检返费
+					$scope.tjff=function(){
+						$data.dengl().success(function(data){
+							if(data == 0) {
+							mui.openWindow({
+								url: 'app/login/login.html',
+								id: 'login.html'
+							})
+						} else if(data == 1) {
+							//提示签到成功；
+
+							mui.openWindow({
+								url: 'app/tijianfanfei/tijianfanfei.html',
+								id: 'tijianfanfei.html'
+							})
+						}
+						})
+					}
+					
+					$scope.kefu=function(){
+						var btnArray=['拨打','取消'];
+			            var phone='4008334588';
+			            mui.confirm('是否拨打'+phone+'?','提示',btnArray,function(e){
+			                if(e.index == 0){
+			                    plus.device.dial(phone,false);
+			                }
+			            });
+					}
+					    
+					    	
+				         
+				    
+					
+				})
+			//登录
+					
+					function ljdenglu(){
+						mui.openWindow({
+							url: 'app/login/login.html',
+							id: 'login.html'
+						})
+					}
+					//编辑
+					function bianji(){
+						mui.openWindow({
+							url: 'app/login/bianji.html',
+							id: 'bianji.html'
+						})
+					}
+		
+	</script>
+
+	</body>
+
+	
+</html>

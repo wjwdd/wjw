@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.selected {
+			border-top: 1px solid #000;
+		}
+		
+		.selected li {
+			float: left;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+			<h1 class="mui-title">sejob</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="selectjob_nr">
+
+			</ul>
+			<ul class="selected"></ul>
+
+		</div>
+		<button class="next">
+			下一步
+		</button>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var selectjob_nr = document.querySelector('.selectjob_nr');
+			var selected = document.querySelector('.selected');
+			var jobarr = [];
+			var userinfo = JSON.parse(localStorage.getItem('user_info'));
+			mui.ajax('http://www.zhizhaobang.cn/php/index.php?m=App&c=Tool&a=hope', {
+				type: 'get',
+				dataType: 'json',
+				success: function(data) {
+					//					console.log(JSON.stringify(data));
+					for(var i = 0; i < data.length; i++) {
+						var lis = document.createElement('li');
+						lis.className = 'sjli';
+//						lis.setAttribute('data-id', data[i].id);
+						lis.innerHTML = data[i].hope;
+						selectjob_nr.appendChild(lis);
+					}
+
+				}
+			})
+			mui('body').on('tap', '.sjli', function() {
+//				console.log(this.innerHTML);
+				var lised = document.createElement('li');
+				lised.className = 'sjlised';
+//				lised.setAttribute('data-id', this.getAttribute('data-id'));
+				lised.innerHTML = this.innerHTML;
+				selected.appendChild(lised);
+				//
+
+			})
+			mui('body').on('tap', '.sjlised', function() {
+				selected.removeChild(this);
+			})
+			mui('body').on('tap', '.next', function() {
+//				console.log(selected.children[1].innerHTML);
+//				var arr = selected.children;
+				for(var i = 0; i < selected.children.length; i++) {
+//					console.log(selected.children[i].getAttribute('data-id'));
+					jobarr.push(selected.children[i].innerHTML);
+
+				}
+//				alert(jobarr);
+				mui.ajax('http://www.zhizhaobang.cn/php/index.php?m=App&c=Tool&a=sethope', {
+					type: 'post',
+					data: {
+						uid: userinfo.uid,
+						hope: jobarr,
+					},
+					dataType: 'json',
+					success: function(data) {
+						console.log(JSON.stringify(data));
+
+					},
+					
+					error: function(e) {
+						console.log(e);
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

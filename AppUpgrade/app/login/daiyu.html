@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		.dy_z {
+			background: #fff;
+			padding: 10px;
+		}
+		
+		.dy_header {
+			padding: 10px;
+			border-top: 1px solid #ff8c00;
+			border-bottom: 1px solid #ff8c00;
+		}
+		
+		.dy_kdx {
+			color: #3abf62;
+			font-size: 12px;
+		}
+		
+		.dy_con {
+			padding: 0px;
+			overflow: hidden;
+		}
+		
+		.dy_con li {
+			list-style: none;
+			width: 70px;
+			background: #e6e6e6;
+			text-align: center;
+			border-radius: 5px;
+			float: left;
+			margin: 10px 5px;
+			line-height: 30px;
+			font-size: 13px;
+		}
+		
+		.dy_foot {
+			width: 100%;
+			overflow: hidden;
+			background: #fff;
+			border-top: 2px solid #ccc;
+			position: fixed;
+			bottom: 0px;
+		}
+		
+		.dy_wjwbtn {
+			width: 50%;
+			line-height: 40px;
+			border: 0px;
+			padding: 0px;
+			float: left;
+			font-size: 18px;
+		}
+		
+		.dy_con li.select {
+			background: #f2c345;
+		}
+	</style>
+
+	<body>
+		<div class="dy_zz">
+
+			<div class="dy_z">
+				<div class="dy_header">
+					福利待遇
+					<span class="dy_kdx">(可多选)</span>
+				</div>
+
+				<ul class="dy_con fuli">
+					<li v-for="x in welfare" v-on:click="get($event)">{{x.c_name}}</li>
+				</ul>
+				<div class="dy_header">
+					意向职位
+					<span class="dy_kdx">(可多选)</span>
+				</div>
+				<ul class="dy_con zhiwei">
+					<li v-for="x in zhiwei" v-on:click="get($event)">{{x.categoryname}}</li>
+				</ul>
+			</div>
+
+			<div class="dy_foot">
+				<button class="dy_wjwbtn" v-on:click="quxiao()">取消</button>
+				<button class="dy_wjwbtn" style="padding-left:-1px;border-left:1px solid #ccc" v-on:click="queding()">确定</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+
+		<script type="text/javascript">
+			mui.init();
+			var news = new Vue({
+				el: '.dy_zz',
+				data: {
+					welfare: [],
+					zhiwei: [],
+					liselect: []
+				},
+				methods: {
+					get: function(event) {
+						event.target.classList.toggle('select');
+						if(event.target.classList.contains('select')) {
+							if(this.liselect.length <= 2) {
+								this.liselect.push(event.target.innerHTML);
+							} else {
+								event.target.classList.toggle('select');
+								mui.toast('最多选三个')
+							}
+						} else {
+							for(var i = 0; i < this.liselect.length; i++) {
+								if(this.liselect[i] == event.target.innerHTML) {
+									this.liselect.splice(i, 1);
+								}
+							}
+						}
+					},
+					queding: function() {
+						if(this.liselect.length == 0) {
+							localStorage.setItem('wantgz', '请选择');
+						} else {
+							localStorage.setItem('wantgz', this.liselect);
+
+						}
+						var list = plus.webview.getWebviewById('fzbianji_delete');
+						mui.fire(list, 'wantgz');
+						var wc = plus.webview.getWebviewById('fzbianji_delete');
+						wc.setStyle({
+							mask: 'none'
+						});
+						plus.webview.close('daiyu');
+
+					},
+					quxiao: function() {
+						var wc = plus.webview.getWebviewById('fzbianji_delete');
+						wc.setStyle({
+							mask: 'none'
+						});
+						plus.webview.close('daiyu');
+					}
+				}
+			});
+
+			mui.getJSON($$$.siturl + "m=App&c=TagToli&a=welfare", function(rsp) {
+				news.welfare = rsp.welfare;
+			});
+			mui.getJSON($$$.siturl + "m=App&c=TagToli&a=zhiwei", function(rsp) {
+				news.zhiwei = rsp.zhiwei;
+			});
+		</script>
+	</body>
+
+</html>

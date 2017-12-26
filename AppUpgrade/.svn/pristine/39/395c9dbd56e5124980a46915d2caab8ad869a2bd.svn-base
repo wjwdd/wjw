@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../../js/mui.min.js"></script>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	#logo {
+			width:100%;
+			height:160px;
+			padding:40px 0 33px 0;
+		}
+		#logo .box {
+			display:block;
+			width:90px;
+			margin:0 auto;
+		}
+		#logo .box img {
+			width:90px;
+			margin-top: 35px;
+		}
+		
+		/*文本框*/
+		#input_box .mui-input-row {
+			height:53px;
+		}
+		#input_box input {
+			width:50%;
+			height:53px;
+		}
+		#input_box label {
+			width:40px;
+			height:53px;
+			padding:0;
+		}
+		#input_box label span {
+			width:20px;
+			height:20px;
+			padding-left:8px;
+			padding-top:14px;
+		}
+    </style>
+    <script type="text/javascript" >
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置密码</h1>
+			
+			
+	</header>
+
+	<!--背景图-->	
+	<div style="margin-top:44px;width:100%;height:160px;box-sizing: border-box;">
+		<div id="logo">
+			<div class="box">
+				<img src="../login/images/logo.png" alt="" />
+			</div> 
+		</div>
+	</div>
+
+		<div class="mui-input-group" id="input_box" >
+		    <div class="mui-input-row">
+		        <label ><span class="mui-icon mui-icon-locked"></span></label>
+			    <input type="password" style="float:left;"  class="mui-input-clear password" placeholder="请输入密码">
+			    </div>
+			    <div class="mui-input-row">
+			        <label><span class="mui-icon mui-icon-locked"></span></label>
+			    <input type="password"  style="float:left;"  class="mui-input-clear password1" placeholder="请再次输入密码">
+		    
+		    </div>
+	    </div>
+		   
+		    
+		    
+		</div>
+		
+		<!--验证按钮-->
+	    <div class="mui-button-row">
+	    	<div class="mui-content-padded" style="margin-top:100px;">
+				<button id='' class="mui-btn mui-btn-block mui-btn-primary tijiaopassword" style="margin-bottom:0;background-color:#5CA8FC;height:40px;line-height: 40px;padding:0;">提交</button>
+				</div>
+			</div>
+	    </div>
+</body> 
+
+<script>
+		document.addEventListener( "plusready",  function(){
+			
+			var tijiaopassword=document.querySelector('.tijiaopassword');
+				tijiaopassword.addEventListener('click',function(){
+
+					$$.setpassword();
+				});
+
+				(function(){
+					window.$$={
+							setpassword:function getverificoder(){
+						 			//alert($$$.siturl+'m=App&c=Mumber&a=sendmessagetoregist');
+						 		var password = document.querySelector(".password").value;	
+								var password1= document.querySelector(".password1").value;
+										
+								if (password == "" || password1=='') {
+							         mui.toast('请填入密码',{ duration:'short', type:'div' })         
+							         return false;
+							    }
+										
+									 mui.ajax($$$.siturl+'m=App&c=Mumber&a=savepassword',{
+									     type:'post',
+									     data:{
+									     	password:password,
+									     	password1:password1,
+									     },
+									     dataType:'json',
+									     success:function(str){
+						                	var data=str;
+						                	if(data.staus===0){
+						                		 mui.toast(data.msg,{ duration:'short', type:'div' }) 
+						                	}else{
+						                		// mui.toast(data.msg,{ duration:'short', type:'div' });					                		 
+						                		 mui.alert("密码修改成功");
+						                		 mui.openWindow({
+												    url:'../../index.html',
+												    id:'index',
+												    extras:{
+												      
+												    },
+												    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+												    waiting:{
+												      autoShow:true,//自动显示等待框，默认为true
+												      title:'正在加载...',//等待对话框上显示的提示内容
+												    }
+												})
+						                	}
+						                 },
+						                 error:function(xhr,type,errorThrown){
+//											mui.toast('遇到问题，正在完善',{ duration:'short', type:'div' }) 
+										 }
+									 })    
+								}
+
+						
+						}
+						
+				})();
+			
+
+		})
+	
+ 
+</script>
+
+</html>

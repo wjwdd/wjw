@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body,
+		.mui-content {
+			background: #fff;
+		}
+		
+		.mui-content {
+			text-align: center;
+		}
+		
+		.yaoqing {
+			width: 80%;
+			margin-top: 20px;
+			background: #26aa12;
+			border: 1px solid #26aa12;
+			line-height: 30px;
+			font-size: 20px;
+		}
+		
+		.zyyq {
+			width: 80%;
+			margin: 10px auto 10px;
+			overflow: hidden;
+		}
+		
+		.yyq {
+			float: left;
+			font-size: 18px;
+			padding: 10px;
+		}
+		
+		.yq_shuzi {
+			font-size: 28px;
+			color: #Fe9900;
+			padding: 0 5px;
+		}
+		
+		.yq_hdxz {
+			margin-top: 20px;
+			color: #26aa12;
+		}
+		
+		.marquee_box {
+			display: inline-block;
+			position: relative;
+			width: 90%;
+			height: 30px;
+			/*关键样式*/
+			overflow: hidden;
+		}
+		
+		.marquee_list {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width:100%;
+			padding:0px;
+			
+		}
+		
+		.marquee_top {
+			transition: top 0.5s;
+		}
+		/*关键样式*/
+		
+		.marquee_list li {
+			height: 30px;
+			/*关键样式*/
+			line-height: 10px;
+			/*关键样式*/
+			font-size: 14px;
+			padding-left: 0px;
+			background-color: #fff;
+			list-style: none;
+			text-align: center;
+		}
+		
+		.marquee_list li span {
+			padding: 0 2px;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background:#fff;position:fixed;top:0px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#22aa12;"></a>
+			<h1 class="mui-title" style="color:#000;">邀请好友</h1>
+		</header>
+		<div class="mui-scroll-wrapper" style="margin-top:70px;">
+			<div class="mui-scroll yqallheight">
+				<div class="mui-content">
+					<img style="width:100%" src="../../images/yaoqinghaoyou.png" alt="" />
+					<div class="marquee_box">
+						<ul class="marquee_list" :style="{ top: -num + 'px'}" :class="{marquee_top:true}">
+							<!-- 当显示最后一条的时候（num=0转换布尔类型为false）去掉过渡效果-->
+							<li v-for="(item, index) in marqueeList">
+								{{item.name}}
+							</li>
+						</ul>
+					</div>
+					<div style="text-align: center;">
+						<button type="button" class="mui-btn mui-btn-success yaoqing">邀请好友入职</button>
+					</div>
+					<div class="yq_hdxz">活动细则></div>
+					<div class="zyyq">
+						<div class="yyq">
+							已邀请 <span class="yq_shuzi" v-text="count">7</span>人
+						</div>
+						<div class="yyq" style="float:right;">
+							已获得<span class="yq_shuzi" v-text="money">7</span>元
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/vue-resource.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var allheight = document.querySelector('.yqallheight');
+			if(allheight) {
+				allheight.style.minHeight = window.innerHeight - 60 + 'px';
+				var deceleration = mui.os.ios ? 0.001 : 0.0003;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: true,
+					indicators: false, //是否显示滚动条
+					deceleration: deceleration,
+					scrollX: true, //是否横向滚动
+				});
+			}
+			var userinfo = JSON.parse(localStorage.getItem('user_info'));
+			var news = new Vue({
+				el: '.mui-content',
+				data: {
+					num: 0,
+					count: 0,
+					money: 0,
+					uid: userinfo.uid,
+					marqueeList: [{
+							name: '墨黎： 151****8456  获得奖励金100元'
+						},
+						{
+							name: '云海一刀： 150****1195  获得奖励金100元'
+						},
+						{
+							name: 'yxq： 130****8776  获得奖励金200元'
+						},
+						{
+							name: '清风~： 150****9874  获得奖励金100元'
+						},
+						{
+							name: '小药： 138****8630  获得奖励金500元'
+						}
+					],
+					activeIndex: 0
+				},
+				created: function() {
+					this.showMarquee(this.num)
+				},
+				methods: {
+					showMarquee: function(num) {
+						this.marqueeList.push(this.marqueeList[0]);
+						var max = this.marqueeList.length;
+						var that = this;
+						marqueetimer = setInterval(function() {
+							num++;
+							if(num >= max) {
+								num = 0;
+							}
+							that.num = num * 30;
+						}, 2000);
+					}
+				}
+
+			});
+			Vue.http.post($$$.siturl + 'm=app&c=Tool&a=invitenum', {
+				uid: news.uid
+			}, {
+				emulateJSON: true
+			}).then(function(a) {
+
+				var data = JSON.parse(a.body);
+
+				news.num = data.num;
+				if(data.money === null) {
+					news.money = 0;
+				} else {
+					news.money = data.money;
+				}
+
+			}, function(a) {
+				alert('请求失败')
+			});
+			mui('body').on('tap', '.yq_hdxz', function() {
+				mui.openWindow({
+					url: '../tuijian/hdxz.html',
+					id: 'hdxz.html',
+
+				})
+			})
+			document.addEventListener("plusready", onPlusReady, false);
+			var yqma = document.querySelector(".yaoqing");
+
+			function onPlusReady() {
+
+				yqma.addEventListener("click", shareHref, false);
+				updateSerivces();
+
+				//		            document.getElementById('weixin').addEventListener('tap',function() {
+				//			            console.log("微信"); 
+				//			            authLogin('weixin'); 
+				//			        }) 
+
+				if(plus.os.name == "Android") {
+					Intent = plus.android.importClass("android.content.Intent");
+					File = plus.android.importClass("java.io.File");
+					Uri = plus.android.importClass("android.net.Uri");
+					main = plus.android.runtimeMainActivity();
+				}
+
+				/**分享按钮*/
+				function shareHref() {
+
+					//					console.log(this);
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession" /*微信好友*/
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline" /*微信朋友圈*/
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信朋友圈"
+						}, {
+							title: "面对面邀请"
+						}];
+					plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: bts
+						},
+						function(e) {
+
+							var i = e.index;
+							if(i > 0 && i < 3) {
+
+								shareAction(ids[i - 1].id, ids[i - 1].ex);
+							} else if(i == 3) {
+								mui.openWindow({
+									url: '../ewm/ewm.html',
+									id: 'ewm.html',
+
+								})
+							}
+						}
+					);
+				}
+
+				/** 
+				 * 分享操作 
+				 */
+				function shareAction(id, ex) {
+					var s = null;
+					console.log(id, ex);
+					if(!id || !(s = shares[id])) {
+						outLine("无效的分享服务！");
+						return;
+					}
+					console.log(s.authenticated);
+					if(s.authenticated) {
+						outSet("---已授权---");
+						shareMessage(s, ex);
+					} else {
+						outSet("---未授权---");
+						s.authorize(function() {
+							shareMessage(s, ex);
+						}, function(e) {
+							outLine("认证授权失败");
+						});
+					}
+				}
+
+				/** 
+				 * 发送分享消息 
+				 */
+
+				function shareMessage(s, ex) {
+					var userinfo = JSON.parse(localStorage.getItem('user_info'));
+					console.log(userinfo.uid);
+					mui.ajax($$$.siturl + 'm=app&c=Tool&a=invite&uid=' + userinfo.uid, {
+						type: 'get',
+						dataType: 'json',
+						success: function(data) {
+							console.log(data);
+							var msg = {
+								href: $$$.siturl + 'm=Mobile&c=members&a=register&utype=2&yqma=' + data,
+								title: '注册直招帮会员，免费好工作等你报名！',
+								content: '快来注册，我已经领到500元奖金了',
+								thumbs: [$$$.imgurl + 'data/weixin/1.png'],
+								pictures: [$$$.imgurl + 'data/weixin/1.png'],
+								extra: {
+									scene: ex
+								}
+							};
+							console.log(JSON.stringify(msg));
+							s.send(msg, function() {
+								//提交
+								mui.ajax($$$.siturl + 'm=App&c=PersonPoint&a=SharePoint', {
+									type: 'get',
+									dataType: 'json',
+									success: function(data) {
+										outLine("分享成功!");
+									}
+								})
+							}, function(e) {
+								outLine("分享失败!");
+							});
+						},
+						error: function(a) {
+							console.log(JSON.stringify(a));
+						}
+					})
+				}
+
+				/** 
+				 * 更新分享服务 
+				 */
+				function updateSerivces() {
+					plus.share.getServices(function(s) {
+						shares = {};
+						for(var i in s) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+						outSet("获取分享服务列表成功");
+					}, function(e) {
+						outSet("获取分享服务列表失败：" + e.message);
+					});
+				}
+
+				// 控制台输出日志 
+				function outSet(msg) {
+					//				            console.log(msg); 
+				}
+				// 界面弹出吐司提示 
+				function outLine(msg) {
+					mui.toast(msg);
+				}
+
+				// 登录操作 
+				function authLogin(type) {
+					var s;
+					for(var i = 0; i < auths.length; i++) {
+						if(auths[i].id == type) {
+							s = auths[i];
+							break;
+						}
+					}
+					if(!s.authResult) {
+						s.login(function(e) {
+							mui.toast("登录认证成功！");
+							authUserInfo(type);
+						}, function(e) {
+							mui.toast("登录认证失败！");
+						});
+					} else {
+						mui.toast("已经登录认证！");
+					}
+				}
+
+				// 微信登录认证信息 
+				function authUserInfo(type) {
+					var s;
+					for(var i = 0; i < auths.length; i++) {
+						if(auths[i].id == type) {
+							s = auths[i];
+							break;
+						}
+					}
+					if(!s.authResult) {
+						mui.toast("未授权登录！");
+					} else {
+						s.getUserInfo(function(e) {
+							var josnStr = JSON.stringify(s.userInfo);
+							var jsonObj = s.userInfo;
+							console.log("获取用户信息成功：" + josnStr);
+							showData(type, jsonObj);
+							authLogout();
+						}, function(e) {
+							alert("获取用户信息失败：" + e.message + " - " + e.code);
+						});
+					}
+				}
+
+				function showData(type, data) {
+					switch(type) {
+						case 'weixin':
+							headImage.src = data.headimgurl;
+							break;
+						case 'qq':
+							headImage.src = data.figureurl_qq_2;
+							break;
+						case 'sinaweibo':
+							headImage.src = data.avatar_large;
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

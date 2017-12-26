@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+		<style>
+			html,
+			body {
+				background: url(app/circle/kuaisu/image/kuaisubottom.png) center 30px no-repeat;
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.Headportrait {
+				width: 100%;
+				height: 220px;
+				text-align: center;
+				padding: 40px;
+			}
+			
+			.head-img {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				border: 4px solid #5ecb7e;
+				background: url(img/1114.png) center center no-repeat;
+				background-size: 100%;
+			}
+			
+			.personal,
+			.login {
+				overflow: hidden;
+				background-color: #3abf62;
+				background-image: url(images/my.png);
+				background-position: bottom;
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+			
+			.personal {
+				display: none;
+			}
+			
+			.logon {
+				display: block;
+			}
+			
+			#setting {
+				position: absolute;
+				top: 40px;
+				right: 20px;
+				font-size: 20px;
+			}
+			
+			.ljlogin,
+			.tele,
+			.username {
+				color: #fff;
+			}
+			
+			.mui-table-view:before,
+			.mui-table-view:after {
+				position: absolute;
+				right: 0;
+				left: 0;
+				height: 0px!important;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+				top: -1px;
+			}
+			
+			.mylogo {
+				width: 30px;
+				height: 30px;
+				display: inline-block;
+				background: url(images/mglogo.png) no-repeat;
+				background-size: 40px;
+				padding-left: 40px;
+				line-height: 30px;
+			}
+			
+			.mui-table-view-cell {
+				padding: 10px 15px;
+			}
+			
+			.cj {
+				width: 80px;
+				height: 30px;
+				display: inline-block;
+				background: url(images/cj.png) no-repeat;
+				background-size: 80px;
+				padding-left: 40px;
+				line-height: 30px;
+				position: absolute;
+				right: 30px;
+			}
+			
+			.tuijian {
+				width: 30px;
+				height: 30px;
+				display: inline-block;
+				background: url(images/jiangli.png) no-repeat;
+				background-size: 22px;
+				padding-left: 40px;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+			}
+			
+			.kf {
+				line-height: 30px;
+				position: absolute;
+				right: 30px;
+				color: #ccc;
+			}
+			
+			.jl {
+				width: 40px;
+				height: 20px;
+				display: inline-block;
+				background: url(img/jl.png) no-repeat;
+				background-size: 40px;
+				padding-left: 40px;
+				line-height: 30px;
+				position: absolute;
+				right: 60px;
+				top: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-scroll-wrapper ">
+			<div class="mui-scroll wodeheight" style="padding:0px;">
+				<div class="mui-content">
+					<ul class="mui-table-view" style="margin-top:0px;">
+						<span id="setting" class="mui-icon iconfont icon-shezhi1" style="color:#fff;"></span>
+						<li class=" personal">
+							<div class="Headportrait">
+								<img class="head-img personalclic" id="head-img">
+								<div class="tele ">15064281195</div>
+								<div class="username">qd</div>
+							</div>
+
+						</li>
+						<li class="login">
+							<div class="Headportrait">
+								<img class="head-img loginclic" id="head-img" src="images/weidl.png">
+								<div class="ljlogin loginclic">立即登录</div>
+
+							</div>
+
+						</li>
+					</ul>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell dongtai">
+							<a class="mui-navigate-right ">
+								<span class="mylogo" style="background-position:0px -159px ;">社区动态</span>
+
+							</a>
+						</li>
+						<li class="mui-table-view-cell sign">
+							<a class="mui-navigate-right">
+								<span class="mylogo" style="background-position:0px -213px ;">签到有礼</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell draw">
+							<a class="mui-navigate-right">
+								<span class="mylogo" style="background-position:0px -267px ;">积分抽奖</span>
+								<span class="cj"></span>
+							</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view" style="margin-top: 10px;">
+						<li class="mui-table-view-cell Recommend">
+							<a class="mui-navigate-right">
+								<span class="mylogo" style="background-position:0px -330px ;">推荐好友</span>
+								<span class="kf" style="right:65px;">抢！入职奖励</span><span class="tuijian"></span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell gongzuo">
+							<a class="mui-navigate-right">
+								<span class="mylogo" style="background-position:0px -21px ;">我的工作</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell fanfei">
+							<a class="mui-navigate-right">
+								<span class="mylogo" style="background-position:0px -87px;">体检返费</span>
+							</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view" style="margin-top: 10px;">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" id="tel">
+								<span class="mylogo" style="background-position:0px -442px ;">客服电话</span>
+								<span class="kf">400-833-4588</span>
+							</a>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+		</div>
+		</style>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/factory.js" type="text/javascript" charset="utf-8"></script>
+
+	<script>
+		window.addEventListener('ymrefresh', function(e) {
+			//在父页面中添加监听事件，刷新页面
+			//<!--								console.log(11);-->
+			location.reload();
+
+		});
+		window.addEventListener('zhuce', function(e) {
+			//在父页面中添加监听事件，刷新页面
+			console.log(112323232);
+			location.reload();
+
+		});
+		var login_uid = localStorage.getItem('user_name');
+		var login_pass = localStorage.getItem('user_pass');
+
+		var str = '';
+		var yisheq;
+		var newscontent = document.querySelector('.news-content');
+		var headimg = document.querySelector('.head-img');
+		var tele = document.querySelector('.tele');
+		var username = document.querySelector('.username');
+		var personal = document.querySelector('.personal');
+		var login = document.querySelector('.login');
+		var title = document.querySelector('#title');
+		mui.ajax($$$.siturl + 'm=App&c=Mumber&a=logoin', {
+			type: 'post',
+			dataType: 'json',
+			data: {
+				uname: login_uid,
+				password: login_pass
+			},
+			success: function(data) {
+
+				if(data.staus == 1) {
+					login.style.display = "none";
+					personal.style.display = "block";
+					headimg.src = $$$.imgurl + data.data.avatars;
+					tele.innerHTML = data.data.username
+					username.innerHTML = data.data.userdata.realname;
+				} else if(data.staus == 0) {
+					login.style.display = "block";
+					personal.style.display = "none";
+
+				}
+
+			},
+			error: function(xhr, err) {
+				//											 mui.alert(xhr);
+			}
+
+		});
+
+		function recordUserMsg(data) {
+			localStorage.setItem('user_name', data.data.username);
+			localStorage.setItem('user_pass', data.data.pass);
+			localStorage.setItem('user_info', JSON.stringify(data.data));
+			var timestamp = Date.parse(new Date());
+			localStorage.setItem('time', timestamp);
+			localStorage.setItem('user_info_sess', JSON.stringify(data.data))
+		}
+		//设置
+		mui(document.body).on('tap', '#setting', function() {
+			mui.openWindow({
+				url: 'app/setting/setting.html',
+				id: 'setting.html'
+			})
+		})
+		mui(document.body).on('tap', '.loginclic', function() {
+			mui.openWindow({
+				url: 'app/login/login.html',
+				id: 'login.html',
+			})
+		})
+		mui(document.body).on('tap', '.personalclic', function() {
+			mui.openWindow({
+				url: 'app/login/bianji.html',
+				id: 'bianji.html',
+			})
+		})
+		//社区动态
+		mui(document.body).on('tap', '.dongtai', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/community/myTop.html',
+					id: 'myTop.html'
+				})
+			}
+
+		})
+		//签到
+		mui(document.body).on('tap', '.sign', function() {
+			//提示签到成功；
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.ajax($$$.siturl + 'm=app&c=PersonPoint&a=siginto', {
+					type: 'get',
+					dataType: 'json',
+					success: function(data) {
+						//									console.log(JSON.stringify(data));
+						if(data.staus == 0) {
+							setTimeout(function() {
+								//											mui.alert(data.data);
+							}, 500)
+
+						} else if(data.staus == 1) {
+							setTimeout(function() {
+								mui.alert(data.msg);
+							}, 500)
+						}
+
+					}
+				})
+				mui.openWindow({
+					url: 'app/qiandao/qiandao.html',
+					id: 'qiandao.html'
+				})
+			}
+		})
+		//抽奖
+		mui(document.body).on('tap', '.draw', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/prize/dazhuanpan.html',
+					id: 'dazhuanpan.html.html'
+				})
+			}
+		})
+		//
+		mui(document.body).on('tap', '.Recommend', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/tuijian/tuiFriend.html',
+					id: 'tuiFriend.html'
+				})
+			}
+
+		})
+		//
+		mui(document.body).on('tap', '.sbun', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/zhaopin/zhao.html',
+					id: 'zhao.html'
+				})
+			}
+		})
+		mui(document.body).on('tap', '#tel', function() {
+			var btnArray = ['拨打', '取消'];
+			var phone = '400-833-4588';
+			mui.confirm('是否拨打    ' + phone + '?', '提示', btnArray, function(e) {
+				if(e.index == 0) {
+					plus.device.dial(phone, false);
+				}
+			});
+		})
+		mui(document.body).on('tap', '.gongzuo', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/shoucang/shoucang.html',
+					id: 'shoucang.html'
+				})
+			}
+
+		})
+		mui(document.body).on('tap', '.fanfei', function() {
+			banduandl(elsefun);
+
+			function elsefun() {
+				mui.openWindow({
+					url: 'app/tijianfanfei/tijianfanfei.html',
+					id: 'tijianfanfei.html'
+				})
+			}
+
+		})
+
+		function banduandl(callback) {
+			mui.ajax($$$.siturl + "m=App&c=Tool&a=islogin", {
+				type: 'get',
+				success: function(data) {
+
+					if(data == 0) {
+						mui.openWindow({
+							url: 'app/login/login.html',
+							id: 'login.html'
+						})
+					} else if(data == 1) {
+						callback();
+					}
+				}
+			})
+		}
+		var wodeheight = document.querySelector('.wodeheight');
+		if(wodeheight) {
+
+			wodeheight.style.minHeight = window.screen.availHeight - 30 + 'px';
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration,
+				scrollX: true, //是否横向滚动
+			});
+		}
+	</script>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/cropper.css" />
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<style>
+			body{
+				
+			}
+			#redo{
+				position: fixed;
+				bottom: 20px;
+				left :20px;
+				font-size: 30px;
+			}
+			#undo{
+				position: fixed;
+				bottom: 20px;
+				right :20px;
+				font-size: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav blueBackground">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#26aa12;"></a>
+		  <h1 id="patientId" class="mui-title">截取头像</h1>
+		  <a id="save" style="vertical-align: middle;color:#8dc14f;line-height:2.5em;" class="mui-pull-right"><span>保存</span></a>
+		</header>
+		<div class="cjs"></div>
+		<div style="" class="mui-content" >
+			<div style="padding-top:100px;">
+				<img style="width: 98%;height:200px;" id="image" src="">
+			</div>
+			<!--<button id="redo" type="button" class="mui-btn mui-btn-danger mui-btn-outlined mui-pull-left"><span class="mui-icon mui-icon-redo"></span></button>
+			<button id="undo" type="button" class="mui-btn mui-btn-danger mui-btn-outlined mui-pull-right"><span class="mui-icon mui-icon-undo"></button>-->
+		</div>
+		<!--<script type="text/javascript" src="../../js/JQ1.1.13.js" ></script>-->
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="js/cropper.min.js" ></script>
+		<script type="text/javascript" src="js/wjwcropper1.js" ></script>
+	</body>
+</html>

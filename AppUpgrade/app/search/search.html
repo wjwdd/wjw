@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/comm.css" rel="stylesheet" />
+		<style>
+			body,
+			html {}
+			.ssleft {
+				width: 26%;
+				float: left;
+				padding-right: 13px;
+				background: url(../circle/kuaisu/image/kuaisubottom.png) center center no-repeat;
+				background-size: 50%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor"></a>
+			<h1 class="mui-title">搜索</h1>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-input-row" style="width:80%;position: relative;display:block; float: left;">
+					<input type="text" style="width:95%; height:40px;border-radius: 20px;box-sizing: border-box;margin-left:10px;padding-left:43px;font-size: 13px;" class="inputserch mui-input-clear" placeholder="请输入您想搜索的职位">
+					<div style="position: absolute;left:23px;top:12px;width:20px;height:16px;background-image: url(../../images/sousuo.png);background-size:20px 16px;background-repeat: no-repeat;">
+					</div>
+				</div>
+				<button class="searchtoall" onclick="searchtoall()" style=" float:right;height: 40px;padding:6px 6px;width: 20%;border-radius: 20px;border: none;background-color: transparent;font-size: 18px; display: block;color:#26AA12;"> 搜索</button>
+				<!--小标签-->
+				<div style="background-color:#fff; clear: both;">
+					<!--热门职位-->
+					<div style="height:40px;line-height:40px;width:100%;padding-left: 16px;font-weight: 700;">热门职位</div>
+					<div class="mui-input-row insertspanhot" style="padding: 1px 0 10px 0;padding-left:8px;">
+						<!--<span class= "onclikto" style="font-size;12px;line-height: 30px;height:30px;padding:0 5px;background-color:#f0eded;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 5px;color:#999;margin:3px;margin-right:5px;">内勤</span>-->
+					</div>
+					<ul class="mui-table-view mui-content" style="margin: 0px;padding:0px;border:0;" id="job_list2">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh', //待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+				up: {
+					height: 50, //可选.默认50.触发上拉加载拖动距离
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: pullfresh_function //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+			}
+		});
+
+		page = 1;
+
+		function pullfresh_function() {
+			var self = this;
+			setTimeout(function() {
+				var time = getNowFormatDate();
+				mui.ajax($$$.siturl + 'm=App&c=index&a=searchjobsingle', {
+					type: 'post',
+					dataType: 'json',
+					data: {
+						data: localStorage.getItem('datao'),
+						page: page,
+						time: time,
+					},
+					success: function(str) {
+						console.log(JSON.stringify(str));
+
+						if(str.staus == 2) {
+							mui.toast(str.msg, {
+								duration: 'short',
+								type: 'div'
+							});
+						}
+						var job = str.data;
+						var joblist = document.querySelector("#job_list2");
+
+						for(var x = job.length - 1; x >= 0; x--) {
+							new CreateList_index({
+								i: x,
+								id: 'job_list2',
+								data: job[x]
+							})
+						}
+						var ul = document.querySelector('#job_list2')
+						var lis = ul.children;
+						for(var x = 0; x < lis.length; x++) {
+							lis[x].addEventListener('click', function() {
+								var id = this.children[0].getAttribute('data-id');
+								localStorage.setItem('jid', id);
+							})
+						}
+						page++;
+						self.endPullupToRefresh(false);
+					},
+					error: function(xhr, type, errorThrown) {
+						//						mui.toast('遇到问题，正在完善',{ duration:'short', type:'div' }) ;
+					}
+				})
+
+			}, 1000)
+
+		}
+	</script>
+	<script>
+		document.addEventListener("plusready", function() {
+			mui.ajax($$$.siturl + 'm=App&c=index&a=hotword', {
+				type: 'get',
+				dataType: 'json',
+				success: function(str) {
+					insertdata('.insertspanhot', str);
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast('遇到问题，正在完善', {
+						duration: 'short',
+						type: 'div'
+					});
+				}
+			})
+		});
+
+		function searchtoall() {
+
+			var tex = document.querySelector(".inputserch").value;
+
+			getinfoinser(tex);
+			localStorage.setItem('datao', tex)
+		}
+	</script>
+	<script>
+		function insertdata(id, data) {
+			var data = datas(id, data);
+			var jobs = document.querySelector(id);
+			var result = '';
+
+			for(var i = 0; i < data.length; i++) {
+				//alert(data[i].data);
+				result += '<span class= "onclikto" style="width:20%;font-size:14px;line-height:35px;height:35px;text-align:center;background-color:#F0EDED;display: inline-block;text-align: center;border-radius: 5px;color:#101010;margin:5% 5% 0 0;">';
+				result += data[i].data + '</span>';
+				//result+='<span">'+data[i].data+'</span>';
+			}
+			jobs.innerHTML = result;
+			blindclick();
+
+			function datas(id, data) {
+				var data = data.data;
+				var ar = [];
+				if(id == '.insertspanhot') {
+					for(d in data) {
+						var res = {};
+						res.id = data[d].w_id;
+						res.data = data[d].w_word;
+						ar.push(res);
+					}
+				}
+				return ar;
+			}
+
+			function blindclick() {
+				mui(document.body).on('tap', '.onclikto', function(e) {
+					getinfoinser(this.innerHTML);
+					e.stopPropagation();
+				})
+
+			}
+
+		}
+
+		function getinfoinser(data) {
+
+			var time = getNowFormatDate();
+
+			mui.ajax($$$.siturl + 'm=App&c=index&a=searchjobsingle', {
+				type: 'post',
+				dataType: 'json',
+				data: {
+					data: data,
+					page: 1,
+					time: time,
+				},
+				success: function(str) {
+					console.log(JSON.stringify(str));
+					//mui.alert(str);
+					if(str.staus == 2) {
+						mui.toast(str.msg, {
+							duration: 'short',
+							type: 'div'
+						});
+
+					}
+
+					var job = str.data;
+					console.log(JSON.stringify(job));
+					var joblist = document.querySelector("#job_list2");
+					joblist.innerHTML = '';
+					for(var x = job.length - 1; x >= 0; x--) {
+						new CreateList_index({
+							i: x,
+							id: 'job_list2',
+							data: job[x]
+						})
+					}
+					// var ul = document.querySelector('#job_list2')
+					//var lis = ul.children;
+					/*for(var x = 0 ;x < lis.length; x++){
+						lis[x].addEventListener('click',function(){
+							var id = this.children[0].getAttribute('data-id');									
+							localStorage.setItem('jid',id);
+
+						})
+					}*/
+
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast('遇到问题，正在完善', {
+						duration: 'short',
+						type: 'div'
+					});
+				}
+			})
+		}
+	</script>
+
+	<script type="text/javascript">
+		function CreateList_index(option) {
+			this.index = option.i;
+			this.id = option.id || 'work_detail';
+			this.bg = option.bg || '#fff';
+			this.data = option.data;
+			this.init();
+		}
+
+		CreateList_index.prototype = {
+			init: function() {
+				// 处理id
+				var id = this.birthId(this.id);
+				// 创建并插入预制组件
+				var str = this.create(this.data);
+				this.insert(id, str, this.data, this.index);
+			},
+			birthId: function(id) {
+				var query = '#' + id;
+				return query;
+			},
+			create: function(data) {
+				/*定义组件字符串*/
+				var tags = data.tag_cn.split(',');
+				var leng = 0;
+				if(tags.length > 3) {
+					leng = 3;
+
+				} else {
+					leng = tags.length;
+				}
+				var srce = '';
+				for(var i = 0; i < leng; i++) {
+					var tageclass = this.tagcolor(tags[i]);
+					srce += '<span style="font-size:10px;line-height: 12px;height:16px;padding:2px 4px;box-sizing: border-box;display: inline-block;text-align: center;border-radius: 5px;margin-right:3px;" class="' + tageclass + '" >' + tags[i] + '</span>';
+				}
+				var result = '';
+				(function(data) {
+
+					result += '<li  class="mui-table-view-cell seadiv" style="box-sizing: border-box;border-bottom:1px solid #CDCDCD; margin:auto" data-id="' + data.jid + '">';
+
+					result += '<div class="ssleft">';
+					//					result += '<img src="' + $$$.imgurl + data.logo + '" style="width:100%;height:62px;border-radius: 8px;">';
+					result += '</div>';
+					result += '<div class="" style="float:right;width:74%;">';
+					result += '<div class="" style="width:100%">';
+					result += '<div  class="">';
+					result += '<div class="" style="font-weight:700;font-size:14px;padding-bottom:10px;line-height: 14px;">' + data.jobs_name + '</div>';
+					result += '</div>';
+					result += '<div  class="" style="position: relative;font-size:12px;padding-bottom: 7px;line-height: 12px;">';
+					result += '<div class="" style="color:#737373;">' + data.category_cn + '</div>';
+					result += '<div class="wagecolor" style="font-size:1.5em;position:absolute;right:13px;top:0;color:#26aa12">' + data.minwage + '-' + data.maxwage + '元</div>';
+					result += '</div>';
+					result += '<div  class="" style="position:relative;font-size:15px;">';
+					result += '<div class="">';
+					result += srce;
+					result += '</div>';
+					result += '<div class="dis" style="position: absolute;right:13px;bottom:0;font-size:12px;top:3px">' + data.district_cn + '</div>';
+					result += '</div>';
+					result += '</div>';
+					result += '</div>';
+
+					result += '</li>';
+
+				})(data);
+				return result;
+			},
+			imgload: function(data, index) {
+				var img = document.createElement('img');
+				img.src = $$$.imgurl + data.logo;
+
+				img.onload = function() {
+					var zcimg = document.getElementsByClassName('ssleft')[index];
+					img.classList.add('cimg');
+
+					zcimg.appendChild(img);
+
+				}
+			},
+			insert: function(id, result, data, index) {
+				var div = document.createElement('div');
+				div.innerHTML = result;
+
+				var box = document.querySelector(id);
+				if(box.appendChild) {
+					box.insertBefore(div, box.children[0]);
+				} else {
+					box.insertBefore(div, box.children[0]);
+				}
+				this.imgload(data, index);
+			},
+			tagcolor: function(y) {
+				if(y == '年终奖') return 'tag1';
+				else if(y == '工作餐')
+					return 'tag2';
+				else if(y == '五险一金')
+					return 'tag3';
+				else if(y == '长白班')
+					return 'tag4';
+				else if(y == '两班倒')
+					return 'tag5';
+				else if(y == '双休')
+					return 'tag6';
+				else if(y == '工作轻松')
+					return 'tag3';
+				else if(y == '单休')
+					return 'tag4';
+				else if(y == '恒温车间')
+					return 'tag5';
+				else if(y == '坐着上班')
+					return 'tag5';
+				else
+					return 'tag7';
+
+			}
+		};
+		//详情
+		mui(document.body).on('tap', ".seadiv", function() {
+			//			alert(this.getAttribute('data-id'));
+			localStorage.setItem('jid', this.getAttribute('data-id'));
+			mui.openWindow({
+				url: '../job/job.html',
+				id: 'job',
+				createNew: true, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				waiting: {
+					autoShow: false, //自动显示等待框，默认为true
+				}
+			})
+		})
+
+		//		function goJobLink(dvj) {
+		//			var jid = dvj.getAttribute('data-id');
+		//			localStorage.setItem('jid', jid);
+		//			mui.openWindow({
+		//				url: '../job/job.html',
+		//				id: 'job',
+		//				extras: {
+		//					//jid:jid
+		//				},
+		//				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+		//				waiting: {
+		//					autoShow: true, //自动显示等待框，默认为true
+		//					title: '正在加载...', //等待对话框上显示的提示内容
+		//				}
+		//			})
+		//		}
+	</script>
+
+	<script>
+		function getNowFormatDate() {
+			var date = new Date();
+			var seperator1 = "-";
+			var seperator2 = ":";
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if(month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if(strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+				" " + date.getHours() + seperator2 + date.getMinutes() +
+				seperator2 + date.getSeconds();
+			return currentdate;
+		}
+	</script>
+
+</html>

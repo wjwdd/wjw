@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../../css/comm.css" rel="stylesheet" />
+		<style>
+			/*小圆图标*/
+			
+			#title li {
+				border: none;
+				height: 70px;
+				padding-top: 5px;
+			}
+			
+			
+			
+			#title li span {
+				display: inline-block;
+				width: 2.2em;
+				height: 2.2em;
+				background-image: url(images/zhichang.png);
+				background-size: 203% 203%;
+				background-repeat: no-repeat;
+			}
+			
+			.hangye {
+				background-position: right top;
+			}
+			
+			.shenghuo {
+				background-position: right bottom;
+			}
+			
+			.bagua {
+				background-position: left bottom;
+			}
+			
+			.zixun {
+				background-position: left top;
+			}
+			/*单条咨询样式*/
+			
+			#zixun_content .zixun-item {
+				height: 86px;
+				background-color: #fff;
+				padding: 10px 8px;
+				position: relative;
+				border-bottom: 1px solid #ccc;
+				margin-top: 3px;
+			}
+			
+			#zixun_content .zixun-item .left {
+				width: 23%;
+				float: left;
+				padding-right: 10px;
+			}
+			
+			#zixun_content .zixun-item .left img {
+				width: 100%;
+				height: 62px;
+				border-radius: 8px;
+			}
+			
+			#zixun_content .zixun-item .right {
+				float: left;
+				width: 77%;
+				margin-top: 2px;
+			}
+			
+			#zixun_content .zixun-item .right .line-one {
+				font-weight: 700;
+				font-size: 14px;
+				padding-bottom: 10px;
+				line-height: 14px;
+				/*padding-bottom: 43px;*/
+			}
+			
+			#zixun_content .zixun-item .right .line-two {
+				display: block;
+				box-sizing: content-box;
+				height: 12px;
+				font-size: 12px;
+				line-height: 12px;
+			}
+			
+			#zixun_content .zixun-item .right .line-thr {
+				position: absolute;
+				bottom: 8px;
+				font-size: 10px;
+				/*font-size: 10px;
+				line-height: 12px;
+				height: 16px;
+				padding: 4px;
+				box-sizing: border-box;
+				display: block;
+				text-align: center;
+				border-radius: 5px;
+				margin-right: 3px;*/
+			}
+			.smlcir{
+				font-size:14px;
+			}
+			.smlcir.select {
+				color: #22aa12;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--顶部栏-->
+		<header id="header" class="mui-bar mui-bar-nav header-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left wagecolor"></a>
+			<h1 class="mui-title">职场分类</h1>
+		</header>
+		<div class="cjs"></div>
+
+		<!--四个小圆图标-->
+		<div class="" style="padding:0;padding-top:48px;" id="circle">
+			<ul id="title" class="mui-table-view mui-grid-view mui-grid-9" style="z-index:3;margin:0;background-color: #f7f7f7;border-bottom:1px solid #cdcdcd; padding-top:20px	">
+				<li id="fazhan" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 smlcirs">
+
+					<span class="hangye"></span>
+					<div class="smlcir select">短期工</div>
+
+				</li>
+				<li id="shenghuo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 smlcirs ">
+
+					<span class="shenghuo"></span>
+					<div class="smlcir">假期工</div>
+
+				</li>
+				<li id="bagua" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 smlcirs">
+
+					<span class="bagua"></span>
+					<div class="smlcir">职场八卦</div>
+
+				</li>
+				<li id="zixun" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 smlcirs">
+
+					<span class="zixun"></span>
+					<div class="smlcir">职场资讯</div>
+
+				</li>
+
+			</ul>
+			<div class="mui-scroll-wrapper" >
+				<div class="mui-scroll allheight">
+					<div id="zixun_content" style="padding-top:130px;">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui(document.body).on('tap', '#header', function() {
+				mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 1000); //100毫秒滚动到顶
+			})
+			mui.plusReady(function() {
+				var content = document.querySelector('#zixun_content');
+
+				// ajax加载页面
+				mui.ajax($$$.siturl + 'm=App&c=ClicDun&a=duanqigong', {
+					type: 'get',
+					dataType: 'json',
+					success: function(data) {
+
+						if(data.length > 0) {
+							for(var x = 0; x < data.length; x++) {
+								new Create_Short({
+									id: 'zixun_content',
+									data: data[x]
+								});
+							}
+						}
+					},
+					error: function() {
+
+					}
+				});
+
+				var fazhan = document.querySelector('#fazhan');
+				var shenghuo = document.querySelector('#shenghuo');
+				var bagua = document.querySelector('#bagua');
+				var zixun = document.querySelector('#zixun');
+				mui(document.body).on('click', '.smlcirs', function() {
+
+					var smlcir = document.getElementsByClassName('smlcir');
+
+					for(var i = 0; i < smlcir.length; i++) {
+						if(smlcir[i].classList.contains('select')) {
+							smlcir[i].classList.remove('select')
+						}
+					}
+					this.children[1].classList.add('select');
+
+				})
+				fazhan.addEventListener('click', function() {
+					content.innerHTML = '';
+					mui.ajax($$$.siturl + 'm=App&c=ClicDun&a=duanqigong', {
+						type: 'get',
+						dataType: 'json',
+						success: function(data) {
+							if(data.length > 0) {
+								for(var x = 0; x < data.length; x++) {
+									new Create_Short({
+										id: 'zixun_content',
+										data: data[x]
+									});
+								}
+							}
+						},
+						error: function() {
+
+						}
+					});
+				});
+
+				shenghuo.addEventListener('click', function() {
+					content.innerHTML = '';
+					mui.ajax($$$.siturl + 'm=App&c=ClicDun&a=zhichangzixun&duanqi=1', {
+						type: 'get',
+						success: function(str) {
+							var data = JSON.parse(str);
+							for(var x = 0; x < data.data.length; x++) {
+								new Create_Short({
+									id: 'zixun_content',
+									data: data.data[x]
+								});
+							}
+						},
+						error: function() {
+
+						}
+					});
+				});
+
+				bagua.addEventListener('click', function() {
+					localStorage.setItem("wefwefesd", "职场八卦")
+					content.innerHTML = '';
+					mui.ajax($$$.siturl + 'm=App&c=index&a=zhichangzixun&id=4', {
+						type: 'get',
+						success: function(str) {
+							var data = JSON.parse(str);
+							for(var x = 0; x < data.data.length; x++) {
+								new Create_zixun({
+									id: 'zixun_content',
+									data: data.data[x]
+								});
+							}
+						},
+						error: function() {
+
+						}
+					});
+				});
+
+				zixun.addEventListener('click', function() {
+					localStorage.setItem("wefwefesd", "职场资讯")
+					content.innerHTML = '';
+					mui.ajax($$$.siturl + 'm=App&c=index&a=zhichangzixun&id=5', {
+						type: 'get',
+						success: function(str) {
+							var data = JSON.parse(str);
+							for(var x = 0; x < data.data.length; x++) {
+								new Create_zixun({
+									id: 'zixun_content',
+									data: data.data[x]
+								});
+							}
+						},
+						error: function() {
+
+						}
+					});
+				});
+
+			});
+		</script>
+		<!--函数定义-->
+		<script>
+			function Create_zixun(option) {
+				this.id = option.id;
+				this.data = option.data;
+				this.init();
+			}
+			Create_zixun.prototype = {
+				init: function() {
+					// 处理id
+					var id = this.birthId(this.id);
+					// 创建并插入预制组件
+					var str = this.create(this.data);
+					this.insert(id, str);
+				},
+				birthId: function(id) {
+					return '#' + id;
+				},
+				create: function(data) {
+					// 处理标题
+					var tar = '';
+					if(data.title.length > 20) {
+						tar = data.title.slice(0, 20) + '...';
+					} else {
+						tar = data.title;
+					}
+
+					var result = '';
+					if(data.district_cn != null && data.district_cn != 'null') {
+						result += '<div class="zixun-item" onclick="gotoling(this)" data-jid="' + data.jid + '">';
+					} else {
+						result += '<div class="zixun-item" onclick="gozhichang(this)" data-id="' + data.id + '">';
+					}
+
+					result += '<div class="left">';
+					result += '<img src="' + $$$.imgurl + data.small_img + '" alt="">';
+					result += '</div>';
+					result += '<div class="right">';
+					result += '<div class="line-one">' + tar + '</div>';
+					result += '<div class="line-two">';
+					if(data.district_cn != null && data.district_cn != 'null') {
+						result += '<img src="images/liulan.png" alt="" style="width:18px;vertical-align: bottom;">' + data.district_cn;
+					} else {
+						result += '<img src="images/liulan.png" alt="" style="width:18px;vertical-align: bottom;">' + data.click;
+					}
+
+					result += '</div>';
+					result += '<div class="line-thr">' + data.addtime + '</div>';
+					result += '</div>';
+					result += '</div>';
+
+					return result;
+
+				},
+				insert: function(id, result) {
+					var div = document.createElement('div');
+					div.innerHTML = result;
+					div.addEventListener('click', function() {
+						// goJobLink();
+					});
+					var box = document.querySelector(id);
+					if(box.appendChild) {
+						box.appendChild(div);
+					} else {
+						box.append(div);
+					}
+				}
+			};
+
+			function gozhichang(data) {
+
+				localStorage.setItem('hiinweiid', data.getAttribute("data-id"));
+				//alert(data.getAttribute("data-id"))
+				var id = localStorage.getItem('hiinweiid');
+				mui.openWindow({
+					url: 'zixunxiangqing.html',
+					id: 'zixunxiangqing.html',
+					extras: {
+						id: id
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					waiting: {
+						autoShow: true, //自动显示等待框，默认为true
+						title: '正在加载...', //等待对话框上显示的提示内容
+					}
+				})
+			}
+			//页面跳转到找工作详情
+			function gotoling(e) {
+				localStorage.setItem('jid', e.getAttribute("data-jid"))
+				var jid = localStorage.getItem('jid');
+
+				mui.openWindow({
+					url: '../../job/job.html',
+					id: 'job',
+					extras: {
+						jid: jid
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					waiting: {
+						autoShow: true, //自动显示等待框，默认为true
+						title: '正在加载...', //等待对话框上显示的提示内容
+					}
+				})
+			}
+
+			//短期工模板
+			function Create_Short(option) {
+				this.id = option.id;
+				this.data = option.data;
+				this.init();
+			}
+
+			Create_Short.prototype = {
+				init: function() {
+					// 处理id
+					var id = this.birthId(this.id);
+					// 创建并插入预制组件
+					var str = this.create(this.data);
+					this.insert(id, str);
+				},
+				birthId: function(id) {
+					return '#' + id;
+				},
+				create: function(data) {
+					// 处理标题
+					var tar = '';
+					if(data.title.length > 20) {
+						tar = data.title.slice(0, 20) + '...';
+					} else {
+						tar = data.title;
+					}
+
+					var result = '';
+					result += '<div class="zixun-item" onclick="gotoling(this)" data-jid="' + data.jid + '">';
+					result += '<div class="left">';
+					result += '<img src="' + $$$.imgurl + data.small_img + '" alt="">';
+					result += '</div>';
+					result += '<div class="right" style="">';
+					result += '<div class="line-one">' + tar + '</div>';
+
+					//result += '<div class="line">'+data.minwage+'</div>';
+					result += '<div class="line-two">';
+
+					if(parseInt(data.minwage) > 200) {
+						result += '<span class="wagecolor" style="float:left;font-size:17px;">' + data.minwage + '-' + data.maxwage + '元</span>';
+					} else {
+						result += '<span class="wagecolor" style="display:block;float:left;font-size:17px;">' + data.minwage + '-' + data.maxwage + '元/天</span>';
+					}
+
+					if(data.district_cn != null && data.district_cn != 'null') {
+						result += '<span style="display:block;float:right;font-size:14px;">' + data.district_cn + '</span>';
+					} else {
+						result += data.click;
+					}
+
+					result += '</div>';
+					result += '<div class="line-thr">' + data.addtime + '</div>';
+					result += '</div>';
+					result += '</div>';
+
+					return result;
+
+				},
+				insert: function(id, result) {
+					var div = document.createElement('div');
+					div.innerHTML = result;
+					div.addEventListener('click', function() {
+						// goJobLink();
+					});
+					var box = document.querySelector(id);
+					if(box.appendChild) {
+						box.appendChild(div);
+					} else {
+						box.append(div);
+					}
+				}
+			};
+		</script>
+	</body>
+
+</html>

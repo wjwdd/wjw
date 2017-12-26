@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html ng-app="commitCtr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+
+	</head>
+
+	<style type="text/css">
+		.fl {
+			float: left;
+		}
+		
+		.fr {
+			float: right;
+		}
+		
+		.clear {
+			clear: both;
+		}
+		
+		.mui-table-view:before {
+			height: 0!important;
+		}
+		
+		.mui-table-view:after {
+			height: 0!important;
+		}
+		
+		.mui-table-view-cell:after {
+			height: 0!important;
+		}
+		
+		.text {
+			padding-top: 0px!important;
+			padding-bottom: 5px!important;
+		}
+		
+		.pic {
+			margin-right: 2%;
+			float: left;
+		}
+		
+		.shu {
+			display: block;
+			width: 30px;
+			height: 18px;
+			text-align: center;
+			padding-bottom: 5px;
+			font-size: 13px;
+			float: left;
+		}
+		
+		.pinglun {
+			margin-top: 0;
+			list-style-type: none;
+		}
+		
+		.name {
+			color: #26aa12;
+		}
+		
+		.review {
+			color: #333;
+		}
+		
+		.think {
+			margin-top: 10px;
+			height: 5px;
+			background-color: #f5f4f4;
+		}
+		
+		.dianpic {
+			/*margin-top: 5px;*/
+			display: block;
+			float: left;
+			background: url(images/images/zan_03.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+		}
+		
+		.dianpic2 {
+			display: block;
+			float: left;
+			background: url(images/dianzan2.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+		}
+		
+		.xiaoxi {
+			/*margin-top: 5px;*/
+			display: block;
+			float: left;
+			background: url(images/images/xiaoxi_03.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+		}
+		
+		.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		
+		.mui-preview-header {
+			height: 44px;
+			top: 50px;
+			left: 20px;
+		}
+		
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 15px auto 4;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: auto;
+			height: auto;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		p img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.mui-bar~.mui-content .mui-fullscreen {
+			top: 44px;
+			height: auto;
+		}
+		
+		.mui-pull-top-tips {
+			position: absolute;
+			top: -20px;
+			left: 50%;
+			margin-left: -25px;
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+			z-index: 4
+		}
+		
+		.mui-bar~.mui-pull-top-tips {
+			top: 0px;
+		}
+		
+		.mui-pull-top-wrapper {
+			width: 42px;
+			height: 42px;
+			display: block;
+			text-align: center;
+			background-color: #efeff4;
+			border: 1px solid #ddd;
+			border-radius: 25px;
+			background-clip: padding-box;
+			box-shadow: 0 4px 10px #bbb;
+			overflow: hidden;
+		}
+		
+		.mui-pull-top-tips.mui-transitioning {
+			-webkit-transition-duration: 200ms;
+			transition-duration: 200ms;
+		}
+		
+		.mui-pull-top-tips .mui-pull-loading {
+			/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+			margin: 0;
+		}
+		
+		.mui-pull-top-wrapper .mui-icon,
+		.mui-pull-top-wrapper .mui-spinner {
+			margin-top: 7px;
+		}
+		
+		.mui-pull-top-wrapper .mui-icon.mui-reverse {
+			/*-webkit-transform: rotate(180deg) translateZ(0);*/
+		}
+		
+		.mui-pull-bottom-tips {
+			text-align: center;
+			background-color: #efeff4;
+			font-size: 15px;
+			line-height: 40px;
+			color: #777;
+		}
+		
+		.mui-pull-top-canvas {
+			overflow: hidden;
+			background-color: #fafafa;
+			border-radius: 40px;
+			box-shadow: 0 4px 10px #bbb;
+			width: 40px;
+			height: 40px;
+			margin: 0 auto;
+		}
+		
+		.mui-pull-top-canvas canvas {
+			width: 40px;
+		}
+		
+		.mui-slider-indicator.mui-segmented-control {
+			background-color: #efeff4;
+		}
+		
+		.com_topic {
+			display: inline-block;
+			line-height: 30px;
+			border-radius: 20px;
+			font-weight: bold;
+			font-size: 16px;
+			padding: 3px 0px;
+			color: #22aa12;
+			margin: 0px 0px 5px;
+		}
+		
+		#header_topic {
+			display: inline-block;
+			min-width: 100%;
+			height: 80px;
+			z-index: 3;
+			background: #fff;
+			margin-top: 10px;
+			word-break: keep-all;
+			/* 不换行 */
+			white-space: nowrap;
+			/* 不换行 */
+		}
+		
+		.htopics {
+			display: inline-block;
+			border-radius: 5px;
+			padding: 10px 15px;
+			margin-top: 10px;
+			border: 1px solid #22aa12;
+			color: #22aa12;
+			font-size: 15px;
+			font-weight: 800;
+			margin-left: 10px;
+		}
+		
+		.select {
+			border: 1px solid #22aa12;
+			color: #fff;
+			background: #22aa12;
+		}
+	</style>
+
+	<body ng-controller="myCtrl">
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: white;">
+			<a id="huifushu" style="display: inline-block;position:relative;">
+				<span class="mui-icon iconfont icon-lingdang" style="color:#26aa12;position: relative;">
+					<span class="xiaoxicount" style="display: inline-block;width:15px;height:15px;border-radius: 50%;background:#ff0000;position: absolute;top:8px;right:8px;color:#fff;font-size: 10px;text-align: center;line-height: 15px;" ng-bind="xiaoxicount">1</span>
+				</span>
+			</a>
+			<h1 class="mui-title">社区</h1>
+			<sapn class="fr" id="tiaozhuan"><span class="mui-icon iconfont icon-qianbi2" style="color:#26aa12;"></span></sapn>
+			<div class="clear">
+			</div>
+		</header>
+
+		<!--<input type="text" name="" id="" value="" />-->
+		<div class="mui-content">
+
+			<div id="slider" class="mui-slider mui-fullscreen ">
+
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<div class="mui-table-viewz">
+									<ul class="mui-table-view touxiang" style="z-index: 2;" ng-repeat="x in shuju" ng-click="chuanid(this)">
+										<!--<input class="index" type="" name="" id="" value="{{$index}}" />-->
+										<div style="padding:20px 10px 0px;">
+											<img class="mui-media-object mui-pull-left" ng-src="{{imgurl+x.logo}}" style="width:40px;height:40px;border-radius: 100%;">
+											<div class="mui-media-body">
+												<span style="font-size: 15px;color:#26AA12;font-weight: 500;" ng-bind="x.topuserinfo.realname"></span>
+												<span ng-if="x.topuserinfo.sex==1" class="mui-icon iconfont icon-nan1" style="color:#5A98E5;"></span>
+												<span ng-if="x.topuserinfo.sex==2" class="mui-icon iconfont icon-nv" style="color:#FE91D6;font-size:20px;"></span>
+
+												<p class='mui-ellipsis' style="font-size: 13px;" ng-bind="x.times"></p>
+											</div>
+										</div>
+
+										<li class="detail" data-id='{{x.id}}' style="padding:0px 10px;">
+											
+											<span style="font-size: 15px;" ng-bind="x.content">有需要在广州找工作的小伙伴吗？男女不限，地点在天河区珠江新城。我司是做信贷的金融公司.</span>
+										</li>
+										<li class="detail mui-media text" data-id='{{x.id}}'>
+											<div ng-repeat="(k,b) in x.img" ng-if="x.img.length==1">
+												<div class="mui-content-padded comimg"><img class="pic" style="width:70% ;max-height:250px;" data-preview-src="" data-preview-group={{x}} ng-src={{imgurl+b.img}} /></div>
+											</div>
+											<div ng-repeat="(k,b) in x.img" ng-if="x.img.length>1">
+												<div class="mui-content-padded comimgs"><img class="pic" style="width:30% ;height:100px;" data-preview-src="" data-preview-group={{x}} ng-src={{imgurl+b.img}} /></div>
+											</div>
+											<!--<div ng-repeat="(k,b) in x.img" ng-if="k==5">
+												<div class="mui-content-padded" style="position:relative;"><img class="pic" style="width:30% ;height:100px;" data-preview-src="" data-preview-group={{x}} ng-src={{imgurl+b.img}} />
+													<span style="position:absolute;top:140px;color:red;right:70px;">{{x.img.length-5}}</span>
+												</div>
+											</div>
+											<div ng-repeat="(k,b) in x.img" ng-if="k>5" ng-show="false">
+												<div class="mui-content-padded"><img class="pic" style="width:30% ;height:100px;" data-preview-src="" data-preview-group={{x}} ng-src={{imgurl+b.img}} /></div>
+											</div>-->
+											<div class="clear">
+
+											</div>
+											<!--<span>{{siturl+b.img}}</span>-->
+											<!--<img class="pic" style="width:30% ;" src="images/images/pic_03.png" />-->
+											<!--<img class="pic" style="width:30% ;" src="images/images/pic_03.png" />-->
+										</li>
+
+										<li style="padding: 10px;">
+											<span style="display:block;float:left;color: #8593b0; font-size: 13px;"><span ng-bind="x.city">广州</span>·<span ng-bind="x.district">中山</span></span>
+
+											<div class="fr" style="margin-right: 3%;">
+												<span ng-class="{true:'dianpic',false:'dianpic2'}[{{x.className}}]" class="mui-tab-click-dianzan" data-resout={{$index}}></span>
+												<span class="shu" ng-bind="x.famouscount"><span></span>25</span>
+												<span class="detail" data-id='{{x.id}}'>
+													<span class="xiaoxi"  ng-click="diag()"></span>
+												<span class="shu" ng-bind="x.replaycount">11</span>
+												</span>
+
+											</div>
+										</li>
+										<li class="detail" data-id='{{x.id}}' style="padding: 10px;">
+											<div ng-if="results.length != 0" class="entry-trangle-top" style="width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #f6f6f6;margin-left:83%">
+											</div>
+											<ul class="pinglun" ng-repeat="a in x.replay | filter:q as results" style="border: 2px solid #f6f6f6; border-radius: 6px;padding-left: 6px;background-color: #f6f6f6;font-size:13px;">
+												<li class="name">{{a.uidinfo.realname}}：<span class="review" ng-bind="a.content">来找我聊聊 </span></li>
+												<li class="name"><span class="review" ng-model="shuru"></span></li>
+												<!--<li class="name">鹤立埠：<span class="review">现在还招人吗</span></li>-->
+												<!--<li style="color: #5487fb;" ng-bind="x.replaycountgendduo">查看全部11条评论</li>-->
+											</ul>
+										</li>
+										<li class="think"></li>
+									</ul>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/factory.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.zoom.js"></script>
+		<script src="js/mui.previewimage.js"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+
+		<script>
+			mui.previewImage();
+		</script>
+		<script type="text/javascript">
+			mui.init();
+			angular.module('commitCtr', ['myApp'])
+				.controller('myCtrl', function($scope, $http, $data) {
+					var topicid = '';
+					window.addEventListener('comrefresh', function(e) {
+						location.reload();
+
+					});
+
+					
+					var page = 1;
+					var end;
+					var shequz = document.querySelector('.shequz');
+					(function($) {
+						xuanran(page, topicid);
+						//阻尼系数
+						var deceleration = mui.os.ios ? 0.001 : 0.0006;
+						$('.mui-scroll-wrapper').scroll({
+							bounce: false, //是否启用回弹
+							indicators: true, //是否显示滚动条
+							deceleration: deceleration,
+							scrollX: true, //是否横向滚动
+						});
+						end = false;
+						$.ready(function() {
+							//循环初始化所有下拉刷新，上拉加载。
+							$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+								$(pullRefreshEl).pullToRefresh({
+									down: {
+										callback: function() {
+											var self = this;
+											console.log(this);
+											self.refresh(true);
+											page = 1;
+											xuanran(page, topicid);
+											mui.ajax($$$.siturl + 'm=App&c=DiscuzMsg&a=getXiaoxiCount', {
+												type: 'get',
+
+												dataType: 'json',
+												success: function(data) {
+													if(data.data > 0) {
+														alert(1111);
+														console.log(JSON.stringify(data.data));
+														xiaoxicount.style.display = "block";
+														xiaoxicount.innerHTML = data.data;
+
+													} else {
+														xiaoxicount.style.display = "none";
+
+													}
+													setTimeout(function() {
+														self.endPullDownToRefresh();
+													}, 1000)
+												},
+												error: function(xhr, err) {
+													setTimeout(function() {
+														self.endPullDownToRefresh();
+													}, 1000)
+
+												}
+											});
+										}
+									},
+									up: {
+										callback: function() {
+											var self = this;
+
+											page++;
+//											console.log(topicid);
+											$data.getSheQu(page, topicid).success(function(response) {
+												//								console.log(JSON.stringify(response));
+												var updata = response.data;
+												if(updata.length == 0) {
+													self.endPullUpToRefresh(true);
+												} else {
+													for(i = 0; i < updata.length; i++) {
+														$scope.shuju.push(updata[i]);
+													}
+													self.endPullUpToRefresh(false);
+												}
+
+												//														xuanran(1);
+												//						console.log($scope.classname2)
+											});
+
+										}
+									}
+								});
+							});
+
+						});
+
+					})(mui);
+
+					function xuanran(page, topicid) {
+						$scope.time = "社区";
+						$data.getSheQu(page, topicid).success(function(response) {
+
+							console.log(JSON.stringify(response.data));
+							$scope.shuju = response.data;
+							$scope.imgurl = $$$.imgurl;
+							$scope.className = true;
+							//						console.log($scope.classname2)
+						});
+					}
+
+					//返回顶部
+					mui(document.body).on('tap', '#header', function() {
+
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 1000); //100毫秒滚动到顶
+
+					})
+					//发布评论
+					mui(document.body).on('tap', '#tiaozhuan', function() {
+						event.stopPropagation();
+
+						mui.ajax($$$.siturl + 'm=App&c=Discuz&a=islogin', {
+							type: 'get',
+							dataType: 'json',
+							success: function(data) {
+								if(data.staus == "0") {
+									mui.openWindow({
+										url: 'app/login/login.html',
+										id: 'login'
+									})
+								} else {
+									mui.openWindow({
+										url: 'app/community/editTie.html',
+										id: 'editTie'
+									})
+								}
+							}
+
+						})
+
+					})
+
+					//回复数
+					var xiaoxicount = document.querySelector('#xiaoxicount');
+					mui.ajax($$$.siturl + 'm=App&c=DiscuzMsg&a=getXiaoxiCount', {
+						type: 'get',
+						dataType: 'json',
+						success: function(data) {
+							if(data.data > 0) {
+								//															console.log(JSON.stringify(data.data));
+								xiaoxicount.style.display = "inline-block";
+								xiaoxicount.innerHTML = data.data;
+
+							} else {
+								xiaoxicount.style.display = "none";
+
+							}
+
+						},
+						error: function(xhr, err) {
+							//						mui.alert(err);
+						}
+					});
+
+					var xiaoxicount = document.querySelector('.xiaoxicount');
+					mui(document.body).on('tap', '#huifushu', function() {
+						event.stopPropagation();
+						mui.ajax($$$.siturl + 'm=App&c=DiscuzMsg&a=getXiaoxiCount', {
+							type: 'get',
+
+							dataType: 'json',
+							success: function(data) {
+								if(data.data > 0) {
+									//										alert(1111);
+									console.log(JSON.stringify(data.data));
+									xiaoxicount.innerHTML = data.data;
+									mui.openWindow({
+										url: 'app/community/huifume.html',
+										id: 'huifume.html'
+									})
+
+								} else {
+									xiaoxicount.style.display = "none";
+									mui.toast('暂无消息！', {
+										duration: 'long',
+										type: 'div'
+									})
+								}
+
+							},
+							error: function(xhr, err) {
+								//						mui.alert(err);
+							}
+						});
+
+					})
+					//社区详情页
+					mui(document.body).on('tap', '.detail', function() {
+						//	              			
+						var tid = this.getAttribute('data-id');
+						//			              	console.log(tid);
+						localStorage.setItem('t_id', tid);
+						//					alert(this.x.jid);
+						mui.openWindow({
+							url: 'app/community/community_detail.html',
+							id: 'community_detail',
+							createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+							waiting: {
+								autoShow: false, //自动显示等待框，默认为true
+							}
+						})
+					})
+
+					$data.getSheQuHFcount().success(function(data) {
+						//						console.log(JSON.stringify(data));
+						$scope.xiaoxicount = data.data;
+
+					}).error(function(e) {
+						//							console.log(e);
+					})
+					mui(document.body).on('tap', '.mui-tab-click-dianzan', function() {
+						var ele = this;
+						var obj = $scope.shuju[this.getAttribute("data-resout")];
+						$data.postSheQuDZ(obj.id).success(function(src) {
+							if(src.staus == "0") {
+								mui.openWindow({
+									id: "login",
+									url: "app/login/login.html"
+								})
+								return;
+							}
+							if(src.staus == "1") {
+								ele.classList.remove("dianpic2")
+								ele.classList.add("dianpic")
+								obj.famouscount = parseInt(obj.famouscount) + 1;
+							}
+							if(src.staus == "2") {
+								ele.classList.remove("dianpic")
+								ele.classList.add("dianpic2")
+								obj.famouscount = parseInt(obj.famouscount) - 1 >= 0 ? parseInt(obj.famouscount) - 1 : 0;
+							}
+
+						})
+
+					})
+
+				})
+		</script>
+
+	</body>
+
+</html>

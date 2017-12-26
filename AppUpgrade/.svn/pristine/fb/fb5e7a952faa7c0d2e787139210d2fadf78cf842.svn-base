@@ -1,0 +1,577 @@
+<!doctype html>
+<html ng-app="hfdetailCtr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="css/com_detail.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<style type="text/css">
+		.dianpic {
+			/*margin-top: 5px;*/
+			display: block;
+			background: url(../../images/images/zan_03.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+			float: left;
+		}
+		
+		.dianpic2 {
+			/*margin-top: 5px;*/
+			display: block;
+			background: url(../../images/dianzan2.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+			float: left;
+		}
+		
+		.xiaoxi {
+			/*margin-top: 5px;*/
+			display: block;
+			background: url(../../images/images/xiaoxi_03.png) center center no-repeat;
+			background-size: 100%;
+			height: 18px;
+			width: 18px;
+			float: left;
+		}
+		
+		.mui-table-view-cell>a:not(.mui-btn).mui-active {
+			background: #cadef8;
+		}
+		
+		.shu {
+			display: block;
+			width: 30px;
+			height: 18px;
+			text-align: center;
+			padding-bottom: 5px;
+			font-size: 13px;
+			float: left;
+		}
+		
+		.mui-card-header:after {
+			background-color: transparent;
+		}
+		
+		.mui-table-view-cell:after {
+			background-color: transparent;
+		}
+		
+		.mui-table-view {
+			background: #f5f4f4;
+		}
+		
+		.unselected {
+			background: #cadef8;
+		}
+	</style>
+
+	<body ng-controller="myCtrl" style="margin-bottom:45px;">
+		<header id="header" class="mui-bar mui-bar-nav header-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#5a5656"></a>
+			<h1 class="mui-title">详情</h1>
+		</header>
+		<div class="cjs"></div>
+		<div ng-if="data.ist=='0'">主贴已经被删除</div>
+		<div class="mui-card" style="margin:50px 0px 0px;-webkit-box-shadow: 0 1px 0px #d7d8d8;background: #fff;" ng-if="data.ist!='0'">
+			<!--页眉，放置标题-->
+			<div class="mui-card-header">
+				<div class="mui-card-header mui-card-media" style="margin-left:-10px;">
+					<img style="width:50px;height:50px;border-radius: 50%;" ng-src={{imgurl+data.top.logo}} />
+					<div class="mui-media-body" style="margin-left: 55px;line-height: 23px;">
+						<span class="yhname" ng-bind="data.top.topuserinfo.realname" style="color: #26aa12;">小m</span>
+
+						<span ng-if='data.top.topuserinfo.sex=="1"' class="mui-icon iconfont icon-nan1" style="color:#5A98E5;"></span>
+						<span ng-if='data.top.topuserinfo.sex=="2"' class="mui-icon iconfont icon-nv" style="color:#FE91D6;font-size:20px;"></span>
+
+						<p style="margin-top:5px;color:#999999;"><span ng-bind="data.top.time">4分钟前</span><span style="margin-left:10px;" ng-bind="data.top.province">广州</span><span style="margin-left:10px;" ng-bind="data.top.city">广州</span></p>
+
+					</div>
+				</div>
+			</div>
+			<!--内容区-->
+			<div class="mui-card-content" style="padding:0px 10px;">
+				<p style="color:#333333;font-size:16px;margin:5px 10px;" ng-bind="data.top.content">有需要在广州找工作的小伙伴吗？男女不限，地点在天河区珠江新城。我司是做信贷的金融</p>
+				<div ng-repeat="x in data.top.img"><img style="width:100%;" ng-src='{{imgurl+x.img}}' /></div>
+
+				<div style="border-bottom: 1px solid #d0cece;padding:10px;overflow: hidden;">
+					<span class="dztx" ng-repeat="x in fimg"><img style="width:100%;" ng-src={{imgurl+x.useavarates}} alt="" /></span>
+
+					<div class="fr" style="margin-top:5px;float:right;">
+						<span ng-click='dianzan()' ng-if='staus==2'>
+							<span class="dianpic" ></span>
+						<span class="shu" ng-bind="data.top.famouscount">25</span>
+						</span>
+						<span ng-click='dianzan()' ng-if='staus==1'>
+							<span class="dianpic2"></span>
+						<span class="shu" ng-bind="data.top.famouscount">25</span>
+						</span>
+						<span class="xiaoxi" ng-click="zhutifabu()"></span>
+						<span class="shu" ng-bind="data.top.repcount">11</span>
+					</div>
+				</div>
+				<div style="padding:10px;color:#b3b2b2;overflow: hidden;">
+					<span style="float:left;">已有<span style="color:red;" ng-bind="data.top.repcount">11</span>回复</span>
+					<span style="float:right;"><span ng-bind="data.top.scal">211</span>次浏览</span>
+				</div>
+
+				<!--<div><img style="width:100%;" src="images/com_fbimg.png" alt="" /></div>-->
+			</div>
+
+		</div>
+		<ul class="mui-table-view" style="background:#ebebeb;">
+			<div ng-repeat="(x,y) in data.top.replay" style="background:#fff;border-bottom:1px solid #ccc;padding-bottom:5px;">
+				<li class="mui-table-view-cell mui-media " ng-click="huifupl(this)" ng-class="{true:'selected',false:'unselected'}[isSelected]">
+					<a href="javascript:;">
+						<img class=" mui-pull-left" ng-src="{{imgurl+y[0].logo}}" style="width:15%;height:50px;margin:10px 5% 0px 0px;border-radius:50%;">
+						<div class="mui-media-body" style="width:60%;height:100%;float:left;margin-top:10px;">
+							<span ng-bind="y[0].uidname" style="color:#26aa12;">幸福</span>
+							<span class="mui-icon iconfont icon-nan1" style="color:#5A98E5;"></span>
+							<span ng-if='data.top.topuserinfo.sex=="2"' class="mui-icon iconfont icon-nv" style="color:#FE91D6;font-size:20px;"></span>
+
+							<p class='mui-ellipsis' ng-bind="y[0].content">是件幸福的事情；可是，打呼噜怎么办？</p>
+							<p style="color:#999999;font-size:10px;" ng-bind="y[0].time">4分钟前</p>
+						</div>
+						<div style="float:right;width:20%;height:100%;margin-top:10px;text-align: right;style=" position: relative;overflow: hidden; ">
+			             	<div >
+			             		<p style="position: absolute;top:20%;right:5%;font-size: 10px; "><span ng-bind="x+1 "></span>楼</p>
+			             		<p style="position: absolute;bottom:10%;right:5%;font-size: 10px; "><span class="xiaoxi " style="float:left;margin:3px 10px 0px 0px; "></span><span style="float:left; ">回复</span></p>
+			             	</div>
+			             </div>
+			             
+			        </a>
+			        
+			        <!--<div id="huifuneirong " style="background:#ccc;width:100%;height:100px; " ng-repeat="z in data.top.replay[$index]|limitTo:1 ">
+			             	<span ng-bind="z.content "></span>
+			        </div>-->
+			        
+			    </li>
+			    <div style="background:#f0f0f0;width:78%;margin-left:20%;border-radius:10px; " >
+				     <div id="huifuneirong "  style="padding:8px 20px 5px;position:relative; "ng-repeat="(k,v) in data.top.replay[$index] " ng-if="k>0" ng-show="true" ng-click="hfhfpinglun(this)">
+							<p style="margin:0px;padding:0px;"><span class="lz" ng-bind='v.uidname' style="color:#26aa12;">叶</span><span style="color:#333333;">回复</span><span class="lz" ng-bind='v.relyuname' style="color:#26aa12;">楼主.清风徐来</span><span class="hfnr" ng-bind='v.content'>可以联系我</span></p>
+							<span ng-if='v!="undefined"' style="position:absolute;top:-20px;right:15px;display:inline-block;width:0px;height:0px;border:10px solid transparent;border-bottom:10px solid #f0f0f0;"></span>
+						</div>
+			</div>
+			</div>
+		</ul>
+		<div style="position: fixed;width:100%;bottom:0;left:0;height:50px;border-top:1px solid #b2b2b2;background-color: #fff;">
+
+			<div style="display:inline-block;position:relative;margin-left:18px;margin-top:10px;width:78%;height:30px;background-color: #fff;">
+				<input id="fasong_input" type="text" style="font-size:11px;width:100%;height:100%;border-radius:20px;" placeholder="写下您的评论吧..    " ng-model="pinglun" ng-value='pl'>
+			</div>
+
+			<div id="fasong_btn" style="display:inline-block;margin-left:2%;height:25px;width:26px;position: relative;left:2px;top:8px;" ng-click="fabupinglun(this)">
+				<span style="display:inline-block;width:100%;height:100%;background-image: url(../../images/fb.png);background-size: 26px 25px;"></span>
+			</div>
+			<div id="fasong_btn2" style="display:none;margin-left:2%;height:25px;width:26px;position: relative;left:2px;top:8px;" ng-click="fabupinglunhuifu(this)">
+				<span style="display:inline-block;width:100%;height:100%;background-image: url(../../images/fb.png);background-size: 26px 25px;"></span>
+			</div>
+			<div id="fasong_btn3" style="display:none;margin-left:2%;height:25px;width:26px;position: relative;left:2px;top:8px;" ng-click="fabupinglunhfhf(this)">
+				<span style="display:inline-block;width:100%;height:100%;background-image: url(../../images/fb.png);background-size: 26px 25px;"></span>
+			</div>
+		</div>
+		<!--删除菜单-->
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action " style="z-index:1000;">
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="delReply">
+					<a href="#">删除</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#sheet1">返回</a>
+				</li>
+			</ul>
+			<!-- 取消菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/ag1.46.js"></script>
+	<script src="../../js/factory.js"></script>
+	<script type="text/javascript">
+		angular.module('hfdetailCtr', ["myApp"])
+			.controller('myCtrl', function($scope, $http, $data) {
+				//刷新社区
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener('plusready', plusReady, false);
+				}
+
+				function plusReady() {
+					var list2 = plus.webview.getWebviewById('community.html');
+					
+					mui.fire(list2, 'comrefresh');
+				}
+				var fasong_input = document.querySelector('#fasong_input');
+				var istid = localStorage.getItem('tpid');
+				var isuid = localStorage.getItem('uid');
+				var ishfname = localStorage.getItem('hfname');
+				fasong_input.setAttribute("placeholder", "@" + ishfname);
+				var ishfid = localStorage.getItem('hfid');
+
+				var fasong_inputvalue = document.querySelector('#fasong_input').value;
+				var t_id;
+				//渲染页面
+				xuanranyemian();
+
+				function xuanranyemian() {
+					$data.getSheQuHFdetail(ishfid).success(function(data) {
+						console.log(JSON.stringify(data));
+						$scope.data = data.data;
+						$scope.imgurl = $$$.imgurl;
+						$scope.fimg = data.data.top.famoususerimg;
+						$scope.louceng = data.data.top.replay[0].length;
+						if(data.data.top.replay == null) {
+							$scope.louceng = 0;
+						} else {
+							$scope.louceng = data.data.top.replay[0].length;
+						}
+						//						console.log(data.data.top.replay[2][0].id);
+						//						$scope.ishfid=ishfid;
+						//						for(var i=0;i<data.data.top.replay.length;i++){
+						//							console.log(data.data.top.replay[i][0].id);
+						//							if(ishfid==data.data.top.replay[i][0].id){
+						//								$scope.isSelected=false;
+						//							}
+						//						}
+					});
+				}
+
+				//检查点赞
+				mui.ajax($$$.siturl + 'm=App&c=IsLogo&a=fabous_check', {
+					type: 'post',
+					data: {
+						t_id: ishfid
+					},
+					dataType: 'json',
+					success: function(data) {
+
+						if(data.staus == '0') {
+							$scope.staus = 1
+						} else if(data.staus == '1') {
+							$scope.staus = 2
+						}
+					},
+					error: function(xhr, err) {
+
+					}
+				});
+				//点赞
+				$scope.dianzan = function() {
+
+					$data.getSheQuDengLu().success(function(data) {
+						//		 			
+						if(data.staus == '1') {
+							$data.postSheQuDZ(ishfid).success(function(data) {
+								//								console.log(JSON.stringify(data));
+								if(data.staus == 1) {
+									$scope.staus = 2
+									$scope.data.top.famouscount++;
+									$data.getSheQuHFdetail(ishfid).success(function(data) {
+										console.log(JSON.stringify(data));
+										$scope.fimg = data.data.top.famoususerimg;;
+										$scope.imgurl = $$$.imgurl;
+
+										//						console.log(data.data.replay);
+
+									});
+									mui.toast("点赞成功", {
+										duration: 'long',
+										type: 'div'
+									});
+								} else if(data.staus == 2) {
+									$scope.staus = 1
+									$scope.data.top.famouscount--;
+									$data.getSheQuHFdetail(ishfid).success(function(data) {
+										console.log(JSON.stringify(data));
+										$scope.fimg = data.data.top.famoususerimg;
+										$scope.imgurl = $$$.imgurl;
+
+										//						console.log(data.data.replay);
+
+									});
+									mui.toast("已取消点赞", {
+										duration: 'long',
+										type: 'div'
+									});
+								}
+							})
+						} else {
+							mui.toast('还没登陆');
+							setTimeout(function() {
+								mui.openWindow({
+									url: '../login/login.html',
+									id: 'login.html'
+								})
+							}, 1000)
+						}
+					})
+				}
+
+				// 把发帖人的姓名写入本地	
+
+				var user_info_sess = localStorage.getItem('user_info_sess');
+				var username = JSON.parse(user_info_sess);
+				var username_me = username.uid;
+				//				console.log(username_me);
+
+				//刚进入页面发布
+				fasong_btn.style.display = "none";
+				fasong_btn2.style.display = "inline-block";
+				fasong_btn3.style.display = "none";
+				$scope.fabupinglunhuifu = function() {
+					console.log($scope.pinglun);
+					if($scope.pinglun == null) {
+						mui.toast('内容不能为空！', {
+							duration: 'long',
+							type: 'div'
+						})
+						return;
+					} else {
+						mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+							type: 'post',
+							dataType: 'json',
+							data: {
+								id: ishfid,
+								t_pid: istid,
+								relalyuid: isuid,
+								content: $scope.pinglun
+							},
+							success: function(data) {
+								// 发送的数据添加到评论框中
+								xuanranyemian();
+								// 清空文本框
+								$scope.pinglun = '';
+							},
+							error: function(xhr, err) {
+								//									 mui.alert(xhr);
+							}
+						});
+					}
+
+				}
+				//点击回复主贴
+				$scope.zhutifabu = function() {
+					var tpid = this.data.t_pid;
+					var ztname = this.data.top.topuserinfo.realname;
+					console.log(tpid);
+					if(user_info_sess == null || user_info_sess == undefined) {
+						mui.toast('请用户登录后再评论！', {
+							duration: 'long',
+							type: 'div'
+						})
+						setTimeout(function() {
+							mui.openWindow({
+								url: '../login/login.html',
+								id: 'login.html'
+							})
+						}, 2000);
+					} else {
+
+						fasong_input.focus();
+						fasong_input.setAttribute("placeholder", "@" + ztname);
+						fasong_btn.style.display = "inline-block";
+						fasong_btn3.style.display = "none";
+						fasong_btn2.style.display = "none";
+						$scope.fabupinglun = function() {
+
+							if($scope.pinglun == null) {
+								mui.toast('内容不能dd为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyDis', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										t_pid: tpid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+
+										xuanranyemian();
+										document.querySelector('body').scrollTop = document.documentElement.scrollHeight;
+										// 清空文本框
+
+										$scope.pinglun = '';
+
+									},
+									error: function(xhr, err) {
+										//									 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+				var sheet1 = document.querySelector('#sheet1');
+				var delReply = document.querySelector('#delReply');
+
+				//回复回帖人
+				$scope.huifupl = function(e) {
+					var djid = this.y[0].uid;
+					var id = this.y[0].id;
+					var tpid = this.y[0].t_pid;
+					var htrname = this.y[0].uidname;
+					console.log(id);
+					var that = this.data.top.replay;
+					//					console.log(JSON.stringify(that));
+					if(username_me == djid) {
+						mui('#sheet1').popover('toggle');
+						var delReply = document.querySelector('#delReply');
+
+						delReply.onclick = function() {
+							//			alert(1);
+
+							mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=deleleReply', {
+								type: 'get',
+								data: {
+
+									r_id: id
+								},
+								dataType: 'json',
+								success: function(data) {
+									console.log(JSON.stringify(data));
+									mui('#sheet1').popover('toggle');
+									xuanranyemian();
+
+								},
+								error: function(xhr, err) {
+									//								mui.alert(err);
+								}
+							});
+						}
+					} else {
+						var fasong_input = document.querySelector('#fasong_input');
+						fasong_input.setAttribute("placeholder", "@" + htrname);
+						fasong_btn.style.display = "none";
+						fasong_btn3.style.display = "none";
+						fasong_btn2.style.display = "inline-block";
+						fasong_input.focus();
+						$scope.fabupinglunhuifu = function() {
+							console.log($scope.pinglun);
+							if($scope.pinglun == null) {
+								mui.toast('内容不能为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										id: id,
+										t_pid: tpid,
+										relalyuid: djid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+										xuanranyemian();
+										// 清空文本框
+										$scope.pinglun = '';
+									},
+									error: function(xhr, err) {
+										//									 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+
+				$scope.hfhfpinglun = function(e) {
+
+					var hfdjid = this.v.uid;
+					var hfid = this.v.id;
+					var hftpid = this.v.t_pid;
+					var hfhfname = this.v.uidname;
+
+					//		 			console.log(hfdjid);
+					//		 			console.log(username_me);
+					if(username_me == hfdjid) {
+						mui('#sheet1').popover('toggle');
+						var delReply = document.querySelector('#delReply');
+
+						delReply.onclick = function() {
+							//			alert(1);
+							mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=deleleReply', {
+								type: 'get',
+								data: {
+									r_id: hfid
+								},
+								dataType: 'json',
+								success: function(data) {
+									//								console.log(JSON.stringify(data));
+									mui('#sheet1').popover('toggle');
+									xuanranyemian();
+
+								},
+								error: function(xhr, err) {
+									//								mui.alert(err);
+								}
+							});
+						}
+					} else {
+						var fasong_input = document.querySelector('#fasong_input');
+						fasong_input.setAttribute("placeholder", "@" + hfhfname);
+						fasong_btn.style.display = "none";
+						fasong_btn2.style.display = "none";
+						fasong_btn3.style.display = "inline-block";
+						fasong_input.focus();
+						$scope.fabupinglunhfhf = function() {
+							if($scope.pinglun == null) {
+								mui.toast('内容不能为空！', {
+									duration: 'long',
+									type: 'div'
+								})
+								return;
+							} else {
+								mui.ajax($$$.siturl + 'm=App&c=InfoMeber&a=replyReply', {
+									type: 'post',
+									dataType: 'json',
+									data: {
+										id: hfid,
+										t_pid: hftpid,
+										relalyuid: hfdjid,
+										content: $scope.pinglun
+									},
+									success: function(data) {
+										// 发送的数据添加到评论框中
+										xuanranyemian();
+										// 清空文本框
+										$scope.pinglun = '';
+									},
+									error: function(xhr, err) {
+										//										 mui.alert(xhr);
+									}
+								});
+							}
+
+						}
+
+					}
+				}
+			})
+	</script>
+
+</html>

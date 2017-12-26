@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.mui-media-body span {
+			font-size: 14px;
+		}
+		
+		.mui-media-body p {
+			font-size: 12px;
+		}
+		
+		.days {
+			position: relative;
+		}
+		
+		.day {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			font-size: 12px!important;
+			color: #999999;
+		}
+		
+		.shuzi,
+		.newreminder {
+			height: 15px;
+			display: none;
+			border: 1px solid red;
+			font-size: 10px!important;
+			border-radius: 100%;
+			color: #fff;
+			padding: 0 3px;
+			background-color: red;
+			line-height: 15px;
+			position: absolute;
+			top: 15px;
+			left: 45px;
+		}
+		
+		.dengs {
+			position: relative;
+		}
+		
+		.deng {
+			height: 16px;
+			position: absolute;
+			top: 15px;
+			right: 20px;
+		}
+		
+		.yues {
+			position: relative;
+		}
+		
+		.yue {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			font-size: 12px!important;
+			color: #999999;
+		}
+		.mui-table-view .mui-media-object {
+			line-height: 42px;
+			max-width: 50px;
+			height: 50px;
+		}
+	</style>
+
+	<body class="outerScroller" style="height:101%;">
+		<header id="header" class="mui-bar mui-bar-nav" style="background: #fff;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">消息</h1>
+		</header>
+		<!--列表-->
+		<div class="mui-scroll-wrapper cjs" id="slider" style="padding-top:45px;">
+			<div class="mui-scroll xxallheight">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media dengs" id="news_content" onclick="bangzhu(this)">
+
+						<img class="mui-media-object mui-pull-left" src="images/xiaoxi (1).png">
+						<div class="mui-media-body">
+							<span>帮助指南</span>
+							<p class='mui-ellipsis'>点我一下了解更多</p>
+							<img src="images/deng.png" class="deng" />
+						</div>
+
+					</li>
+					<li class="mui-table-view-cell mui-media days" id="news_content2" onclick="tiaozhuan()">
+
+						<img class="mui-media-object mui-pull-left" src="images/xiaoxi (2).png">
+						<div class="mui-media-body">
+							<span>系统消息</span><span class="day">一天前</span><span class="shuzi">3</span>
+							<p class='mui-ellipsis'>最新活动通知，消息提醒</p>
+
+						</div>
+					</li>
+					<li class="mui-table-view-cell mui-media" id="news_content1" onclick="mianshi()">
+
+						<img class="mui-media-object mui-pull-left yues" src="images/xiaoxi (3).png">
+						<div class="mui-media-body">
+							<span>最新面试</span>
+							<p class='mui-ellipsis'>定期推送最新面试职位</p>
+							<span class="yue"></span>
+						</div>
+
+					</li>
+					<li class="mui-table-view-cell mui-media" id="qq">
+
+						<img class="mui-media-object mui-pull-left" src="images/xiaoxi (4).png">
+						<div class="mui-media-body">
+							<span>QQ客服</span>
+							<p class='mui-ellipsis'>苦苦等待不如主动出击，撩我呀~</p>
+						</div>
+
+					</li>
+					<li class="mui-table-view-cell mui-media" id="zkefu" onclick="zkefu()">
+
+						<img class="mui-media-object mui-pull-left" src="images/xiaoxi (5).png">
+						<div class="mui-media-body">
+							<span>在线客服</span><span class="newreminder">3</span>
+							<p class='mui-ellipsis'>客服的等待，只为解答你所有的疑问！</p>
+						</div>
+
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!--<div style="height: 47%;"></div>-->
+
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/fankui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+	<script type="text/javascript">
+		var newreminder = document.querySelector('.newreminder');
+		var a = 0;
+		var countid = [];
+		//消息数回调
+		window.addEventListener('reminder', function(e) {
+			//			console.log('xiaoxi');
+			countid.push(e.detail.id);
+			a++;
+			newreminder.style.display = 'block';
+			newreminder.innerHTML = a;
+			localStorage.setItem('count', a);
+
+		});
+
+		//消息数消失回调
+		window.addEventListener('xiaoxideId', function(e) {
+			//			console.log(e.detail.id);
+			var count = e.detail.count;
+			var id = e.detail.id;
+			//			console.log(count);
+			if(count != undefined) {
+				for(var i = 0; i < countid.length; i++) {
+					if(countid[i] == id) {
+						countid.splice(i, 1);
+						i--;
+					}
+				}
+
+				a = a - count;
+				if(a <= 0) {
+					a = 0;
+					newreminder.style.display = 'none';
+				} else {
+					newreminder.innerHTML = a;
+				}
+			}
+
+		});
+		//		console.log(countid);
+		var xxallheight = document.querySelector('.xxallheight');
+		if(xxallheight) {
+			xxallheight.style.minHeight = window.screen.availHeight - 65 + 'px';
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration,
+				scrollX: true, //是否横向滚动
+			});
+		}
+		//客服跳转
+		function zkefu() {
+			mui.ajax($$$.siturl + "m=App&c=Tool&a=islogin", {
+				type: 'get',
+				success: function(data) {
+					if(data == 0) {
+						mui.openWindow({
+							url: 'app/login/login.html',
+							id: 'login.html'
+						})
+					} else if(data == 1) {
+
+						mui.openWindow({
+							url: 'app/chat/inchat.html',
+							id: 'inchat.html',
+							extras: {
+								countid: countid, //扩展参数
+								count: a
+
+							}
+						})
+					}
+				}
+			})
+
+		}
+		//		客服是否显示
+		var kefushow = document.querySelector('#zkefu');
+		mui.ajax($$$.siturl + 'm=app&c=XiTongMsg&a=isshar', {
+			type: 'get',
+			success: function(data) {
+				//				console.log(data);
+				if(data == 1) {
+					kefushow.style.display = 'block';
+				} else {
+					kefushow.style.display = 'none';
+				}
+			}
+		})
+
+		var shuzi = document.querySelector('.shuzi');
+		var muibadg = document.querySelector('.badge');
+
+		function tiaozhuan() {
+			var news_content = document.querySelector('#news_content');
+
+			mui.openWindow({
+				url: 'app/tongzhi/notice.html',
+				id: 'app/tongzhi/notice.html'
+			})
+
+			//			shuzi.style.display = 'none';
+			//			muibadg.style.display = 'none';
+
+		}
+
+		function bangzhu(t) {
+
+			mui.openWindow({
+				url: 'app/tongzhi/bangzhuzhinan.html',
+				id: 'app/tongzhi/bangzhuzhinan.html'
+			})
+
+		}
+
+		function mianshi() {
+			mui.openWindow({
+				url: 'app/tongzhi/mianshi.html',
+				id: 'app/tongzhi/mianshi.html'
+			})
+
+		}
+
+		mui.plusReady(function() {
+			document.body.querySelector("#qq").addEventListener("tap", function() {
+				if(plus.os.name == "Android") {
+					var main = plus.android.runtimeMainActivity();
+					var Intent = plus.android.importClass('android.content.Intent');
+					var Uri = plus.android.importClass('android.net.Uri');
+					var intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=1743276687"));
+					main.startActivity(intent);
+				}
+
+				if(plus.os.name == "iOS") {
+					plus.runtime.launchApplication({
+						action: "mqq://im/chat?chat_type=wpa&uin=1743276687&version=1&src_type=web"
+					}, function(e) {
+						plus.nativeUI.confirm("检查到您未安装qq，请先到appstore搜索下载？", function(i) {
+							if(i.index == 0) {
+								iosAppstore("itunes.apple.com/cn/app/mqq/");
+							}
+						});
+					});
+				}
+
+			})
+		});
+
+		var shuzi = document.querySelector('.shuzi');
+		var day = document.querySelector('.day');
+		var yue = document.querySelector('.yue');
+		mui.ajax($$$.siturl + 'm=App&c=XiTongMsg&a=getXitongcount', {
+			dataType: 'json',
+			type: 'get',
+			success: function(data) {
+				//获得服务器响应
+				//				console.log(JSON.stringify(data))
+				//				console.log(data.data.date)
+				shuzi.innerHTML = data.data.msgcount;
+				day.innerHTML = data.data.date;
+				yue.innerHTML = data.data.date1;
+				if(data.data.msgcount == '0') {
+					shuzi.style.display = 'none';
+				}
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		//		var day = document.querySelector('.day');
+		//		var isFirst = true; 
+		//		mui.ajax($$$.siturl + 'm=App&c=XiTongMsg&a=getXitongcount', {
+		//			dataType: 'json',
+		//			type: 'get',
+		//			success: function(data) {
+		//				var msgcount1=localStorage.getItem('msgcount1');
+		//				//获得服务器响应
+		//				if(msgcount1 != data.data.msgcount){
+		//					console.log(121212121);
+		//					localStorage.setItem('xiaoxicount',true);
+		//				}
+		//				
+		//				var xxcount=localStorage.getItem('xiaoxicount');
+		//				
+		//				if(xxcount == 'true'){
+		//					console.log(121212);
+		//					shuzi.style.display='block';
+		//					muibadg.innerHTML = data.data.msgcount;
+		//					muibadg.style.display = 'block';
+		//					shuzi.innerHTML=data.data.msgcount;
+		//					localStorage.setItem('msgcount1',data.data.msgcount);
+		//					
+		//				}
+		////				console.log(JSON.stringify(data))
+		////				console.log(data.data.date)
+		//				
+		//				if(isFirst){
+		//					if(data.data.msgcount=='0'){
+		//						shuzi.style.display='none';
+		//						muibadg.style.display = 'none';
+		//					}
+		//					isFirst = false;
+		//				}
+		//					
+		//				
+		//			}
+		//		});
+	</script>
+
+</html>

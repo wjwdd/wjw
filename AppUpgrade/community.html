@@ -1,0 +1,178 @@
+<!doctype html>
+<html ng-app="commitzCtr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+	</head>
+	<style>
+		.fr {
+			float: right;
+			text-align: right;
+		}
+		
+		.wrapp {
+			width: 100%;
+			margin-top: 66px;
+			overflow: auto;
+			background-image: url(images/15.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		
+		#header_topic {
+			display: inline-block;
+			min-width: 100%;
+			z-index: 3;
+			padding: 10px;
+			word-break: keep-all;
+			/* 不换行 */
+			white-space: nowrap;
+			/* 不换行 */
+		}
+		
+		.htopics {
+			display: inline-block;
+			border-radius: 5px;
+			padding: 10px 15px;
+			margin-right: 10px;
+			background: #fff;
+			color: #3F3F3F;
+			font-size: 15px;
+			font-weight: 800;
+		}
+	</style>
+
+	<body ng-controller="myCtrl">
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: white;">
+			<span id="huifushu" style="display: inline-block;position:relative;">
+				<span class="mui-icon iconfont icon-lingdang" style="color:#26aa12;position: relative;">
+					<span class="xiaoxicount" style="display: inline-block;width:15px;height:15px;border-radius: 50%;background:#ff0000;position: absolute;top:8px;right:8px;color:#fff;font-size: 10px;text-align: center;line-height: 15px;" ng-if="xiaoxicount>0" ng-bind="xiaoxicount">1</span>
+			</span>
+			</span>
+			<h1 class="mui-title">社区</h1>
+			<sapn class="fr" id="tiaozhuan"><span class="mui-icon iconfont icon-qianbi2" style="color:#26aa12;"></span></sapn>
+
+		</header>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/ag1.46.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/factory.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+				subpages: [{
+					url: 'community11.html',
+					id: 'community11.html',
+					styles: {
+						top: '66px', //mui标题栏默认高度为45px；
+						bottom: '0px' //默认为0px，可不定义；
+					}
+				}]
+			});
+			angular.module('commitzCtr', ['myApp'])
+				.controller('myCtrl', function($scope, $http, $data) {
+
+					//发布评论
+					mui(document.body).on('tap', '#tiaozhuan', function() {
+						event.stopPropagation();
+
+						mui.ajax($$$.siturl + 'm=App&c=Discuz&a=islogin', {
+							type: 'get',
+							dataType: 'json',
+							success: function(data) {
+								if(data.staus == "0") {
+									mui.openWindow({
+										url: 'app/login/login.html',
+										id: 'login'
+									})
+								} else {
+									mui.openWindow({
+										url: 'app/community/editTie.html',
+										id: 'editTie'
+									})
+								}
+							}
+
+						})
+
+					})
+					//返回顶部
+					mui(document.body).on('tap', 'header', function() {
+						var wvc = plus.webview.getWebviewById('community11.html');
+						mui.fire(wvc, 'cfh');
+					});
+					//回复数
+					//					var xiaoxicount = document.querySelector('#xiaoxicount');
+					//					mui.ajax($$$.siturl + 'm=App&c=DiscuzMsg&a=getXiaoxiCount', {
+					//						type: 'get',
+					//						dataType: 'json',
+					//						success: function(data) {
+					//							if(data.data > 0) {
+					//								//															console.log(JSON.stringify(data.data));
+					//								xiaoxicount.style.display = "inline-block";
+					////								xiaoxicount.innerHTML = data.data;
+					//
+					//							} else {
+					////								xiaoxicount.style.display = "none";
+					//
+					//							}
+					//
+					//						},
+					//						error: function(xhr, err) {
+					//
+					//						}
+					//					});
+
+					var xiaoxicount = document.querySelector('.xiaoxicount');
+					mui(document.body).on('tap', '#huifushu', function() {
+						event.stopPropagation();
+						mui.ajax($$$.siturl + 'm=App&c=DiscuzMsg&a=getXiaoxiCount', {
+							type: 'get',
+							dataType: 'json',
+							success: function(data) {
+								if(data.data > 0) {
+									//									console.log(JSON.stringify(data.data));
+									//									xiaoxicount.innerHTML = data.data;
+									mui.openWindow({
+										url: 'app/community/huifume.html',
+										id: 'huifume.html'
+									})
+
+								} else {
+									//									xiaoxicount.style.display = "none";
+									mui.toast('暂无消息')
+								}
+
+							},
+							error: function(xhr, err) {
+
+							}
+						});
+
+					})
+					$data.getSheQuHFcount().success(function(data) {
+
+						$scope.xiaoxicount = data.data;
+
+					}).error(function(e) {
+
+					})
+					window.addEventListener('comrefresh', function(e) {
+						$data.getSheQuHFcount().success(function(data) {
+
+							$scope.xiaoxicount = data.data;
+
+						}).error(function(e) {
+
+						})
+					});
+					
+				})
+		</script>
+	</body>
+
+</html>
