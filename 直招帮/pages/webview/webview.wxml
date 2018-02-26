@@ -1,0 +1,2 @@
+<!--pages/webview/webview.wxml-->
+<web-view src="https://www.zhizhaojob.cn/?m=Mobile&c=index&a=appload"></web-view>

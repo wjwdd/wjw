@@ -1,0 +1,88 @@
+<!--pages/mine/mine.wxml-->
+
+<block wx:if="{{islogin==false}}">
+  <view class='minebody weui-flex' bindtap='dengl'>
+    <view class='mine_weui-flex__iteml'>
+      <image class="userinfo-avatar" src="../../images/mine.png" background-size="cover"></image>
+    </view>
+    <view class='mine_weui-flex__itemr'>
+      <view class='dengl'>点击登录</view>
+    </view>
+  </view>
+</block>
+<block wx:elif="{{islogin==true}}">
+  <navigator class='minebody weui-flex' url="../personal/personal">
+    <view class='mine_weui-flex__iteml'>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class='mine_weui-flex__itemr'>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </navigator>
+</block>
+
+<view class='mine-list'>
+  <view class="weui-cells weui-cells_in-small-appmsg">
+    <view bindtap="qiandao" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-jiangbei mine_icon" style='background:#da6363'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view>签到抽奖</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <navigator url="../tuijian/tuijian" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-haoyou mine_icon" style='background:#3abf62'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view class='mine_ftextl'>推荐好友</view>
+        <view class='mine_ftextr'>抢！入职奖励</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <view bindtap='myjobherf' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-gongzuotai mine_icon" style='background:#906fce'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view>我的工作</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view>
+</view>
+
+<view class='mine-list'>
+  <view class="weui-cells weui-cells_in-small-appmsg">
+    <view bindtap='calltell' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-icon32206 mine_icon" style='background:#62aeda;line-height:20px;'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view class='mine_ftextl'>客服电话</view>
+        <view class='mine_ftextr'>400-833-4588</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <navigator url="../zhaopin/zhaopin" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-fenlei mine_icon" style='background:#d3499d'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view>我要招聘</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <view bindtap='setting' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <view class="iconfont icon-shezhi mine_icon" style='background:#6a6cd4'></view>
+      </view>
+      <view class="weui-cell__bd weui-cell_primary">
+        <view>设置</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view>
+</view>

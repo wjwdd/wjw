@@ -1,0 +1,3 @@
+<!--pages/jigong/jigong.wxml-->
+<joblistcpt id='joblistcpt' isweizhi="2"></joblistcpt> 
+

@@ -1,0 +1,93 @@
+<!--pages/jianli/jianli.wxml-->
+<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{tip}}</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class='formcontainer'>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd" style="float:left;">
+        <view class="weui-label">性别</view>
+      </view>
+      <view class="weui-cell__bd" style="float:right;">
+        <radio-group class="radio-group weui-input" bindchange="radioChange">
+          <label class="radio">
+            <radio value="1" checked="checked" />男
+            <radio value="2" checked="" />女
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">出生日期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="1900-09-01" end="2100-09-01" bindchange="bindDateChange">
+          <view class="weui-input">{{date}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="telephone" value='{{tel}}' placeholder="请输入手机号" />
+      </view>
+
+    </view>
+    <view class='xzpick' bindtap='xzdaiyu'>
+      <view class="picker weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">意向职位</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-input fontzhutise">{{zhiweival}}</view>
+        </view>
+
+      </view>
+    </view>
+    <picker class='xzpick' mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <view class="picker weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">期望区域</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-input fontzhutise">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
+        </view>
+
+      </view>
+    </picker>
+    
+  </view>
+  <!-- 隐藏input -->
+  <input type="hidden" hidden="true" name="fullname" value="{{fullname}}" />
+  <input type="hidden" hidden="true" name="sex" value="{{sex}}" />
+  <input type="hidden" hidden="true" name="birthdate" value="{{date}}" />
+  <input type="hidden" hidden="true" name="hope" value="{{zhiweival}}" />
+  <input type="hidden" hidden="true" name="address" value="{{region}}" />
+  <input type="hidden" hidden="true" name="nature" value="0" />
+  <!-- 隐藏input -->
+  <view class="weui-btn-area">
+    <!-- <button class="weui-btn" type="primary" bindtap="showTopTips">确认提交</button> -->
+    <button class='kssubbtn' formType="submit">开启工作之旅</button>
+  </view>
+
+</form>
+<modal hidden="{{hidden}}" title="选择意向待遇" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+  <scroll-view class="dy_z" scroll-y style="height: {{modalheight}}px;">
+    <view class="dy_header">
+      福利待遇
+      <view class="dy_kdx">(可多选)</view>
+    </view>
+
+    <view class="dy_con fuli">
+      <view bindtap='xzfuli' data-id="{{idx}}" class="dy_con_li {{item.classselect?'isselect':''}}" wx:for="{{fuli}}" wx:key="fulikey" wx:for-index="idx">{{item.c_name}}</view>
+    </view>
+    <view class="dy_header">
+      意向职位
+      <view class="dy_kdx">(可多选)</view>
+    </view>
+    <view class="dy_con zhiwei">
+      <view bindtap='xzzhiwei' data-id="{{zhiweiidx}}" class="dy_con_li {{zwitem.classselect?'isselect':''}}" wx:for="{{zhiwei}}" wx:key="zhiweikey" wx:for-item="zwitem" wx:for-index="zhiweiidx">{{zwitem.categoryname}}</view>
+    </view>
+  </scroll-view>
+</modal>

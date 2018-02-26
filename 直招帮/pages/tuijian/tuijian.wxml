@@ -1,0 +1,18 @@
+<!--pages/tuijian/tuijian.wxml-->
+<image style="width:100%" mode='widthFix' src="https://www.zhizhaojob.cn/data/zzbxiaochengxu/yaoqinghaoyou.png"></image>
+<view class="weui-btn-area">
+  <button type="primary" open-type="share">邀请好友入职</button>
+</view>
+<view class="yq_hdxz" bindtap='hdxz'>活动细则></view>
+<view class="yq_hdxz" bindtap='yyrs'>已邀请人数></view>
+<view class="zyyq">
+  <view class="yyq">
+    已邀请
+    <text class="yq_shuzi">{{count}}</text>人
+  </view>
+  <view class="yyq" style="float:right;">
+    已获得
+    <text class="yq_shuzi">{{money}}</text>元
+  </view>
+
+</view>

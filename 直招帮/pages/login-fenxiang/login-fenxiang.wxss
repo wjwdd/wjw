@@ -1,0 +1,7 @@
+/* pages/login-fenxiang/login-fenxiang.wxss */
+
+.weui-label1 {
+  padding-right:10px;
+  word-wrap: break-word;
+  word-break: break-all;
+}

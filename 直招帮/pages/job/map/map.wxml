@@ -1,0 +1,9 @@
+<!--pages/job/map/map.wxml-->
+<map id="map" longitude="{{lng}}" latitude="{{lat}}" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height:{{winheight}}px;"></map>
+<view >
+  <view class='mapxinxi'>
+    <view>{{}}</view>
+    <view>{{}}</view>
+  </view>
+  
+</view>

@@ -1,0 +1,7 @@
+/* pages/yyrs/yyrs.wxss */
+.rzgreen{
+  color:#22aa12;
+}
+.wrzred{
+  color:red;
+}

@@ -1,0 +1,22 @@
+<!--pages/xiaoxi/xiaoxi.wxml-->
+<!-- <text>{{uid}}</text> -->
+<view class="weui-panel__bd">
+  <navigator url="../bangzhu/bangzhu" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" style='width:50px;height:50px'>
+      <image class="weui-media-box__thumb" src="../../images/xiaoxi1.png" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+      <view class="weui-media-box__title">帮助指南</view>
+      <view class="weui-media-box__desc">点我一下了解更多</view>
+    </view>
+  </navigator>
+  <button open-type="contact" class="weui-media-box weui-media-box_appmsg kfbuton xiaoxikefu"  hover-class="weui-cell_active">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" style='width:50px;height:50px'>
+      <image class="weui-media-box__thumb" src="../../images/xiaoxi5.png" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" >
+      <view class="weui-media-box__title" style='line-height:22px;'>在线客服</view>
+      <view class="weui-media-box__desc">客服的等待，只为解答你所有的疑问</view>
+    </view>
+  </button>
+</view>

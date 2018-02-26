@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/xiaoxi/xiaoxi",
+    "pages/mine/mine",
+    "pages/login/login",
+    "pages/citylist/citylist",
+    "pages/job/job",
+    "pages/kuaisu/kuaisu",
+    "pages/fujin/fujin",
+    "pages/jigong/jigong",
+    "pages/duanqi/duanqi",
+    "pages/search/search",
+    "pages/job/map/map",
+    "pages/jianli/jianli",
+    "pages/myjob/myjob",
+    "pages/tuijian/tuijian",
+    "pages/login-fenxiang/login-fenxiang",
+    "pages/yyrs/yyrs",
+    "pages/zhaopin/zhaopin",
+    "pages/webview/webview",
+    "pages/bangzhu/bangzhu",
+    "pages/personal/personal",
+    "pages/yqhoudong/yqhoudong"
+  ],
+  "window": {
+    "backgroundTextStyle": "#fff",
+    "navigationBarBackgroundColor": "#30c45c",
+    "navigationBarTitleText": "直招帮",
+    "navigationBarTextStyle": "#fff",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "images/shouyeiconselect.png",
+        "iconPath": "images/shouyeicon.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/xiaoxiselect.png",
+        "iconPath": "images/xiaoxi.png",
+        "pagePath": "pages/xiaoxi/xiaoxi",
+        "text": "消息"
+      },
+      {
+        "selectedIconPath": "images/mineselect.png",
+        "iconPath": "images/mine.png",
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  }
+}

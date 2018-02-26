@@ -1,0 +1,35 @@
+<!--pages/search/search.wxml-->
+<import src="wxSearch/wxSearch.wxml" />
+<view class="wxSearch-section">
+  <view class="wxSearch-pancel">
+    <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}"  class="wxSearch-input" placeholder="搜索" />
+    <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+  </view>
+</view>
+<template is="wxSearch" data="{{wxSearchData}}" />
+<view>
+  <navigator url="../job/job?jid={{item.jid}}" wx:for="{{joblist}}" wx:for-index="jobidx" wx:key="index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+      <image lazy-load="true" class="weui-media-box__thumb" src="{{imgjoburl+item.logo}}" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+      <view class="jobname">{{item.jobs_name}}</view>
+      <view class="job">
+        <view class='job_job'>{{item.category_cn}}</view>
+        <view class='job_xinzi'>{{item.minwage+'-'+item.maxwage}}</view>
+      </view>
+      <view class="jobfldq">
+        <view wx:for="{{tag[jobidx]}}" wx:for-item="tag" wx:key="index" wx:for-index="idx" wx:if="{{idx<3}}" class='job_fuli {{tag.classtag}}'>{{tag.tagcn}}</view>
+         <view class='job_dq'>{{item.district_cn}}</view> 
+        <!-- <view class='job_dq'>{{isweizhidqu==1?item.district_cn:item.dise}}</view> -->
+      </view>
+    </view>
+  </navigator>
+  <view hidden='{{loading}}' class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view hidden='{{nolist}}' class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+  </view>
+</view>

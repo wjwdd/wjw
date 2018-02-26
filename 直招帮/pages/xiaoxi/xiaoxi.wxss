@@ -1,0 +1,8 @@
+/* pages/xiaoxi/xiaoxi.wxss */
+.xiaoxikefu{
+  text-align: left!important;
+  border:none!important;
+}
+button::after {
+  border: none;
+}

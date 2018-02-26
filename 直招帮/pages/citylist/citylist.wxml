@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<import src="../../wx-list-index/wx-list-index.wxml"/> 
+<view class='scroll-list' style='height:{{windowheight}}px'>
+  <template is="indexList" data="{{CITYINDEXLIST,index}}"/>
+</view> 

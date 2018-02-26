@@ -1,0 +1,29 @@
+<!--pages/myjob/myjob.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{currentTab == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <swiper current="{{currentTab}}" style='height:{{sliderHeight}}px' bindchange="tarbarchange">
+          <swiper-item>
+            <view style='height:{{sliderHeight}}px;overflow:scroll;' class="weui-tab__content">
+              <joblistcpt id='shoucang' isweizhi="2"></joblistcpt>
+            </view>
+          </swiper-item>
+          <swiper-item>
+            <view  style='height:{{sliderHeight}}px;overflow:scroll;' class="weui-tab__content">
+              <joblistcpt id='shenqing' isweizhi="2"></joblistcpt>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+  </view>
+</view>
