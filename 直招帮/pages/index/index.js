@@ -10,9 +10,9 @@ Page({
   data: {
     imgjoburl: app.globalData.imgurl,
     imgUrls: [],
-    city:'定位',
-    indicatorDots: true,
-    indicatorActiveColor: '#26aa12',
+    city: '定位',
+    indicatorDots: true,//轮播点
+    indicatorActiveColor: '#26aa12',//轮播点的颜色
     autoplay: true,
     interval: 5000,
     duration: 500,
@@ -30,7 +30,7 @@ Page({
     var that = this;
     //轮播图
     //调用 app.js里的 get()方法
-    
+
     app.get('m=app&c=IndeToNew&a=getSiled').then((res) => {
       console.log(res.data);
       that.setData({
@@ -63,7 +63,7 @@ Page({
         var latitude = res.latitude
         var longitude = res.longitude
         wx.request({
-          url: 'https://api.map.baidu.com/geocoder/v2/?ak=6oYulEb5jr2KOvk6koHWjA3H3P6RC4zK&location=' + latitude + ',' + longitude + '&output=json',
+          url: 'https://api.map.baidu.com/geocoder/v2/?ak=cYW2kxi4AdD2Vc6gK8lcTEqouuGbdh0S&location=' + latitude + ',' + longitude + '&output=json',
           data: {},
           header: {
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ Page({
             var dqcity = res.data.result.addressComponent.city;
             dqcity = dqcity.replace(/市/g, '')
             CITY[0].item[0].name = dqcity
-            if (dqcity != wx.getStorageSync("city")){
+            if (dqcity != wx.getStorageSync("city")) {
               wx.showModal({
                 title: '提示',
                 content: '是否切换当前城市',
@@ -91,8 +91,8 @@ Page({
                 }
               })
             }
-            
-           
+
+
           },
           fail: function () {
             // fail  
@@ -116,7 +116,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (wx.getStorageSync("city")!=''){
+    if (wx.getStorageSync("city") != '') {
       this.setData({
         city: wx.getStorageSync("city")
       })
@@ -171,5 +171,40 @@ Page({
     wx.navigateTo({
       url: '../citylist/citylist'
     })
+  },
+  lunbourl: function (e) {
+    
+    var isgot = e.currentTarget.dataset.isgot;
+    var selfurl = e.currentTarget.dataset.selfurl;
+    var jid = e.currentTarget.dataset.jid;
+    console.log(selfurl)
+    if (isgot == 1) {
+      wx.navigateTo({
+        url: '../job/job?jid=' + jid
+      })
+    } else if(isgot == 2) {
+      wx.navigateTo({
+        url: '../webview/webview?url=' + selfurl
+      })
+    } else if (isgot == 3) {
+      wx.showModal({
+        title: '提示',
+        content: '体验该功能请下载直招帮app',
+        // confirmText:'前往下载',
+        success: function (res) {
+          if (res.confirm) {
+            // wx.navigateTo({
+            //   //目的页面地址
+            //   url: '../webview/webview',
+            //   success: function (res) { },
+
+            // })
+          } else if (res.cancel) {
+            // console.log('用户点击取消')
+          }
+        }
+      })
+    }
+
   }
 })

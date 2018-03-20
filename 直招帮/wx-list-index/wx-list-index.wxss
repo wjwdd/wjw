@@ -111,7 +111,7 @@
 }
 
 .list-item {
-  padding: 6rpx;
+  padding: 5rpx;
   text-align: center;
   font-size: 25rpx;
   color: #666;

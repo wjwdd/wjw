@@ -8,13 +8,19 @@ Page({
     yzm: '获取验证码',
     countdown: 60,
     isphone: false,
-    isdl:true,
+    isdl: true,
+    yaoqingma: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.yaoqingma){
+      this.setData({
+        yaoqingma: options.yaoqingma
+      })
+    }
     if (app.globalData.code == '') {
       wx.login({
         success: res => {
@@ -79,60 +85,68 @@ Page({
     wx.showLoading({
       title: '登录中',
     })
-    var data = {
-      code: app.globalData.code,
-      iv: e.detail.iv,
-      encryptedData: e.detail.encryptedData
-    }
-    //调用 app.js里的 post()方法
-    app.post('m=Home&c=Xiaochengxu&a=shouji', data).then((res) => {//后台解密手机号
-      console.log(res.data)
-      var sjdata = res.data;
-      if (sjdata.code == 1) {//解密成功
-        wx.setStorageSync("zzbuserinfo", sjdata);
-        app.globalData.zzbuserinfo = sjdata;
-        if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+    wx.login({
+      success: res => {
+        var data = {
+          code: res.code,
+          iv: e.detail.iv,
+          encryptedData: e.detail.encryptedData,
+          openid: app.globalData.openid,
+          yaoqing: this.data.yaoqingma
+        }
+        //调用 app.js里的 post()方法
+        app.getdata('m=home&c=Xiaochengxu&a=shoujii', data).then((res) => {//后台解密手机号
+          var sjdata = res.data;
+          sjdata.isjianli = false
+          if (sjdata.code == 1) {//解密成功
+           
+            app.globalData.zzbuserinfo = sjdata;
+            if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: '未授权',
+              })
+            } else {
+              if (sjdata.state == 1) {//解密成功并且该用户已经注册
+                sjdata.isjianli = true
+                wx.setStorageSync("islogin", true);
+                wx.navigateBack();
+              } else if (sjdata.state == 0) {//解密成功并且该用户未注册跳转填写简历页面
+                wx.setStorageSync("islogin", true);
+                wx.redirectTo({
+                  url: '../jianli/jianli'
+                })
+              }
+            }
+            wx.setStorageSync("zzbuserinfo", sjdata);
+            console.log(sjdata)
+          } else {//解密失败
+            wx.showModal({
+              title: '提示',
+              showCancel: false,
+              content: '登录失败',
+            })
+          }
+          wx.hideLoading();
+        }).catch((errMsg) => {
           wx.showModal({
             title: '提示',
             showCancel: false,
-            content: '未授权',
-            success: function (res) { }
+            content: '登录失败',
           })
-        } else {
-
-          if (sjdata.state == 1) {//解密成功并且该用户已经注册
-            console.log('yizhuce')
-            var pages = getCurrentPages();
-            var currPage = pages[pages.length - 1];  //当前页面
-            var prevPage = pages[pages.length - 2]; //上一个页面
-            //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-            prevPage.setData({
-              islogin: true
-            })
-            wx.setStorageSync("islogin", true);
-            wx.navigateBack();
-          } else if (sjdata.state == 0) {//解密成功并且该用户未注册跳转填写简历页面
-            wx.redirectTo({
-              url: '../jianli/jianli'
-            })
-          }
-
-
-        }
-      } else {//解密失败
+          console.log(errMsg);//错误提示信息
+          wx.hideLoading();
+        });
+      }, fail: res => {
         wx.showModal({
           title: '提示',
           showCancel: false,
           content: '登录失败',
-          success: function (res) { }
         })
       }
-      wx.hideLoading()
-      wx.hideLoading();
-    }).catch((errMsg) => {
-      console.log(errMsg);//错误提示信息
-      wx.hideLoading();
-    });
+    })
+
   },
   bindKeyInput1: function (e) {
     this.setData({
@@ -140,13 +154,12 @@ Page({
     })
   },
   bindKeyInput2: function (e) {
-    console.log(e.detail.value);
-    if (e.detail.value != undefined && e.detail.value != ''){
+    if (e.detail.value != undefined && e.detail.value != '') {
       this.setData({
         str_v: e.detail.value,
-        isdl:false
+        isdl: false
       })
-    } else{
+    } else {
       this.setData({
         str_v: e.detail.value,
         isdl: true
@@ -155,7 +168,6 @@ Page({
   },
   huoquyanzhengma: function () {
     var that = this;
-    console.log(that.data.phoneNumber_v)
     if (that.data.phoneNumber_v == undefined) {
       that.tiphide('电话不能为空！')
       return false
@@ -170,7 +182,6 @@ Page({
       mobile: that.data.phoneNumber_v
     }
     app.post('m=App&c=Mumber&a=buibuibui', data).then((res) => {
-      console.log(res.data)
       var data = res.data
       wx.showToast({
         title: data.msg,
@@ -194,28 +205,17 @@ Page({
       title: '登录中',
     })
     var that = this;
-    console.log(that.data.phoneNumber_v)
-    console.log(that.data.str_v)
     //调用 app.js里的 post()方法
     var data = {
       tell: that.data.phoneNumber_v,
       str: that.data.str_v
     }
     app.post('m=App&c=Mumber&a=linshi ', data).then((res) => {
-      console.log(res.data)
       var sjdata = res.data;
       if (sjdata.code == 1) {//解密成功
         wx.setStorageSync("zzbuserinfo", sjdata);
         app.globalData.zzbuserinfo = sjdata;
         if (sjdata.state == 1) {//解密成功并且该用户已经注册
-          console.log('yizhuce')
-          var pages = getCurrentPages();
-          var currPage = pages[pages.length - 1];  //当前页面
-          var prevPage = pages[pages.length - 2]; //上一个页面
-          //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-          prevPage.setData({
-            islogin: true
-          })
           wx.setStorageSync("islogin", true);
           wx.navigateBack();
         } else if (sjdata.state == 0) {//解密成功并且该用户未注册跳转填写简历页面

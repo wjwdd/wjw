@@ -1,24 +1,26 @@
 <!--pages/job/job.wxml-->
 <!-- <view class='baijiazai' hidden="{{baijiazai}}" style='height:{{scrollHeight}}px'></view> -->
-
-<view class='jobbtm'>
-  <view class="jobfootbtn">
-    <button class="jobkefu kfbuton" open-type="contact" session-from="weapp" style='border-right:1px solid #ccc;'>
-      <text class="iconfont icon-msnui-call kficon" style='color:#5395cd'></text>
-    </button>
-    <view bindtap='shoucang' class="jobshoucang">
-      <block wx:if="{{issc==true}}">
-        <text class="iconfont icon-shoucang kficon" style='color:#df2323'></text>
-      </block>
-      <block wx:elif="{{issc==false}}">
-        <text class="iconfont icon-star kficon" style='color:#df2323'></text>
-      </block>
-    </view>
-    <view bindtap='mfshenqing' class="jobshenqing">
-      免费申请
+<form bindsubmit="mfshenqing" report-submit='true'>
+  <view class='jobbtm'>
+    <view class="jobfootbtn">
+      <button class="jobkefu kfbuton" open-type="contact" session-from="weapp" style='border-right:1px solid #ccc;'>
+        <text class="iconfont icon-msnui-call kficon" style='color:#5395cd'></text>
+      </button>
+      <view bindtap='shoucang' class="jobshoucang">
+        <block wx:if="{{issc==true}}">
+          <text class="iconfont icon-shoucang kficon" style='color:#df2323'></text>
+        </block>
+        <block wx:elif="{{issc==false}}">
+          <text class="iconfont icon-star kficon" style='color:#df2323'></text>
+        </block>
+      </view>
+      <button  formType="submit" class="jobshenqing">
+        免费申请
+      </button >
     </view>
   </view>
-</view>
+</form>
+
 <view hidden="{{baijiazai}}">
   <view class="page__bd">
     <view class="weui-tab">
@@ -53,7 +55,9 @@
                   <view class='jobtag'>{{'学历：'+jobdetail.experience_cn}}</view>
                   <view class='jobtag' wx:for="{{jobtag}}" wx:key="jobtagkey">{{item}}</view>
                 </view>
-                <view class='jobadress' bindtap='maptap'>{{'地址：'+jobdetail.address}}<view class="iconfont icon-suozaidi" style='color:#26aa12;float:right'></view></view>
+                <view class='jobadress' bindtap='maptap'>{{'地址：'+jobdetail.address}}
+                  <view class="iconfont icon-suozaidi" style='color:#26aa12;float:right'></view>
+                </view>
               </view>
               <!-- 基本情况 -->
               <view wx:for="{{jobxinxi.value}}" wx:key="jobxinxi">
@@ -65,7 +69,7 @@
                   <view wx:for="{{item.text}}" wx:key="key" wx:for-index="idx">{{idx+1+'.'+item}}</view>
                 </view>
                 <view class='jobtext' wx:if="{{item.isbul==2}}">
-                  <view >{{item.text}}</view>
+                  <view>{{item.text}}</view>
                 </view>
               </view>
               <view>
@@ -96,7 +100,9 @@
                 <view class="qycomname">{{qydata.data.companyname}}</view>
                 <view class="qycomsx">{{qydata.data.nature_cn}}</view>
               </view>
-              <view class='jobadress' bindtap='maptap' style='border:0px;padding:10px'>{{'地址：'+qydata.data.address}}<view class="iconfont icon-suozaidi" style='color:#26aa12;float:right'></view></view>
+              <view class='jobadress' bindtap='maptap' style='border:0px;padding:10px'>{{'地址：'+qydata.data.address}}
+                <view class="iconfont icon-suozaidi" style='color:#26aa12;float:right'></view>
+              </view>
               <view class='jobtitle'>
                 <view class='jobshuxin'></view>
                 <view class='jobtitlez'>公司简介</view>
@@ -131,7 +137,8 @@
               </view>
               <view>
                 <view class='jobfoot'>
-                  您想要的职位没有找到？ <navigator style='display:inline-block;color:#26aa12' url="../search/search">立即搜索</navigator>
+                  您想要的职位没有找到？
+                  <navigator style='display:inline-block;color:#26aa12' url="../search/search">立即搜索</navigator>
                 </view>
               </view>
             </scroll-view>

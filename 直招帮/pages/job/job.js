@@ -27,7 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
     wx.showLoading({
       title: '加载中',
     })
@@ -108,7 +108,7 @@ Page({
       console.log(errMsg);//错误提示信息
       wx.hideLoading();
     });
-   
+
 
 
   },
@@ -177,8 +177,8 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '自定义转发标题',
-      path: '/job/job?jid=' + this.data.jid,
+      title: this.data.jobdetail.jobs_name,
+      path: '/pages/job/job?jid=' + this.data.jid,
       success: function (res) {
         // 转发成功
 
@@ -262,7 +262,7 @@ Page({
       var that = this;
       var jid = that.data.jobdetail.jid;
       var uid = app.globalData.zzbuserinfo.uid;
-      var data= {
+      var data = {
         jid: jid,
         uid: uid
       }
@@ -295,14 +295,17 @@ Page({
     }
   },
   // 免费申请点击事件
-  mfshenqing: function () {
-    if (app.globalData.zzbuserinfo.uid != undefined) {
+  mfshenqing: function (e) {
+    // console.log(app.globalData.zzbuserinfo.uid)
+    // console.log(wx.getStorageSync('zzbuserinfo').isjianli)
+    if (app.globalData.zzbuserinfo.uid != undefined && wx.getStorageSync('zzbuserinfo').isjianli == true) {
       var that = this;
       var jid = that.data.jobdetail.jid;
       var uid = app.globalData.zzbuserinfo.uid;
       var data = {
         jid: jid,
-        uid: uid
+        uid: uid,
+        formid: e.detail.formId
       }
       //调用 app.js里的 post()方法
       app.post('m=App&c=Xiaocx&a=resume_apply', data).then((res) => {
@@ -312,9 +315,14 @@ Page({
           showCancel: false,
         })
       }).catch((errMsg) => {
+
         console.log(errMsg);//错误提示信息
         wx.hideLoading();
       });
+    } else if (wx.getStorageSync('zzbuserinfo').isjianli == false) {
+      wx.navigateTo({
+        url: '../jianli/jianli'
+      })
     } else {
       wx.navigateTo({
         url: '../login/login'

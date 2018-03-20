@@ -17,11 +17,9 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    console.log(options.yaoqingma);
-    console.log(app.globalData.zzbuserinfo.invitecode);
     if (options.xixi == 456) {//转发的页面自动跳转分享的登录页并带上邀请码
       wx.redirectTo({
-        url: '/pages/login-fenxiang/login-fenxiang?yaoqingma=' + options.yaoqingma
+        url: '/pages/login/login?yaoqingma=' + options.yaoqingma
       })
       wx.hideLoading()
     }
@@ -33,7 +31,6 @@ Page({
     } else if (app.globalData.zzbuserinfo.uid != undefined && options.xixi != 456) {//如果登录了并且不是转发页渲染当前页面信息
       var that = this;
       app.post('m=app&c=Tool&a=invitenum', { uid: app.globalData.zzbuserinfo.uid }).then((res) => {
-        console.log(res.data)
         if (res.data.money == null) {
           that.setData({
             count: res.data.num,

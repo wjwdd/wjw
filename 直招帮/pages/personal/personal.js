@@ -14,6 +14,8 @@ Page({
     hidden: true,
     select: false,
     liselect: [],
+    flliselect: [],
+    zwliselect: [],
     region: ['山东省', '青岛市', '黄岛区'],
     modalheight: 0
   },
@@ -44,18 +46,19 @@ Page({
       uid: app.globalData.zzbuserinfo.uid
     }
     app.getdata('m=App&c=Xiaocx&a=getUserInfo', data).then((res) => {//渲染获取用户信息接口
-      console.log(res.data)
       var hope = ''
       if (res.data.hope != null) {
-        hope = res.data.hope.hope1 + ',' + res.data.hope.hope2 + ',' + res.data.hope.hope3
+        hope = res.data.hope.hope1 + ',' + res.data.hope.hope2 + ',' + res.data.hope.hope3 + ',' + res.data.hope.hope4
       }
       var quyu = ''
-      if (res.data.userinfo.address.match(/,/)) {
+      if (res.data.userinfo.address==null) {
+        quyu =''
+      } else if (res.data.userinfo.address.match(/,/)){
         quyu = res.data.userinfo.address.split(',')
-      } else {
+      }else{
         quyu = res.data.userinfo.address.split(' ')
       }
-      console.log(quyu)
+      
       that.setData({
         year_value: res.data.userinfo.birthday,
         zhiweival: hope,
@@ -172,10 +175,8 @@ Page({
       uid: app.globalData.zzbuserinfo.uid,
       hope: e.detail.value.hope
     }
-    console.log(data);
     //调用 app.js里的 post()方法
     app.post('m=App&c=Xiaocx&a=setUserInfo', data).then((res) => {//修改简历
-      console.log(res.data);
       if (res.data.staus == 1) {
         //调用 app.js里的 post()方法
         app.post('m=App&c=Xiaocx&a=sethope', datajob).then((res) => { //修改意向待遇
@@ -228,7 +229,6 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded" // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         if (res.data.staus == 1) {
           wx.request({
             url: app.globalData.url + 'm=App&c=Xiaocx&a=sethope', //修改意向待遇
@@ -308,14 +308,14 @@ Page({
   confirm: function () {
     this.setData({
       hidden: true,
-      zhiweival: this.data.liselect
+      zhiweival: this.data.flliselect.concat(this.data.zwliselect)
     });
   },
   // 弹出框里的选择福利事件
   xzfuli: function (e) {
     var that = this;
-    var liselect = that.data.liselect;
-    if (liselect.length <= 2 || that.data.fuli[e.target.dataset.id].classselect) {
+    var flliselect = that.data.flliselect;
+    if (flliselect.length <= 2 || that.data.fuli[e.target.dataset.id].classselect) {
       console.log(e.target.dataset.id)
 
       var selectcalss = 'fuli[' + e.target.dataset.id + '].classselect'
@@ -324,18 +324,18 @@ Page({
       });
 
       if (that.data.fuli[e.target.dataset.id].classselect) {
-        liselect.push(that.data.fuli[e.target.dataset.id].c_name);
+        flliselect.push(that.data.fuli[e.target.dataset.id].c_name);
       } else {
-        for (var i = 0; i < liselect.length; i++) {
-          if (liselect[i] == that.data.fuli[e.target.dataset.id].c_name) {
-            liselect.splice(i, 1);
+        for (var i = 0; i < flliselect.length; i++) {
+          if (flliselect[i] == that.data.fuli[e.target.dataset.id].c_name) {
+            flliselect.splice(i, 1);
           }
         }
       }
 
     } else {
       wx.showToast({
-        title: '最多选三个',
+        title: '福利最多选三个',
         icon: 'none',
         duration: 2000
       })
@@ -343,26 +343,25 @@ Page({
   },
   // 弹出框里的选择职位事件
   xzzhiwei: function (e) {
-    console.log(e.target.dataset.id)
     var that = this;
-    var liselect = that.data.liselect;
-    if (liselect.length <= 2) {
+    var zwliselect = that.data.zwliselect;
+    if (zwliselect.length <= 0 || that.data.zhiwei[e.target.dataset.id].classselect) {
       var selectcalss1 = 'zhiwei[' + e.target.dataset.id + '].classselect'
       that.setData({
         [selectcalss1]: !that.data.zhiwei[e.target.dataset.id].classselect
       });
       if (that.data.zhiwei[e.target.dataset.id].classselect) {
-        liselect.push(that.data.zhiwei[e.target.dataset.id].categoryname);
+        zwliselect.push(that.data.zhiwei[e.target.dataset.id].categoryname);
       } else {
-        for (var i = 0; i < liselect.length; i++) {
-          if (liselect[i] == that.data.zhiwei[e.target.dataset.id].categoryname) {
-            liselect.splice(i, 1);
+        for (var i = 0; i < zwliselect.length; i++) {
+          if (zwliselect[i] == that.data.zhiwei[e.target.dataset.id].categoryname) {
+            zwliselect.splice(i, 1);
           }
         }
       }
     } else {
       wx.showToast({
-        title: '最多选三个',
+        title: '职位最多选一个',
         icon: 'none',
         duration: 2000
       })
@@ -370,7 +369,6 @@ Page({
   },
   // 选择地区
   bindRegionChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       region: e.detail.value,
       quyu: e.detail.value[0] + ',' + e.detail.value[1] + ',' + e.detail.value[2]

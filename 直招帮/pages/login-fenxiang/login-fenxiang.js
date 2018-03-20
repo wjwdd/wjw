@@ -87,7 +87,7 @@ Page({
     var that = this;
     console.log(that.data.yaoqingma);
     wx.request({
-      url: app.globalData.url + 'm=Home&c=Xiaochengxu&a=shouji',
+      url: app.globalData.url + 'm=home&c=Xiaochengxu&a=shoujii',
       data: {
         code: app.globalData.code,
         iv: e.detail.iv,

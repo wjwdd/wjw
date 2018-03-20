@@ -83,6 +83,7 @@ icon {
           align-items: flex-start;
 }
 .weui-cell__bd {
+  overflow: hidden;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;

@@ -15,12 +15,12 @@
   <!--end header -->
   <!--轮播图 -->
   <swiper class="slide-image" indicator-dots="{{indicatorDots}}" indicator-active-color="#22aa12" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{imgUrls}}" wx:key="img">
+    <block wx:for="{{imgUrls}}" wx:key="img" wx:for-index="idx">
 
       <swiper-item>
-        <navigator url="../job/job?jid={{item.jid}}">
+        <view bindtap='lunbourl' data-jid='{{item.jid}}' data-isgot='{{item.isgot}}' data-selfurl='{{item.url}}'>
           <image src="{{imgjoburl+item.img}}" class="slide-image" />
-        </navigator>
+        </view>
       </swiper-item>
 
     </block>

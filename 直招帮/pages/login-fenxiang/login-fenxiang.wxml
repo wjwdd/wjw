@@ -26,7 +26,7 @@
 <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{tip}}</view>
 <view class='container'>
   <image style="width:50%;margin-bottom:50px;" mode='widthFix' src="../../images/logo.png"></image>
-  <view class="weui-cells weui-cells_after-title" style='margin:0 5%;'>
+  <!-- <view class="weui-cells weui-cells_after-title" style='margin:0 5%;'>
     <view class="weui-cell weui-cell_input weui-cell_vcode">
       <view class="weui-cell__hd">
         <view class="weui-label1">手机号</view>
@@ -48,6 +48,6 @@
       </view>
     </view>
   </view>
-  <button class="weui-btn" style='width:90%;margin-top:30px;' type="primary"  bindtap="putongdengl" disabled="{{isdl}}" plain="{{isdl}}">登录</button>
-   <!-- <button open-type="getPhoneNumber" style='width:70%;margin-top:100rpx' type="primary" bindgetphonenumber="getPhoneNumber">一键微信登录</button>  -->
+  <button class="weui-btn" style='width:90%;margin-top:30px;' type="primary"  bindtap="putongdengl" disabled="{{isdl}}" plain="{{isdl}}">登录</button> -->
+    <button open-type="getPhoneNumber" style='width:90%;margin-top:70rpx' type="primary" bindgetphonenumber="getPhoneNumber">一键微信登录</button>  
 </view>

@@ -40,7 +40,7 @@
         <view class="weui-label">出生日期</view>
       </view>
       <view class="weui-cell__bd">
-        <picker mode="date" value="{{year_value}}" start="1900-09-01" end="2100-09-01" bindchange="bindDateChange">
+        <picker mode="date" value="{{year_value}}" start="1900-01-01" end="2100-01-01" bindchange="bindDateChange">
           <view class="weui-input">{{year_value}}</view>
         </picker>
       </view>
@@ -104,7 +104,6 @@
     </view>
     <view class="dy_header">
       意向职位
-      <view class="dy_kdx">(可多选)</view>
     </view>
     <view class="dy_con zhiwei">
       <view bindtap='xzzhiwei' data-id="{{zhiweiidx}}" class="dy_con_li {{zwitem.classselect?'isselect':''}}" wx:for="{{zhiwei}}" wx:key="zhiweikey" wx:for-item="zwitem" wx:for-index="zhiweiidx">{{zwitem.categoryname}}</view>

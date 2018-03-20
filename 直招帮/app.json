@@ -22,7 +22,8 @@
     "pages/webview/webview",
     "pages/bangzhu/bangzhu",
     "pages/personal/personal",
-    "pages/yqhoudong/yqhoudong"
+    "pages/yqhoudong/yqhoudong",
+    "pages/tiaozhuan/tiaozhuan"
   ],
   "window": {
     "backgroundTextStyle": "#fff",
