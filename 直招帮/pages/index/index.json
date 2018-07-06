@@ -1,7 +1,0 @@
-{ 
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "joblistcpt": "/conponent/joblistcpt/joblistcpt"
-  }
- 
-}
